@@ -25,3 +25,5 @@ jobs:
         run: mvn versions:set --batch-mode --file ./pom.xml --define newVersion="${APP_VERSION}"
       - name: Build & Deploy Artifact to Nexus Repository
         run: mvn --batch-mode deploy -DskipTests=true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

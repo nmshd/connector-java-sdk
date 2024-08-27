@@ -21,3 +21,5 @@ jobs:
           APP_VERSION: ${{ github.ref_name }}
       - name: Build & Deploy Artifact to ghcr
         run: mvn --batch-mode deploy -DskipTests=true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
