@@ -18,7 +18,7 @@ Share your feedback with the Enmeshed team by contributing to the [discussions](
 
 The project was commissioned by the Federal Ministry of Education and Research of the Federal Republic of Germany. It was funded by the European Union – "NextGenerationEU", through funds from the German Recovery and Resilience Plan.
 
-We took the [open sourced](https://gitlab.opencode.de/mbr/ablage/enmeshed-connector-java-sdk) and re-released it here for further development.
+We took the [open sourced](https://gitlab.opencode.de/mbr/ablage/enmeshed-connector-java-sdk) library and re-released it here for further development.
 
 ## Contribute
 
