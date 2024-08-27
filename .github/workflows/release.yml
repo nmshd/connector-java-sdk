@@ -1,0 +1,23 @@
+name: Release
+on:
+  push:
+    tags: "*"
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v3
+        with:
+          java-version: "17"
+          distribution: "temurin"
+      - name: Set Maven Version
+        run: mvn versions:set --batch-mode --file ./pom.xml --define newVersion="${APP_VERSION}" -s $GITHUB_WORKSPACE/settings.xml
+        env:
+          APP_VERSION: ${{ github.ref_name }}
+      - name: Build & Deploy Artifact to ghcr
+        run: mvn --batch-mode deploy -DskipTests=true
