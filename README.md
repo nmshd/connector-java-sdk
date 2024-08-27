@@ -1,6 +1,6 @@
 # Connector Java SDK
 
-[![GitHub Actions CI](https://github.com/nmshd/connector-java-sdk/workflows/Publish/badge.svg)](https://github.com/nmshd/connector-java-sdk/actions?query=workflow%3APublish)
+[![GitHub Actions CI](https://github.com/nmshd/connector-java-sdk/workflows/Release/badge.svg)](https://github.com/nmshd/connector-java-sdk/actions?query=workflow%3ARelease)
 
 ## Documentation
 
