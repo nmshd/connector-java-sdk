@@ -16,7 +16,7 @@ jobs:
           java-version: "17"
           distribution: "temurin"
       - name: Set Maven Version
-        run: mvn versions:set --batch-mode --file ./pom.xml --define newVersion="${APP_VERSION}" -s $GITHUB_WORKSPACE/settings.xml
+        run: mvn versions:set --batch-mode --file ./pom.xml --define newVersion="${APP_VERSION}"
         env:
           APP_VERSION: ${{ github.ref_name }}
       - name: Build & Deploy Artifact to ghcr
