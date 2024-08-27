@@ -22,7 +22,7 @@ jobs:
           APP_TAG=$(git describe --tags ${APP_REV} 2> /dev/null || echo 0.0.0);
           echo "APP_VERSION=${APP_TAG}-${APP_SHA}" >> ${GITHUB_ENV};
       - name: Set Maven Version
-        run: mvn versions:set --batch-mode --file ./pom.xml --define newVersion="${APP_VERSION}"
+        run: mvn versions:set --batch-mode --file ./pom.xml --define newVersion="${APP_VERSION}-SNAPSHOT"
       - name: Build & Deploy Artifact to Nexus Repository
         run: mvn --batch-mode deploy -DskipTests=true
         env:
