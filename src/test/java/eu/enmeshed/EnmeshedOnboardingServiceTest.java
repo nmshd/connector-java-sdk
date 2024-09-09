@@ -16,7 +16,6 @@ import eu.enmeshed.model.ResultWrapper;
 import eu.enmeshed.model.attributes.Attribute;
 import eu.enmeshed.model.attributes.IdentityAttribute;
 import eu.enmeshed.model.attributes.values.AttributeValue;
-import eu.enmeshed.model.attributes.values.identity.BirthDate;
 import eu.enmeshed.model.attributes.values.identity.BirthYear;
 import eu.enmeshed.model.attributes.values.identity.DisplayName;
 import eu.enmeshed.model.attributes.values.identity.EMailAddress;
@@ -26,9 +25,7 @@ import eu.enmeshed.model.relationshipTemplates.RelationshipTemplate;
 import eu.enmeshed.model.relationshipTemplates.RelationshipTemplateContent;
 import eu.enmeshed.model.relationshipTemplates.RelationshipTemplateCreation;
 import eu.enmeshed.model.relationships.Relationship;
-import eu.enmeshed.model.relationships.RelationshipChange;
-import eu.enmeshed.model.relationships.RelationshipChangeRequest;
-import eu.enmeshed.model.relationships.RelationshipCreationChangeRequestContent;
+import eu.enmeshed.model.relationships.RelationshipCreationContent;
 import eu.enmeshed.model.requestItems.CreateAttributeRequestItem;
 import eu.enmeshed.model.requestItems.ReadAttributeRequestItem;
 import eu.enmeshed.model.requestItems.RequestItem;
@@ -73,7 +70,7 @@ public class EnmeshedOnboardingServiceTest {
   EnmeshedOnboardingService enmeshedService;
 
   @Test
-  void itShouldProvideIdentityInfoAndReuseConfiguredDisplayNameIfSet() {
+  void shouldProvideIdentityInfoAndReuseConfiguredDisplayNameIfSet() {
 
     when(enmeshedClientMock.getIdentityInfo())
         .thenReturn(ResultWrapper.containing(TEST_IDENTITY_INFO));
@@ -88,7 +85,7 @@ public class EnmeshedOnboardingServiceTest {
                     .build())
             .build();
 
-    when(enmeshedClientMock.searchAttributes(anyString(), anyString(), anyString()))
+    when(enmeshedClientMock.searchAttributes(anyString()))
         .thenReturn(ResultWrapper.containing(List.of(wrappedDisplayNameAttribute)));
 
     enmeshedService =
@@ -122,7 +119,7 @@ public class EnmeshedOnboardingServiceTest {
     when(enmeshedClientMock.createAttribute(attributeCreateRequestCaptor.capture()))
         .thenReturn(ResultWrapper.containing(wrappedDisplayNameAttribute));
 
-    when(enmeshedClientMock.searchAttributes(anyString(), anyString(), anyString()))
+    when(enmeshedClientMock.searchAttributes(anyString()))
         .thenReturn(ResultWrapper.containing(Collections.emptyList()));
 
     enmeshedService =
@@ -141,9 +138,7 @@ public class EnmeshedOnboardingServiceTest {
     Assertions.assertEquals(
         CONNECTOR_DISPLAY_NAME,
         ((DisplayName) attributeCreateRequestCaptor.getValue().getContent().getValue()).getValue());
-    Assertions.assertEquals(
-        TEST_IDENTITY_INFO.getAddress(),
-        attributeCreateRequestCaptor.getValue().getContent().getOwner());
+    Assertions.assertNull(attributeCreateRequestCaptor.getValue().getContent().getOwner());
   }
 
   @Test
@@ -247,7 +242,7 @@ public class EnmeshedOnboardingServiceTest {
   }
 
   @Test
-  void itShouldReturnNullIfRelationshipTemplateCouldNotBeFound() {
+  void shouldReturnNullIfRelationshipTemplateCouldNotBeFound() {
 
     String relationshipTemplateId = "RLTXXX";
     enmeshedService = getServiceInstance();
@@ -261,10 +256,9 @@ public class EnmeshedOnboardingServiceTest {
   }
 
   @Test
-  void itShouldReturnRegistrationDataIfRelationshipTemplateCouldBeFound() {
+  void shouldReturnRegistrationDataIfRelationshipTemplateCouldBeFound() {
 
     String relationshipTemplateId = "RLT_XXX";
-    String relationshipChangeId = "RCH_XXX";
     String relationshipId = "REL_XXX";
     String userGivenName = "Max";
     String userSurname = "Muster";
@@ -281,94 +275,65 @@ public class EnmeshedOnboardingServiceTest {
                         .template(RelationshipTemplate.builder().id(relationshipTemplateId).build())
                         .peerIdentity(IdentityInfo.builder().address(userAddress).build())
                         .peer(userAddress)
-                        .changes(
-                            List.of(
-                                RelationshipChange.builder()
-                                    .id(relationshipChangeId)
-                                    .type(RelationshipChange.Type.CREATION)
-                                    .status(RelationshipChange.Status.ACCEPTED)
-                                    .request(
-                                        RelationshipChangeRequest.builder()
-                                            .content(
-                                                RelationshipCreationChangeRequestContent.builder()
-                                                    .response(
-                                                        Response.builder()
-                                                            .items(
-                                                                List.of(
-                                                                    ResponseItemGroup.builder()
-                                                                        .result(
-                                                                            ResponseItem.Result
-                                                                                .ACCEPTED)
-                                                                        .items(
-                                                                            List.of(
-                                                                                ReadAttributeAcceptResponseItem
-                                                                                    .builder()
-                                                                                    .result(
-                                                                                        ResponseItem
-                                                                                            .Result
-                                                                                            .ACCEPTED)
-                                                                                    .attribute(
-                                                                                        IdentityAttribute
-                                                                                            .builder()
-                                                                                            .value(
-                                                                                                GivenName
-                                                                                                    .builder()
-                                                                                                    .value(
-                                                                                                        userGivenName)
-                                                                                                    .build())
-                                                                                            .build())
-                                                                                    .build(),
-                                                                                ReadAttributeAcceptResponseItem
-                                                                                    .builder()
-                                                                                    .result(
-                                                                                        ResponseItem
-                                                                                            .Result
-                                                                                            .ACCEPTED)
-                                                                                    .attribute(
-                                                                                        IdentityAttribute
-                                                                                            .builder()
-                                                                                            .value(
-                                                                                                Surname
-                                                                                                    .builder()
-                                                                                                    .value(
-                                                                                                        userSurname)
-                                                                                                    .build())
-                                                                                            .build())
-                                                                                    .build(),
-                                                                                ReadAttributeAcceptResponseItem
-                                                                                    .builder()
-                                                                                    .result(
-                                                                                        ResponseItem
-                                                                                            .Result
-                                                                                            .ACCEPTED)
-                                                                                    .attribute(
-                                                                                        IdentityAttribute
-                                                                                            .builder()
-                                                                                            .value(
-                                                                                                BirthYear
-                                                                                                    .builder()
-                                                                                                    .value(
-                                                                                                        userBirthyear)
-                                                                                                    .build())
-                                                                                            .build())
-                                                                                    .build()))
-                                                                        .build()))
-                                                            .requestId("REQ_ID")
-                                                            .result(
-                                                                eu.enmeshed.model.Response.Result
-                                                                    .ACCEPTED)
-                                                            .build())
-                                                    .build())
-                                            .build())
-                                    .build()))
+                        .creationContent(
+                            RelationshipCreationContent.builder()
+                                .response(
+                                    Response.builder()
+                                        .items(
+                                            List.of(
+                                                ResponseItemGroup.builder()
+                                                    .result(ResponseItem.Result.ACCEPTED)
+                                                    .items(
+                                                        List.of(
+                                                            ReadAttributeAcceptResponseItem
+                                                                .builder()
+                                                                .result(
+                                                                    ResponseItem.Result.ACCEPTED)
+                                                                .attribute(
+                                                                    IdentityAttribute.builder()
+                                                                        .value(
+                                                                            GivenName.builder()
+                                                                                .value(
+                                                                                    userGivenName)
+                                                                                .build())
+                                                                        .build())
+                                                                .build(),
+                                                            ReadAttributeAcceptResponseItem
+                                                                .builder()
+                                                                .result(
+                                                                    ResponseItem.Result.ACCEPTED)
+                                                                .attribute(
+                                                                    IdentityAttribute.builder()
+                                                                        .value(
+                                                                            Surname.builder()
+                                                                                .value(userSurname)
+                                                                                .build())
+                                                                        .build())
+                                                                .build(),
+                                                            ReadAttributeAcceptResponseItem
+                                                                .builder()
+                                                                .result(
+                                                                    ResponseItem.Result.ACCEPTED)
+                                                                .attribute(
+                                                                    IdentityAttribute.builder()
+                                                                        .value(
+                                                                            BirthYear.builder()
+                                                                                .value(
+                                                                                    userBirthyear)
+                                                                                .build())
+                                                                        .build())
+                                                                .build()))
+                                                    .build()))
+                                        .requestId("REQ_ID")
+                                        .result(Response.Result.ACCEPTED)
+                                        .build())
+                                .build())
                         .build())));
-
     EnmeshedOnboardingService.RegistrationResult registrationResult =
         enmeshedService.checkRegistrationState(relationshipTemplateId);
 
     Assertions.assertEquals(userAddress, registrationResult.enmeshedAddress());
     Assertions.assertEquals(relationshipId, registrationResult.relationshipId());
-    Assertions.assertEquals(relationshipChangeId, registrationResult.relationshipChangeId());
     Assertions.assertEquals(
         userGivenName,
         ((GivenName) registrationResult.attributes().get(GivenName.class)).getValue());
@@ -384,63 +349,63 @@ public class EnmeshedOnboardingServiceTest {
         .verify(enmeshedClientMock)
         .searchRelationships(eq(relationshipTemplateId), any(), any());
 
-    verify(enmeshedClientMock, never()).acceptRelationshipChange(anyString(), anyString(), any());
+    verify(enmeshedClientMock, never()).acceptRelationship(anyString());
   }
 
   @Test
-  void itShouldAcceptTheIncomingRequestAndReturnSentData() {
+  void shouldAcceptTheIncomingRequestAndReturnSentData() {
 
     String relationshipTemplateId = "RLT_XXX";
-    String relationshipChangeId = "RCH_XXX";
     String relationshipId = "REL_XXX";
     String userGivenName = "Max";
     String userSurname = "Muster";
     String userAddress = "ADDR_XXX";
-    int userBirthDay = 12;
-    int userBirthMonth = 12;
     int userBirthYear = 1999;
     enmeshedService = getServiceInstance();
 
-    RelationshipChangeRequest relationshipChangeRequest =
-        RelationshipChangeRequest.builder()
-            .content(
-                RelationshipCreationChangeRequestContent.builder()
-                    .response(
-                        Response.builder()
-                            .items(
-                                List.of(
-                                    ReadAttributeAcceptResponseItem.builder()
-                                        .result(ResponseItem.Result.ACCEPTED)
-                                        .attribute(
-                                            IdentityAttribute.builder()
-                                                .value(
-                                                    GivenName.builder()
-                                                        .value(userGivenName)
-                                                        .build())
-                                                .build())
-                                        .build(),
-                                    ReadAttributeAcceptResponseItem.builder()
-                                        .result(ResponseItem.Result.ACCEPTED)
-                                        .attribute(
-                                            IdentityAttribute.builder()
-                                                .value(Surname.builder().value(userSurname).build())
-                                                .build())
-                                        .build(),
-                                    ReadAttributeAcceptResponseItem.builder()
-                                        .result(ResponseItem.Result.ACCEPTED)
-                                        .attribute(
-                                            IdentityAttribute.builder()
-                                                .value(
-                                                    BirthDate.builder()
-                                                        .day(userBirthDay)
-                                                        .month(userBirthMonth)
-                                                        .year(userBirthYear)
-                                                        .build())
-                                                .build())
-                                        .build()))
-                            .requestId("REQ_ID")
-                            .result(Response.Result.ACCEPTED)
-                            .build())
+    RelationshipCreationContent creationContent =
+        RelationshipCreationContent.builder()
+            .response(
+                Response.builder()
+                    .items(
+                        List.of(
+                            ResponseItemGroup.builder()
+                                .result(ResponseItem.Result.ACCEPTED)
+                                .items(
+                                    List.of(
+                                        ReadAttributeAcceptResponseItem.builder()
+                                            .result(ResponseItem.Result.ACCEPTED)
+                                            .attribute(
+                                                IdentityAttribute.builder()
+                                                    .value(
+                                                        GivenName.builder()
+                                                            .value(userGivenName)
+                                                            .build())
+                                                    .build())
+                                            .build(),
+                                        ReadAttributeAcceptResponseItem.builder()
+                                            .result(ResponseItem.Result.ACCEPTED)
+                                            .attribute(
+                                                IdentityAttribute.builder()
+                                                    .value(
+                                                        Surname.builder()
+                                                            .value(userSurname)
+                                                            .build())
+                                                    .build())
+                                            .build(),
+                                        ReadAttributeAcceptResponseItem.builder()
+                                            .result(ResponseItem.Result.ACCEPTED)
+                                            .attribute(
+                                                IdentityAttribute.builder()
+                                                    .value(
+                                                        BirthYear.builder()
+                                                            .value(userBirthYear)
+                                                            .build())
+                                                    .build())
+                                            .build()))
+                                .build()))
+                    .requestId("REQ_ID")
+                    .result(Response.Result.ACCEPTED)
                     .build())
             .build();
 
@@ -453,14 +418,8 @@ public class EnmeshedOnboardingServiceTest {
                         .template(RelationshipTemplate.builder().id(relationshipTemplateId).build())
                         .peerIdentity(IdentityInfo.builder().address(userAddress).build())
                         .peer(userAddress)
-                        .changes(
-                            List.of(
-                                RelationshipChange.builder()
-                                    .id(relationshipChangeId)
-                                    .type(RelationshipChange.Type.CREATION)
-                                    .status(RelationshipChange.Status.PENDING)
-                                    .request(relationshipChangeRequest)
-                                    .build()))
+                        .status(Relationship.Status.PENDING)
+                        .creationContent(creationContent)
                         .build())))
         .thenReturn(
             ResultWrapper.containing(
@@ -470,31 +429,21 @@ public class EnmeshedOnboardingServiceTest {
                         .template(RelationshipTemplate.builder().id(relationshipTemplateId).build())
                         .peerIdentity(IdentityInfo.builder().address(userAddress).build())
                         .peer(userAddress)
-                        .changes(
-                            List.of(
-                                RelationshipChange.builder()
-                                    .id(relationshipChangeId)
-                                    .type(RelationshipChange.Type.CREATION)
-                                    .status(RelationshipChange.Status.ACCEPTED)
-                                    .request(relationshipChangeRequest)
-                                    .build()))
+                        .creationContent(creationContent)
                         .build())));
 
     EnmeshedOnboardingService.RegistrationResult registrationResult =
         enmeshedService.checkRegistrationState(relationshipTemplateId);
-    BirthDate birthDate = (BirthDate) registrationResult.attributes().get(BirthDate.class);
+    BirthYear birthYear = (BirthYear) registrationResult.attributes().get(BirthYear.class);
 
     Assertions.assertEquals(userAddress, registrationResult.enmeshedAddress());
     Assertions.assertEquals(relationshipId, registrationResult.relationshipId());
-    Assertions.assertEquals(relationshipChangeId, registrationResult.relationshipChangeId());
     Assertions.assertEquals(
         userGivenName,
         ((GivenName) registrationResult.attributes().get(GivenName.class)).getValue());
     Assertions.assertEquals(
         userSurname, ((Surname) registrationResult.attributes().get(Surname.class)).getValue());
-    Assertions.assertEquals(userBirthDay, birthDate.getDay());
-    Assertions.assertEquals(userBirthMonth, birthDate.getMonth());
-    Assertions.assertEquals(userBirthYear, birthDate.getYear());
+    Assertions.assertEquals(userBirthYear, birthYear.getValue());
     Assertions.assertTrue(registrationResult.accepted());
     Assertions.assertEquals(3, registrationResult.attributes().size());
 
@@ -503,9 +452,7 @@ public class EnmeshedOnboardingServiceTest {
     inOrder
         .verify(enmeshedClientMock)
         .searchRelationships(eq(relationshipTemplateId), any(), any());
-    inOrder
-        .verify(enmeshedClientMock)
-        .acceptRelationshipChange(eq(relationshipId), eq(relationshipChangeId), any());
+    inOrder.verify(enmeshedClientMock).acceptRelationship(eq(relationshipId));
     inOrder.verify(enmeshedClientMock).sync();
     inOrder
         .verify(enmeshedClientMock)
@@ -513,44 +460,48 @@ public class EnmeshedOnboardingServiceTest {
   }
 
   @Test
-  void itShouldRejectTheIncomingRequestAndReturnSentData() {
+  void shouldRejectTheIncomingRequestAndReturnSentData() {
 
     String relationshipTemplateId = "RLT_XXX";
-    String relationshipChangeId = "RCH_XXX";
     String relationshipId = "REL_XXX";
     String userGivenName = "Max";
     String userSurname = "Muster";
     String userAddress = "ADDR_XXX";
     enmeshedService = getServiceInstance();
 
-    RelationshipChangeRequest relationshipChangeRequest =
-        RelationshipChangeRequest.builder()
-            .content(
-                RelationshipCreationChangeRequestContent.builder()
-                    .response(
-                        Response.builder()
-                            .items(
-                                List.of(
-                                    ReadAttributeAcceptResponseItem.builder()
-                                        .result(ResponseItem.Result.ACCEPTED)
-                                        .attribute(
-                                            IdentityAttribute.builder()
-                                                .value(
-                                                    GivenName.builder()
-                                                        .value(userGivenName)
-                                                        .build())
-                                                .build())
-                                        .build(),
-                                    ReadAttributeAcceptResponseItem.builder()
-                                        .result(ResponseItem.Result.ACCEPTED)
-                                        .attribute(
-                                            IdentityAttribute.builder()
-                                                .value(Surname.builder().value(userSurname).build())
-                                                .build())
-                                        .build()))
-                            .requestId("REQ_ID")
-                            .result(Response.Result.ACCEPTED)
-                            .build())
+    RelationshipCreationContent creationContent =
+        RelationshipCreationContent.builder()
+            .response(
+                Response.builder()
+                    .items(
+                        List.of(
+                            ResponseItemGroup.builder()
+                                .result(ResponseItem.Result.ACCEPTED)
+                                .items(
+                                    List.of(
+                                        ReadAttributeAcceptResponseItem.builder()
+                                            .result(ResponseItem.Result.ACCEPTED)
+                                            .attribute(
+                                                IdentityAttribute.builder()
+                                                    .value(
+                                                        GivenName.builder()
+                                                            .value(userGivenName)
+                                                            .build())
+                                                    .build())
+                                            .build(),
+                                        ReadAttributeAcceptResponseItem.builder()
+                                            .result(ResponseItem.Result.ACCEPTED)
+                                            .attribute(
+                                                IdentityAttribute.builder()
+                                                    .value(
+                                                        Surname.builder()
+                                                            .value(userSurname)
+                                                            .build())
+                                                    .build())
+                                            .build()))
+                                .build()))
+                    .requestId("REQ_ID")
+                    .result(Response.Result.REJECTED)
                     .build())
             .build();
 
@@ -563,14 +514,8 @@ public class EnmeshedOnboardingServiceTest {
                         .template(RelationshipTemplate.builder().id(relationshipTemplateId).build())
                         .peerIdentity(IdentityInfo.builder().address(userAddress).build())
                         .peer(userAddress)
-                        .changes(
-                            List.of(
-                                RelationshipChange.builder()
-                                    .id(relationshipChangeId)
-                                    .type(RelationshipChange.Type.CREATION)
-                                    .status(RelationshipChange.Status.PENDING)
-                                    .request(relationshipChangeRequest)
-                                    .build()))
+                        .status(Relationship.Status.PENDING)
+                        .creationContent(creationContent)
                         .build())))
         .thenReturn(
             ResultWrapper.containing(
@@ -580,14 +525,8 @@ public class EnmeshedOnboardingServiceTest {
                         .template(RelationshipTemplate.builder().id(relationshipTemplateId).build())
                         .peerIdentity(IdentityInfo.builder().address(userAddress).build())
                         .peer(userAddress)
-                        .changes(
-                            List.of(
-                                RelationshipChange.builder()
-                                    .id(relationshipChangeId)
-                                    .type(RelationshipChange.Type.CREATION)
-                                    .status(RelationshipChange.Status.REJECTED)
-                                    .request(relationshipChangeRequest)
-                                    .build()))
+                        .status(Relationship.Status.REJECTED)
+                        .creationContent(creationContent)
                         .build())));
 
     EnmeshedOnboardingService.RegistrationResult registrationResult =
@@ -595,7 +534,6 @@ public class EnmeshedOnboardingServiceTest {
 
     Assertions.assertEquals(userAddress, registrationResult.enmeshedAddress());
     Assertions.assertEquals(relationshipId, registrationResult.relationshipId());
-    Assertions.assertEquals(relationshipChangeId, registrationResult.relationshipChangeId());
     Assertions.assertEquals(
         userGivenName,
         ((GivenName) registrationResult.attributes().get(GivenName.class)).getValue());
@@ -608,9 +546,7 @@ public class EnmeshedOnboardingServiceTest {
     inOrder
         .verify(enmeshedClientMock)
         .searchRelationships(eq(relationshipTemplateId), any(), any());
-    inOrder
-        .verify(enmeshedClientMock)
-        .rejectRelationshipChange(eq(relationshipId), eq(relationshipChangeId), any());
+    inOrder.verify(enmeshedClientMock).rejectRelationship(eq(relationshipId));
     inOrder.verify(enmeshedClientMock).sync();
     inOrder
         .verify(enmeshedClientMock)
@@ -618,7 +554,7 @@ public class EnmeshedOnboardingServiceTest {
   }
 
   @Test
-  void itShouldPassTheSentAttributesToAcceptanceDecider() {
+  void shouldPassTheSentAttributesToAcceptanceDecider() {
 
     String relationshipTemplateId = "RLT_XXX";
     String relationshipChangeId = "RCH_XXX";
@@ -628,34 +564,39 @@ public class EnmeshedOnboardingServiceTest {
     String userAddress = "ADDR_XXX";
     enmeshedService = getServiceInstance();
 
-    RelationshipChangeRequest relationshipChangeRequest =
-        RelationshipChangeRequest.builder()
-            .content(
-                RelationshipCreationChangeRequestContent.builder()
-                    .response(
-                        Response.builder()
-                            .items(
-                                List.of(
-                                    ReadAttributeAcceptResponseItem.builder()
-                                        .result(ResponseItem.Result.ACCEPTED)
-                                        .attribute(
-                                            IdentityAttribute.builder()
-                                                .value(
-                                                    GivenName.builder()
-                                                        .value(userGivenName)
-                                                        .build())
-                                                .build())
-                                        .build(),
-                                    ReadAttributeAcceptResponseItem.builder()
-                                        .result(ResponseItem.Result.ACCEPTED)
-                                        .attribute(
-                                            IdentityAttribute.builder()
-                                                .value(Surname.builder().value(userSurname).build())
-                                                .build())
-                                        .build()))
-                            .requestId("REQ_ID")
-                            .result(Response.Result.ACCEPTED)
-                            .build())
+    RelationshipCreationContent creationContent =
+        RelationshipCreationContent.builder()
+            .response(
+                Response.builder()
+                    .items(
+                        List.of(
+                            ResponseItemGroup.builder()
+                                .result(ResponseItem.Result.ACCEPTED)
+                                .items(
+                                    List.of(
+                                        ReadAttributeAcceptResponseItem.builder()
+                                            .result(ResponseItem.Result.ACCEPTED)
+                                            .attribute(
+                                                IdentityAttribute.builder()
+                                                    .value(
+                                                        GivenName.builder()
+                                                            .value(userGivenName)
+                                                            .build())
+                                                    .build())
+                                            .build(),
+                                        ReadAttributeAcceptResponseItem.builder()
+                                            .result(ResponseItem.Result.ACCEPTED)
+                                            .attribute(
+                                                IdentityAttribute.builder()
+                                                    .value(
+                                                        Surname.builder()
+                                                            .value(userSurname)
+                                                            .build())
+                                                    .build())
+                                            .build()))
+                                .build()))
+                    .requestId("REQ_ID")
+                    .result(Response.Result.REJECTED)
                     .build())
             .build();
 
@@ -668,14 +609,7 @@ public class EnmeshedOnboardingServiceTest {
                         .template(RelationshipTemplate.builder().id(relationshipTemplateId).build())
                         .peerIdentity(IdentityInfo.builder().address(userAddress).build())
                         .peer(userAddress)
-                        .changes(
-                            List.of(
-                                RelationshipChange.builder()
-                                    .id(relationshipChangeId)
-                                    .type(RelationshipChange.Type.CREATION)
-                                    .status(RelationshipChange.Status.PENDING)
-                                    .request(relationshipChangeRequest)
-                                    .build()))
+                        .creationContent(creationContent)
                         .build())))
         .thenReturn(
             ResultWrapper.containing(
@@ -685,14 +619,7 @@ public class EnmeshedOnboardingServiceTest {
                         .template(RelationshipTemplate.builder().id(relationshipTemplateId).build())
                         .peerIdentity(IdentityInfo.builder().address(userAddress).build())
                         .peer(userAddress)
-                        .changes(
-                            List.of(
-                                RelationshipChange.builder()
-                                    .id(relationshipChangeId)
-                                    .type(RelationshipChange.Type.CREATION)
-                                    .status(RelationshipChange.Status.ACCEPTED)
-                                    .request(relationshipChangeRequest)
-                                    .build()))
+                        .creationContent(creationContent)
                         .build())));
 
     enmeshedService.checkRegistrationState(
@@ -723,7 +650,7 @@ public class EnmeshedOnboardingServiceTest {
                     .build())
             .build();
 
-    when(enmeshedClientMock.searchAttributes(anyString(), anyString(), anyString()))
+    when(enmeshedClientMock.searchAttributes(anyString()))
         .thenReturn(ResultWrapper.containing(List.of(wrappedDisplayNameAttribute)));
 
     return new EnmeshedOnboardingService(

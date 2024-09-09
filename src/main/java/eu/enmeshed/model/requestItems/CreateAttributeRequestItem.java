@@ -16,7 +16,6 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class CreateAttributeRequestItem extends RequestItem {
-
   private Attribute attribute;
 
   public static CreateAttributeRequestItem fromWrapper(
@@ -29,6 +28,7 @@ public class CreateAttributeRequestItem extends RequestItem {
 
   private static RelationshipAttribute relationshipAttribute(AttributeWrapper wrapper) {
     return RelationshipAttribute.builder()
+        .type(RelationshipAttribute.class.getSimpleName())
         .owner(wrapper.getContent().getOwner())
         .key("AllowCertificateRequest")
         .confidentiality(RelationshipAttribute.Confidentiality.PRIVATE)

@@ -1,6 +1,7 @@
 package eu.enmeshed.model.relationships;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import eu.enmeshed.model.AuditLog;
 import eu.enmeshed.model.IdentityInfo;
 import eu.enmeshed.model.event.WebhookData;
 import eu.enmeshed.model.relationshipTemplates.RelationshipTemplate;
@@ -17,18 +18,13 @@ import lombok.Setter;
 @Setter
 @Builder
 public class Relationship implements WebhookData {
-
   private String id;
-
   private RelationshipTemplate template;
-
   private Status status;
-
   private String peer;
-
   private IdentityInfo peerIdentity;
-
-  private List<RelationshipChange> changes;
+  private RelationshipCreationContent creationContent;
+  private List<AuditLog> auditLog;
 
   public enum Status {
     @JsonProperty("Pending")

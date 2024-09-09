@@ -1,5 +1,10 @@
 package eu.enmeshed.model.attributes;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import eu.enmeshed.model.attributes.values.AttributeValue;
@@ -21,15 +26,15 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public abstract class Attribute {
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(NON_EMPTY)
+public class Attribute {
+  @JsonProperty("@type")
+  private String type;
 
   private String owner;
-
   private List<String> tags;
-
   private ZonedDateTime validFrom;
-
   private ZonedDateTime validTo;
-
   private AttributeValue value;
 }

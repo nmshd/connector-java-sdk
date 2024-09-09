@@ -19,6 +19,7 @@ import eu.enmeshed.model.messaging.Message;
 import eu.enmeshed.model.messaging.SendMessage;
 import eu.enmeshed.model.qr.QrCode;
 import eu.enmeshed.model.relationshipTemplates.RelationshipTemplate;
+import eu.enmeshed.model.relationshipTemplates.RelationshipTemplateContent;
 import eu.enmeshed.model.relationshipTemplates.RelationshipTemplateCreation;
 import eu.enmeshed.model.relationships.Relationship;
 import eu.enmeshed.model.request.LocalRequest;
@@ -37,7 +38,6 @@ import feign.jackson.JacksonEncoder;
 import java.util.List;
 
 public interface EnmeshedClient {
-
   ObjectMapper objectMapper =
       new ObjectMapper()
           .registerModule(new JavaTimeModule())
@@ -47,13 +47,11 @@ public interface EnmeshedClient {
           .setDateFormat(new StdDateFormat().withColonInTimeZone(true));
 
   static EnmeshedClient configure(String url, String apiKey) {
-
     return configure(url, apiKey, new Request.Options(), Logger.Level.NONE);
   }
 
   static EnmeshedClient configure(
       String url, String apiKey, Request.Options options, Logger.Level loggerLevel) {
-
     return Feign.builder()
         .decoder(new JacksonDecoder(objectMapper))
         .encoder(new FormEncoder(new JacksonEncoder(objectMapper)))
@@ -77,15 +75,16 @@ public interface EnmeshedClient {
   /*
    Attributes
   */
-  @RequestLine("GET /api/v2/Attributes?content.@type={0}&content.owner={1}&content.value.@type={2}")
-  ResultWrapper<List<AttributeWrapper>> searchAttributes(
-      @Param("0") String contentType,
-      @Param("1") String contentOwner,
-      @Param("2") String contentValueType);
+  @RequestLine("GET /api/v2/Attributes?content.value.@type={2}")
+  ResultWrapper<List<AttributeWrapper>> searchAttributes(@Param("2") String contentValueType);
 
   @RequestLine("POST /api/v2/Attributes")
-  @Headers("Content-Type: application/json")
+  @Headers({"Content-Type: application/json", "Accept: application/json"})
   ResultWrapper<AttributeWrapper> createAttribute(ContentWrapper<Attribute> attribute);
+
+  @RequestLine("GET /api/v2/Attributes/{id}")
+  @Headers("Content-Type: application/json")
+  ResultWrapper<AttributeWrapper> getAttributeById(@Param("id") String attributeId);
 
   /*
    Relationship Templates
@@ -94,6 +93,11 @@ public interface EnmeshedClient {
   @Headers("Content-Type: application/json")
   ResultWrapper<RelationshipTemplate> createOwnRelationshipTemplate(
       RelationshipTemplateCreation relationshipTemplate);
+
+  @RequestLine("POST /api/v2/Requests/Outgoing/Validate")
+  @Headers("Content-Type: application/json")
+  Object validateOwnRelationshipTemplate(
+      ContentWrapper<RelationshipTemplateContent> contentWrapper);
 
   @RequestLine("GET /api/v2/RelationshipTemplates/{0}")
   @Headers("Accept: image/png")
@@ -111,19 +115,16 @@ public interface EnmeshedClient {
   ResultWrapper<List<Relationship>> searchRelationships(
       @Param("0") String templateId, @Param("1") String peer, @Param("2") String status);
 
-  @RequestLine("PUT /api/v2/Relationships/{0}/Changes/{1}/Accept")
-  @Headers("Content-Type: application/json")
-  ResultWrapper<Relationship> acceptRelationshipChange(
-      @Param("0") String relationshipId,
-      @Param("1") String changeId,
-      ContentWrapper<Object> dummyBody);
+  @RequestLine("GET /api/v2/Relationships/{id}")
+  ResultWrapper<Relationship> getRelationshipsById(@Param("id") String id);
 
-  @RequestLine("PUT /api/v2/Relationships/{0}/Changes/{1}/Reject")
+  @RequestLine("PUT /api/v2/Relationships/{id}/Accept")
   @Headers("Content-Type: application/json")
-  ResultWrapper<Relationship> rejectRelationshipChange(
-      @Param("0") String relationshipId,
-      @Param("1") String changeId,
-      ContentWrapper<Object> dummyBody);
+  ResultWrapper<Relationship> acceptRelationship(@Param("id") String id);
+
+  @RequestLine("PUT /api/v2/Relationships/{0}/Reject")
+  @Headers("Content-Type: application/json")
+  ResultWrapper<Relationship> rejectRelationship(@Param("id") String id);
 
   /*
    Messages
