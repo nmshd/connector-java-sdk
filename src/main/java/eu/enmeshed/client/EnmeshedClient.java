@@ -78,7 +78,7 @@ public interface EnmeshedClient {
   ResultWrapper<List<AttributeWrapper>> searchAttributes(@Param("2") String contentValueType);
 
   @RequestLine("POST /api/v2/Attributes")
-  @Headers({"Content-Type: application/json", "Accept: application/json"})
+  @Headers({"Content-Type: application/json"})
   ResultWrapper<AttributeWrapper> createAttribute(ContentWrapper<Attribute> attribute);
 
   @RequestLine("GET /api/v2/Attributes/{id}")
