@@ -17,22 +17,19 @@ import lombok.Setter;
 @Setter
 @Builder
 public class Relationship implements WebhookData {
-  private String id;
-  private RelationshipTemplate template;
-  private Status status;
-  private String peer;
-  private IdentityInfo peerIdentity;
-  private RelationshipCreationContent creationContent;
-  private List<RelationshipAuditLog> auditLog;
+    private String id;
+    private RelationshipTemplate template;
+    private RelationshipStaus status;
+    private String peer;
+    private IdentityInfo peerIdentity;
+    private RelationshipCreationContent creationContent;
+    private List<RelationshipAuditLog> auditLog;
+    private PeerDeletionInfo peerDeletionInfo;
 
-  public enum Status {
-    @JsonProperty("Pending")
-    PENDING,
-
-    @JsonProperty("Active")
-    ACTIVE,
-
-    @JsonProperty("Rejected")
-    REJECTED
-  }
+    public enum PeerDeletionInfo {
+        @JsonProperty("ToBeDeleted")
+        TO_BE_DELETED,
+        @JsonProperty("Deleted")
+        DELETED
+    }
 }

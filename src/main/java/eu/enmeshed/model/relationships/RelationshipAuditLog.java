@@ -14,19 +14,33 @@ import lombok.Setter;
 @Setter
 @Builder
 public class RelationshipAuditLog {
-  private ZonedDateTime createdAt;
-  private String createdBy;
-  private String createdByDevice;
-  private String Reason;
-  private Status oldStatus;
-  private Status newStatus;
+    private ZonedDateTime createdAt;
+    private String createdBy;
+    private String createdByDevice;
+    private Reason reason;
+    private RelationshipStaus oldStatus;
+    private RelationshipStaus newStatus;
 
-  public enum Status {
-    @JsonProperty("Pending")
-    PENDING,
-    @JsonProperty("Active")
-    ACTIVE,
-    @JsonProperty("Rejected")
-    REJECTED
-  }
+    public enum Reason {
+        @JsonProperty("Creation")
+        CREATION,
+        @JsonProperty("AcceptanceOfCreation")
+        ACCEPTANCE_OF_CREATION,
+        @JsonProperty("RejectionOfCreation")
+        REJECTION_OF_CREATION,
+        @JsonProperty("RevocationOfCreation")
+        REVOCATION_OF_CREATION,
+        @JsonProperty("Termination")
+        TERMINATION,
+        @JsonProperty("ReactivationRequested")
+        REACTIVATION_REQUESTED,
+        @JsonProperty("AcceptanceOfReactivation")
+        ACCEPTANCE_OF_REACTIVATION,
+        @JsonProperty("RejectionOfReactivation")
+        REJECTION_OF_REACTIVATION,
+        @JsonProperty("RevocationOfReactivation")
+        REVOCATION_OF_REACTIVATION,
+        @JsonProperty("Decomposition")
+        DECOMPOSITION
+    }
 }
