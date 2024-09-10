@@ -14,6 +14,7 @@ import eu.enmeshed.model.relationshipTemplates.RelationshipTemplateContent;
 import eu.enmeshed.model.relationshipTemplates.RelationshipTemplateCreation;
 import eu.enmeshed.model.relationships.Relationship;
 import eu.enmeshed.model.relationships.RelationshipCreationContent;
+import eu.enmeshed.model.relationships.RelationshipStaus;
 import eu.enmeshed.model.requestItems.CreateAttributeRequestItem;
 import eu.enmeshed.model.requestItems.ReadAttributeRequestItem;
 import eu.enmeshed.model.requestItems.RequestItem;
@@ -204,7 +205,7 @@ public class EnmeshedOnboardingService {
     Map<Class<? extends AttributeValue>, AttributeValue> attributes =
         getSharedSimpleAttributesFromResponseItems(creationContent.getResponse().getItems());
 
-    if (relationship.getStatus() == Relationship.Status.PENDING) {
+    if (relationship.getStatus() == RelationshipStaus.PENDING) {
       boolean decision = acceptanceDecider.test(attributes);
 
       if (decision) {
