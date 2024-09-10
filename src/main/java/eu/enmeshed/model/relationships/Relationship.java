@@ -1,7 +1,6 @@
 package eu.enmeshed.model.relationships;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import eu.enmeshed.model.AuditLog;
 import eu.enmeshed.model.IdentityInfo;
 import eu.enmeshed.model.event.WebhookData;
 import eu.enmeshed.model.relationshipTemplates.RelationshipTemplate;
@@ -24,7 +23,7 @@ public class Relationship implements WebhookData {
   private String peer;
   private IdentityInfo peerIdentity;
   private RelationshipCreationContent creationContent;
-  private List<AuditLog> auditLog;
+  private List<RelationshipAuditLog> auditLog;
 
   public enum Status {
     @JsonProperty("Pending")

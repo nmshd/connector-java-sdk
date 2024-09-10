@@ -1,7 +1,5 @@
 package eu.enmeshed.model.attributes;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -27,7 +25,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(NON_EMPTY)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Attribute {
   @JsonProperty("@type")
   private String type;

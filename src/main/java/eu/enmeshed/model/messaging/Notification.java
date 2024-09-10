@@ -1,5 +1,6 @@
 package eu.enmeshed.model.messaging;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import eu.enmeshed.model.notificationItem.NotificationItem;
 import java.util.List;
 import lombok.Getter;
@@ -12,6 +13,9 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class Notification extends MessageContent {
+  @JsonProperty("@type")
+  private String type;
+
   private String id;
   private List<NotificationItem> items;
 }

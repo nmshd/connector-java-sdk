@@ -1,11 +1,5 @@
 package eu.enmeshed;
 
-import static eu.enmeshed.model.Response.Result.ACCEPTED;
-import static eu.enmeshed.model.Response.Result.REJECTED;
-import static eu.enmeshed.model.relationships.Relationship.Status.PENDING;
-import static java.util.List.of;
-import static java.util.Objects.isNull;
-
 import eu.enmeshed.client.EnmeshedClient;
 import eu.enmeshed.model.AttributeWrapper;
 import eu.enmeshed.model.ContentWrapper;
@@ -37,6 +31,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 import lombok.Getter;
@@ -67,7 +62,7 @@ public class EnmeshedOnboardingService {
     this.enmeshedClient = enmeshedClient;
     this.requiredAttributes = requiredAttributes;
     this.optionalAttributes = optionalAttributes;
-    this.createAttributes = of();
+    this.createAttributes = List.of();
 
     // Get IdentifyInfo
     identityInfo = enmeshedClient.getIdentityInfo().getResult();
@@ -209,7 +204,7 @@ public class EnmeshedOnboardingService {
     Map<Class<? extends AttributeValue>, AttributeValue> attributes =
         getSharedSimpleAttributesFromResponseItems(creationContent.getResponse().getItems());
 
-    if (relationship.getStatus() == PENDING) {
+    if (relationship.getStatus() == Relationship.Status.PENDING) {
       boolean decision = acceptanceDecider.test(attributes);
 
       if (decision) {
@@ -218,7 +213,8 @@ public class EnmeshedOnboardingService {
         enmeshedClient.rejectRelationship(relationship.getId());
       }
       return checkRegistrationState(relationshipTemplateId, registrationResult -> decision);
-    } else if (creationContent.getResponse().getResult() == ACCEPTED) {
+    } else if (creationContent.getResponse().getResult()
+        == eu.enmeshed.model.Response.Result.ACCEPTED) {
       // Request was accepted by User and us - Get the send Attributes and return them
       return new RegistrationResult(
           attributes,
@@ -226,7 +222,8 @@ public class EnmeshedOnboardingService {
           relationship.getId(),
           true);
 
-    } else if (creationContent.getResponse().getResult() == REJECTED) {
+    } else if (creationContent.getResponse().getResult()
+        == eu.enmeshed.model.Response.Result.REJECTED) {
       // Request was accepted by User and us - Get the send Attributes and return them
       return new RegistrationResult(
           attributes,
@@ -278,7 +275,8 @@ public class EnmeshedOnboardingService {
         RequestItemGroup.builder()
             .title(displayTextSharedAttributes)
             .mustBeAccepted(true)
-            .items(of(ShareAttributeRequestItem.fromWrapper(connectorDisplayNameAttribute, true)))
+            .items(
+                List.of(ShareAttributeRequestItem.fromWrapper(connectorDisplayNameAttribute, true)))
             .build();
 
     RequestItemGroup requestedAttributesGroup =
@@ -319,7 +317,9 @@ public class EnmeshedOnboardingService {
             .build();
 
     Long qrCodeValidityTime =
-        isNull(qrCodeValidityMinutes) ? QR_CODE_VALIDITY_MINUTES_DEFAULT : qrCodeValidityMinutes;
+        Objects.isNull(qrCodeValidityMinutes)
+            ? QR_CODE_VALIDITY_MINUTES_DEFAULT
+            : qrCodeValidityMinutes;
 
     RelationshipTemplateCreation relationShipTemplateCreation =
         RelationshipTemplateCreation.builder()

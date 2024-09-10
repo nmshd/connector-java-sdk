@@ -1,9 +1,8 @@
 package eu.enmeshed.retryer;
 
-import static java.time.ZonedDateTime.now;
-
 import feign.RetryableException;
 import feign.Retryer;
+import java.time.ZonedDateTime;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -23,7 +22,7 @@ public class CustomRetryer implements Retryer {
   }
 
   public void continueOrPropagate(RetryableException e) {
-    var startTime = now().toInstant().toEpochMilli();
+    var startTime = ZonedDateTime.now().toInstant().toEpochMilli();
     log.info(
         "Retry, attempt number {}. Response status: {}. Start time: {}",
         attempt,
@@ -33,7 +32,7 @@ public class CustomRetryer implements Retryer {
       log.error(
           "The maximum of retry attempts exceeded, attempt number: {}, time taken (millis) {}",
           attempt,
-          now().toInstant().toEpochMilli() - startTime,
+          ZonedDateTime.now().toInstant().toEpochMilli() - startTime,
           e);
       throw e;
     }
@@ -46,7 +45,6 @@ public class CustomRetryer implements Retryer {
 
   @Override
   public Retryer clone() {
-
     return new CustomRetryer(backoff, maxAttempts);
   }
 }

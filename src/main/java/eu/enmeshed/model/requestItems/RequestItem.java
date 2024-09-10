@@ -1,7 +1,5 @@
 package eu.enmeshed.model.requestItems;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -14,7 +12,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 @Data
-@JsonInclude(NON_EMPTY)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "@type")
 @JsonSubTypes({
   @JsonSubTypes.Type(RequestItemGroup.class),

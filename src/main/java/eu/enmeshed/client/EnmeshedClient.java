@@ -19,7 +19,6 @@ import eu.enmeshed.model.messaging.Message;
 import eu.enmeshed.model.messaging.SendMessage;
 import eu.enmeshed.model.qr.QrCode;
 import eu.enmeshed.model.relationshipTemplates.RelationshipTemplate;
-import eu.enmeshed.model.relationshipTemplates.RelationshipTemplateContent;
 import eu.enmeshed.model.relationshipTemplates.RelationshipTemplateCreation;
 import eu.enmeshed.model.relationships.Relationship;
 import eu.enmeshed.model.request.LocalRequest;
@@ -94,11 +93,6 @@ public interface EnmeshedClient {
   ResultWrapper<RelationshipTemplate> createOwnRelationshipTemplate(
       RelationshipTemplateCreation relationshipTemplate);
 
-  @RequestLine("POST /api/v2/Requests/Outgoing/Validate")
-  @Headers("Content-Type: application/json")
-  Object validateOwnRelationshipTemplate(
-      ContentWrapper<RelationshipTemplateContent> contentWrapper);
-
   @RequestLine("GET /api/v2/RelationshipTemplates/{0}")
   @Headers("Accept: image/png")
   Response getQrCodeForRelationshipTemplate(@Param("0") String relationshipTemplateId);
@@ -116,7 +110,7 @@ public interface EnmeshedClient {
       @Param("0") String templateId, @Param("1") String peer, @Param("2") String status);
 
   @RequestLine("GET /api/v2/Relationships/{id}")
-  ResultWrapper<Relationship> getRelationshipsById(@Param("id") String id);
+  ResultWrapper<Relationship> getRelationshipById(@Param("id") String id);
 
   @RequestLine("PUT /api/v2/Relationships/{id}/Accept")
   @Headers("Content-Type: application/json")
@@ -166,7 +160,7 @@ public interface EnmeshedClient {
    */
   @Retryable
   @RequestLine("POST /api/v2/Files/Own")
-  @Headers({"Content-Type:  multipart/form-data", "accept: application/json"})
+  @Headers({"Content-Type:  multipart/form-data"})
   ResultWrapper<FileMetaData> uploadNewOwnFile(FileUploadRequest fileUploadRequest);
 
   @Retryable

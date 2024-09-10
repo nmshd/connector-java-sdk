@@ -1,4 +1,4 @@
-package eu.enmeshed.model;
+package eu.enmeshed.model.relationships;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.ZonedDateTime;
@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class AuditLog {
+public class RelationshipAuditLog {
   private ZonedDateTime createdAt;
   private String createdBy;
   private String createdByDevice;
