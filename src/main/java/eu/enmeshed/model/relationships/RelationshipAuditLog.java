@@ -18,8 +18,8 @@ public class RelationshipAuditLog {
     private String createdBy;
     private String createdByDevice;
     private Reason reason;
-    private RelationshipStaus oldStatus;
-    private RelationshipStaus newStatus;
+    private RelationshipStatus oldStatus;
+    private RelationshipStatus newStatus;
 
     public enum Reason {
         @JsonProperty("Creation")

@@ -2,7 +2,7 @@ package eu.enmeshed.model.relationships;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public enum RelationshipStaus {
+public enum RelationshipStatus {
   @JsonProperty("Pending")
   PENDING,
   @JsonProperty("Active")

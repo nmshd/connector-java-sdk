@@ -26,7 +26,7 @@ import eu.enmeshed.model.relationshipTemplates.RelationshipTemplateContent;
 import eu.enmeshed.model.relationshipTemplates.RelationshipTemplateCreation;
 import eu.enmeshed.model.relationships.Relationship;
 import eu.enmeshed.model.relationships.RelationshipCreationContent;
-import eu.enmeshed.model.relationships.RelationshipStaus;
+import eu.enmeshed.model.relationships.RelationshipStatus;
 import eu.enmeshed.model.requestItems.CreateAttributeRequestItem;
 import eu.enmeshed.model.requestItems.ReadAttributeRequestItem;
 import eu.enmeshed.model.requestItems.RequestItem;
@@ -419,7 +419,7 @@ public class EnmeshedOnboardingServiceTest {
                         .template(RelationshipTemplate.builder().id(relationshipTemplateId).build())
                         .peerIdentity(IdentityInfo.builder().address(userAddress).build())
                         .peer(userAddress)
-                        .status(RelationshipStaus.PENDING)
+                        .status(RelationshipStatus.PENDING)
                         .creationContent(creationContent)
                         .build())))
         .thenReturn(
@@ -515,7 +515,7 @@ public class EnmeshedOnboardingServiceTest {
                         .template(RelationshipTemplate.builder().id(relationshipTemplateId).build())
                         .peerIdentity(IdentityInfo.builder().address(userAddress).build())
                         .peer(userAddress)
-                        .status(RelationshipStaus.PENDING)
+                        .status(RelationshipStatus.PENDING)
                         .creationContent(creationContent)
                         .build())))
         .thenReturn(
@@ -526,7 +526,7 @@ public class EnmeshedOnboardingServiceTest {
                         .template(RelationshipTemplate.builder().id(relationshipTemplateId).build())
                         .peerIdentity(IdentityInfo.builder().address(userAddress).build())
                         .peer(userAddress)
-                        .status(RelationshipStaus.REJECTED)
+                        .status(RelationshipStatus.REJECTED)
                         .creationContent(creationContent)
                         .build())));
 

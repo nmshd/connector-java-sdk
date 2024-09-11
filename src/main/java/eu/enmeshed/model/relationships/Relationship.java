@@ -19,7 +19,7 @@ import lombok.Setter;
 public class Relationship implements WebhookData {
     private String id;
     private RelationshipTemplate template;
-    private RelationshipStaus status;
+    private RelationshipStatus status;
     private String peer;
     private IdentityInfo peerIdentity;
     private RelationshipCreationContent creationContent;
