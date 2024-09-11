@@ -7,6 +7,7 @@ import eu.enmeshed.model.relationshipTemplates.RelationshipTemplate;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,19 +18,24 @@ import lombok.Setter;
 @Setter
 @Builder
 public class Relationship implements WebhookData {
-  private String id;
-  private RelationshipTemplate template;
-  private RelationshipStatus status;
-  private String peer;
-  private IdentityInfo peerIdentity;
-  private RelationshipCreationContent creationContent;
-  private List<RelationshipAuditLogEntry> auditLog;
-  private PeerDeletionInfo peerDeletionInfo;
+    private String id;
+    private RelationshipTemplate template;
+    private RelationshipStatus status;
+    private String peer;
+    private IdentityInfo peerIdentity;
+    private RelationshipCreationContent creationContent;
+    private List<RelationshipAuditLogEntry> auditLog;
+    private PeerDeletionInfo peerDeletionInfo;
 
-  public enum PeerDeletionInfo {
-    @JsonProperty("ToBeDeleted")
-    TO_BE_DELETED,
-    @JsonProperty("Deleted")
-    DELETED
-  }
+    @Data
+    public static class PeerDeletionInfo {
+        PeerDeletionStatus peerDeletionStatus;
+    }
+
+    public enum PeerDeletionStatus {
+        @JsonProperty("ToBeDeleted")
+        TO_BE_DELETED,
+        @JsonProperty("Deleted")
+        DELETED
+    }
 }
