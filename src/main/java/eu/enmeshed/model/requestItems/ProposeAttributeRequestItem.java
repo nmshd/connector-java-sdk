@@ -24,7 +24,6 @@ public class ProposeAttributeRequestItem extends RequestItem {
       Class<T> attributeType, boolean mustBeAccepted) {
 
     return ProposeAttributeRequestItem.builder()
-        .mustBeAccepted(mustBeAccepted)
         .query(
             Map.of("@type", "IdentityAttributeQuery", "valueType", attributeType.getSimpleName()))
         .build();

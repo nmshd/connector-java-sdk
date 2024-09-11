@@ -14,9 +14,8 @@ public abstract class WebhookTriggerNames {
     public static final String OUTGOING_REQUEST_CREATED = "consumption.outgoingRequestCreated";
     public static final String OUTGOING_REQUEST_CREATED_AND_COMPLETED =
         "consumption.outgoingRequestCreatedAndCompleted";
-    public static final String
-        OUTGOING_REQUEST_FROM_RELATIONSHIP_CREATION_CHANGE_CREATED_AND_COMPLETED =
-            "consumption.outgoingRequestFromRelationshipCreationChangeCreatedAndCompleted";
+    public static final String OUTGOING_REQUEST_FROM_RELATIONSHIP_CREATION_CREATED_AND_COMPLETED =
+        "consumption.outgoingRequestFromRelationshipCreationCreatedAndCompleted";
     public static final String OUTGOING_REQUEST_STATUS_CHANGED =
         "consumption.outgoingRequestStatusChanged";
     public static final String RELATIONSHIP_TEMPLATE_PROCESSED =

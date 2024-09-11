@@ -20,5 +20,4 @@ public class RequestItemGroup extends RequestItem {
   private String title;
   private String description;
   private Map<String, String> metadata;
-  private Boolean requireManualDecision;
 }

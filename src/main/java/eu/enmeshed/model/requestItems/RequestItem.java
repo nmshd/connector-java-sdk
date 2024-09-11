@@ -31,14 +31,8 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public abstract class RequestItem {
-
   private String title;
-
   private String description;
-
   private Map<String, String> metadata;
-
-  private Boolean mustBeAccepted;
-
   private Boolean requireManualDecision;
 }

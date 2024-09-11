@@ -136,8 +136,6 @@ public class EnmeshedMessagingServiceTest {
             .getItems()
             .get(0)
             .getRequireManualDecision());
-    Assertions.assertTrue(
-        requestWrapperArgumentCaptor.getValue().getContent().getItems().get(0).getMustBeAccepted());
 
     // Test sent message
     Assertions.assertNull(sendMessageArgumentCaptor.getValue().getAttachments());
@@ -151,7 +149,6 @@ public class EnmeshedMessagingServiceTest {
     Assertions.assertInstanceOf(AuthenticationRequestItem.class, sentRequest.getItems().get(0));
     Assertions.assertEquals(TEST_AUTH_TITLE, sentRequest.getItems().get(0).getTitle());
     Assertions.assertEquals(TEST_AUTH_TEXT, sentRequest.getItems().get(0).getDescription());
-    Assertions.assertTrue(sentRequest.getItems().get(0).getMustBeAccepted());
     Assertions.assertTrue(sentRequest.getItems().get(0).getRequireManualDecision());
   }
 
@@ -281,7 +278,6 @@ public class EnmeshedMessagingServiceTest {
                                 List.of(
                                     AuthenticationRequestItem.builder()
                                         .requireManualDecision(true)
-                                        .mustBeAccepted(true)
                                         .description(TEST_AUTH_TEXT)
                                         .title(TEST_AUTH_TITLE)
                                         .build()))
@@ -337,7 +333,6 @@ public class EnmeshedMessagingServiceTest {
                                 List.of(
                                     AuthenticationRequestItem.builder()
                                         .requireManualDecision(true)
-                                        .mustBeAccepted(true)
                                         .description(TEST_AUTH_TEXT)
                                         .title(TEST_AUTH_TITLE)
                                         .build()))
@@ -388,7 +383,6 @@ public class EnmeshedMessagingServiceTest {
                                 List.of(
                                     AuthenticationRequestItem.builder()
                                         .requireManualDecision(true)
-                                        .mustBeAccepted(true)
                                         .description(TEST_AUTH_TEXT)
                                         .title(TEST_AUTH_TITLE)
                                         .build()))
@@ -431,7 +425,6 @@ public class EnmeshedMessagingServiceTest {
                                 List.of(
                                     AuthenticationRequestItem.builder()
                                         .requireManualDecision(true)
-                                        .mustBeAccepted(true)
                                         .description(TEST_AUTH_TEXT)
                                         .title(TEST_AUTH_TITLE)
                                         .build()))

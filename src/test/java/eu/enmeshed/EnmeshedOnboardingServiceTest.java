@@ -201,7 +201,6 @@ public class EnmeshedOnboardingServiceTest {
         relationshipTemplateCreationArgumentCaptor.getValue().getContent().getOnNewRelationship();
 
     // Shared Items
-    Assertions.assertTrue(itemList.items().get(0).getItems().get(0).getMustBeAccepted());
     Assertions.assertEquals(testDisplayNameSharedAttributes, itemList.items().get(0).getTitle());
     Assertions.assertEquals(
         CONNECTOR_DISPLAY_NAME,
@@ -210,35 +209,28 @@ public class EnmeshedOnboardingServiceTest {
                     .getAttribute()
                     .getValue())
             .getValue());
-    Assertions.assertTrue(itemList.items().get(0).getItems().get(0).getMustBeAccepted());
 
     // Required Items
     Assertions.assertEquals(testDisplayNameRequestedAttributes, itemList.items().get(1).getTitle());
-    Assertions.assertTrue(itemList.items().get(1).getItems().get(0).getMustBeAccepted());
     Assertions.assertEquals(
         REQUIRED_ATTRIBUTES.get(0).getSimpleName(),
         ((ReadAttributeRequestItem) itemList.items().get(1).getItems().get(0))
             .getQuery()
             .get("valueType"));
-    Assertions.assertTrue(itemList.items().get(1).getItems().get(0).getMustBeAccepted());
     Assertions.assertEquals(
         REQUIRED_ATTRIBUTES.get(1).getSimpleName(),
         ((ReadAttributeRequestItem) itemList.items().get(1).getItems().get(1))
             .getQuery()
             .get("valueType"));
-    Assertions.assertTrue(itemList.items().get(1).getItems().get(1).getMustBeAccepted());
 
     // Optional Items
-    Assertions.assertFalse(itemList.items().get(1).getItems().get(2).getMustBeAccepted());
     Assertions.assertEquals(
         OPTIONAL_ATTRIBUTES.get(0).getSimpleName(),
         ((ReadAttributeRequestItem) itemList.items().get(1).getItems().get(2))
             .getQuery()
             .get("valueType"));
-    Assertions.assertFalse(itemList.items().get(1).getItems().get(2).getMustBeAccepted());
 
     // Created Items
-    Assertions.assertTrue(itemList.items().get(2).getItems().get(0).getMustBeAccepted());
     Assertions.assertEquals(CREATE_ATTRIBUTES.get(0).getSimpleName(), "CreateAttributeRequestItem");
   }
 
@@ -558,7 +550,6 @@ public class EnmeshedOnboardingServiceTest {
   void shouldPassTheSentAttributesToAcceptanceDecider() {
 
     String relationshipTemplateId = "RLT_XXX";
-    String relationshipChangeId = "RCH_XXX";
     String relationshipId = "REL_XXX";
     String userGivenName = "Max";
     String userSurname = "Muster";

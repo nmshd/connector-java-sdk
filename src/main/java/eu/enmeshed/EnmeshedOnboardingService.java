@@ -275,16 +275,12 @@ public class EnmeshedOnboardingService {
     RequestItemGroup sharedAttributesGroup =
         RequestItemGroup.builder()
             .title(displayTextSharedAttributes)
-            .mustBeAccepted(true)
             .items(
                 List.of(ShareAttributeRequestItem.fromWrapper(connectorDisplayNameAttribute, true)))
             .build();
 
     RequestItemGroup requestedAttributesGroup =
-        RequestItemGroup.builder()
-            .title(displayTextRequestedAttributes)
-            .mustBeAccepted(true)
-            .build();
+        RequestItemGroup.builder().title(displayTextRequestedAttributes).build();
 
     List<RequestItem> readAttributeItems = new ArrayList<>();
     requiredAttributes.stream()
@@ -296,7 +292,7 @@ public class EnmeshedOnboardingService {
     requestedAttributesGroup.setItems(readAttributeItems);
 
     RequestItemGroup createAttributeGroup =
-        RequestItemGroup.builder().title(displayTextCreateAttributes).mustBeAccepted(true).build();
+        RequestItemGroup.builder().title(displayTextCreateAttributes).build();
     List<RequestItem> createAttributeItems = new ArrayList<>();
     createAttributes.stream()
         .map(

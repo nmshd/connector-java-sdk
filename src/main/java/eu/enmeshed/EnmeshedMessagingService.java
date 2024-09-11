@@ -82,7 +82,6 @@ public class EnmeshedMessagingService {
                     AuthenticationRequestItem.builder()
                         .title(displayTitle)
                         .description(displayText)
-                        .mustBeAccepted(mandatory)
                         .requireManualDecision(true)
                         .metadata(metadata)
                         .build()))
