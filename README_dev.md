@@ -235,5 +235,5 @@ record AuthenticationStatus(
   - add expired flag to AuthenticationStatus
 - 0.6.0
   - add possibility to attach Metadata to Authentication-Requests
-- 0.8.0
+- 1.0.0
   - update SDK to Connector V5
