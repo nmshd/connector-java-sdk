@@ -133,7 +133,7 @@ Workflow:
   - The Service checks whether there is an inbound request from the connecting peer
   - It will return `null` if no request was made by the peer
   - It will accept the inbound request if there is any
-  - It will return the shared attributes, the EnmeshedAddress, the RelationShipId and the RelationshipCreationContent on
+  - It will return the shared attributes, the EnmeshedAddress, the RelationshipId and the RelationshipCreationContent on
     success
 - Connection between Connector and Enmeshed Wallet app is now set up.
 
