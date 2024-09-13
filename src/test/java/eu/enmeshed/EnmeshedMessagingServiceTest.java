@@ -16,6 +16,7 @@ import eu.enmeshed.model.request.LocalRequestSource;
 import eu.enmeshed.model.request.Request;
 import eu.enmeshed.model.request.RequestResponseSource;
 import eu.enmeshed.model.request.requestItems.AuthenticationRequestItem;
+import eu.enmeshed.model.request.requestItems.RequestItemDerivation;
 import eu.enmeshed.model.request.responseItems.AcceptResponseItem;
 import eu.enmeshed.model.request.responseItems.RejectResponseItem;
 import feign.FeignException;
@@ -130,11 +131,8 @@ public class EnmeshedMessagingServiceTest {
         TEST_METADATA,
         requestWrapperArgumentCaptor.getValue().getContent().getItems().get(0).getMetadata());
     Assertions.assertTrue(
-        requestWrapperArgumentCaptor
-            .getValue()
-            .getContent()
-            .getItems()
-            .get(0)
+        ((RequestItemDerivation)
+                requestWrapperArgumentCaptor.getValue().getContent().getItems().get(0))
             .getRequireManualDecision());
 
     // Test sent message
@@ -149,7 +147,8 @@ public class EnmeshedMessagingServiceTest {
     Assertions.assertInstanceOf(AuthenticationRequestItem.class, sentRequest.getItems().get(0));
     Assertions.assertEquals(TEST_AUTH_TITLE, sentRequest.getItems().get(0).getTitle());
     Assertions.assertEquals(TEST_AUTH_TEXT, sentRequest.getItems().get(0).getDescription());
-    Assertions.assertTrue(sentRequest.getItems().get(0).getRequireManualDecision());
+    Assertions.assertTrue(
+        ((RequestItemDerivation) sentRequest.getItems().get(0)).getRequireManualDecision());
   }
 
   @Test

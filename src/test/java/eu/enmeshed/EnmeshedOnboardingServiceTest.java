@@ -56,15 +56,14 @@ public class EnmeshedOnboardingServiceTest {
       List.of(GivenName.class, Surname.class);
   private static final List<Class<? extends AttributeValue>> OPTIONAL_ATTRIBUTES =
       List.of(EMailAddress.class);
-  private final List<Class<? extends RequestItem>> CREATE_ATTRIBUTES =
-      List.of(CreateAttributeRequestItem.class);
-
   private static final IdentityInfo TEST_IDENTITY_INFO =
       IdentityInfo.builder()
           .address("da88dd1b2b820360d4155162e657f84ea1394076faa1ce2909d8338811cb308d")
           .publicKey("dbb5d8fd21caf827fdc128d73e783478d6677a9afc50120db56217726125425f")
           .realm("4354b5ae54bab15544f852d7bc1b76bbd6d71a03b5e7ad876916cda3a602aaf9")
           .build();
+  private final List<Class<? extends RequestItem>> CREATE_ATTRIBUTES =
+      List.of(CreateAttributeRequestItem.class);
   @Mock EnmeshedClient enmeshedClientMock;
   @Captor ArgumentCaptor<ContentWrapper<Attribute>> attributeCreateRequestCaptor;
   @Captor ArgumentCaptor<RelationshipTemplateCreation> relationshipTemplateCreationArgumentCaptor;
@@ -174,7 +173,7 @@ public class EnmeshedOnboardingServiceTest {
                 .body(testQrCodeData)
                 .request(
                     feign.Request.create(
-                    feign.Request.HttpMethod.GET, "", Collections.emptyMap(), null, null, null))
+                        feign.Request.HttpMethod.GET, "", Collections.emptyMap(), null, null, null))
                 .build());
 
     EnmeshedOnboardingService.RegistrationData registrationData =
@@ -201,40 +200,50 @@ public class EnmeshedOnboardingServiceTest {
         relationshipTemplateCreationArgumentCaptor.getValue().getContent().getOnNewRelationship();
 
     // Shared Items
-    Assertions.assertTrue(((RequestItemGroup) request.getItems().get(0) ).getItems().get(0).getMustBeAccepted());
+    Assertions.assertTrue(
+        ((RequestItemGroup) request.getItems().get(0)).getItems().get(0).getMustBeAccepted());
     Assertions.assertEquals(testDisplayNameSharedAttributes, request.getItems().get(0).getTitle());
     Assertions.assertEquals(
         CONNECTOR_DISPLAY_NAME,
         ((DisplayName)
-                ((ShareAttributeRequestItem) ((RequestItemGroup) request.getItems().get(0)).getItems().get(0))
+                ((ShareAttributeRequestItem)
+                        ((RequestItemGroup) request.getItems().get(0)).getItems().get(0))
                     .getAttribute()
                     .getValue())
             .getValue());
     // Required Items
-    Assertions.assertTrue(((RequestItemGroup) request.getItems().get(1)).getItems().get(0).getMustBeAccepted());
-    Assertions.assertEquals(testDisplayNameRequestedAttributes, request.getItems().get(1).getTitle());
+    Assertions.assertTrue(
+        ((RequestItemGroup) request.getItems().get(1)).getItems().get(0).getMustBeAccepted());
+    Assertions.assertEquals(
+        testDisplayNameRequestedAttributes, request.getItems().get(1).getTitle());
     Assertions.assertEquals(
         REQUIRED_ATTRIBUTES.get(0).getSimpleName(),
-        ((ReadAttributeRequestItem) ((RequestItemGroup) request.getItems().get(1)).getItems().get(0))
+        ((ReadAttributeRequestItem)
+                ((RequestItemGroup) request.getItems().get(1)).getItems().get(0))
             .getQuery()
             .get("valueType"));
     Assertions.assertEquals(
         REQUIRED_ATTRIBUTES.get(1).getSimpleName(),
-        ((ReadAttributeRequestItem) ((RequestItemGroup) request.getItems().get(1)).getItems().get(1))
+        ((ReadAttributeRequestItem)
+                ((RequestItemGroup) request.getItems().get(1)).getItems().get(1))
             .getQuery()
             .get("valueType"));
-    Assertions.assertTrue(((RequestItemGroup) request.getItems().get(1)).getItems().get(1).getMustBeAccepted());
+    Assertions.assertTrue(
+        ((RequestItemGroup) request.getItems().get(1)).getItems().get(1).getMustBeAccepted());
 
     // Optional Items
-    Assertions.assertFalse(((RequestItemGroup) request.getItems().get(1)).getItems().get(2).getMustBeAccepted());
+    Assertions.assertFalse(
+        ((RequestItemGroup) request.getItems().get(1)).getItems().get(2).getMustBeAccepted());
     Assertions.assertEquals(
         OPTIONAL_ATTRIBUTES.get(0).getSimpleName(),
-        ((ReadAttributeRequestItem) ((RequestItemGroup) request.getItems().get(1)).getItems().get(2))
+        ((ReadAttributeRequestItem)
+                ((RequestItemGroup) request.getItems().get(1)).getItems().get(2))
             .getQuery()
             .get("valueType"));
 
     // Created Items
-    Assertions.assertTrue(((RequestItemGroup) request.getItems().get(2)).getItems().get(0).getMustBeAccepted());
+    Assertions.assertTrue(
+        ((RequestItemGroup) request.getItems().get(2)).getItems().get(0).getMustBeAccepted());
     Assertions.assertEquals(CREATE_ATTRIBUTES.get(0).getSimpleName(), "CreateAttributeRequestItem");
   }
 
