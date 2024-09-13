@@ -20,7 +20,10 @@ public class CreateAttributeRequestItem extends RequestItem {
 
   public static CreateAttributeRequestItem fromWrapper(
       AttributeWrapper wrapper, boolean mustBeAccepted) {
-    return CreateAttributeRequestItem.builder().attribute(relationshipAttribute(wrapper)).build();
+    return CreateAttributeRequestItem.builder()
+        .attribute(relationshipAttribute(wrapper))
+        .mustBeAccepted(mustBeAccepted)
+        .build();
   }
 
   private static RelationshipAttribute relationshipAttribute(AttributeWrapper wrapper) {

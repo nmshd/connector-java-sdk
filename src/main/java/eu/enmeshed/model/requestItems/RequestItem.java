@@ -22,8 +22,7 @@ import lombok.experimental.SuperBuilder;
   @JsonSubTypes.Type(ConsentRequestItem.class),
   @JsonSubTypes.Type(CreateAttributeRequestItem.class),
   @JsonSubTypes.Type(FreeTextRequestItem.class),
-  @JsonSubTypes.Type(ProposeAttributeRequestItem.class),
-  @JsonSubTypes.Type(RequestItemGroup.class)
+  @JsonSubTypes.Type(ProposeAttributeRequestItem.class)
 })
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,4 +34,5 @@ public abstract class RequestItem {
   private String description;
   private Map<String, String> metadata;
   private Boolean requireManualDecision;
+  private Boolean mustBeAccepted;
 }

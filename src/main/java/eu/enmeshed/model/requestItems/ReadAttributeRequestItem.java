@@ -21,6 +21,7 @@ public class ReadAttributeRequestItem extends RequestItem {
       Class<T> attributeType, boolean mustBeAccepted) {
 
     return ReadAttributeRequestItem.builder()
+        .mustBeAccepted(mustBeAccepted)
         .query(
             Map.of("@type", "IdentityAttributeQuery", "valueType", attributeType.getSimpleName()))
         .build();

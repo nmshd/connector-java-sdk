@@ -24,6 +24,7 @@ public class ShareAttributeRequestItem extends RequestItem {
     content.setType(IdentityAttribute.class.getSimpleName());
 
     return ShareAttributeRequestItem.builder()
+        .mustBeAccepted(mustBeAccepted)
         .attribute(content)
         .sourceAttributeId(wrapper.getId())
         .build();

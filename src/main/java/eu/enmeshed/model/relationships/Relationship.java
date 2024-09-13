@@ -18,24 +18,24 @@ import lombok.Setter;
 @Setter
 @Builder
 public class Relationship implements WebhookData {
-    private String id;
-    private RelationshipTemplate template;
-    private RelationshipStatus status;
-    private String peer;
-    private IdentityInfo peerIdentity;
-    private RelationshipCreationContent creationContent;
-    private List<RelationshipAuditLogEntry> auditLog;
-    private PeerDeletionInfo peerDeletionInfo;
+  private String id;
+  private RelationshipTemplate template;
+  private RelationshipStatus status;
+  private String peer;
+  private IdentityInfo peerIdentity;
+  private RelationshipCreationContent creationContent;
+  private List<RelationshipAuditLogEntry> auditLog;
+  private PeerDeletionInfo peerDeletionInfo;
 
-    @Data
-    public static class PeerDeletionInfo {
-        PeerDeletionStatus peerDeletionStatus;
-    }
+  @Data
+  public static class PeerDeletionInfo {
+    PeerDeletionStatus status;
 
     public enum PeerDeletionStatus {
-        @JsonProperty("ToBeDeleted")
-        TO_BE_DELETED,
-        @JsonProperty("Deleted")
-        DELETED
+      @JsonProperty("ToBeDeleted")
+      TO_BE_DELETED,
+      @JsonProperty("Deleted")
+      DELETED
     }
+  }
 }

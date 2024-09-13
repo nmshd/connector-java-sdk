@@ -278,6 +278,7 @@ public class EnmeshedMessagingServiceTest {
                                 List.of(
                                     AuthenticationRequestItem.builder()
                                         .requireManualDecision(true)
+                                        .mustBeAccepted(true)
                                         .description(TEST_AUTH_TEXT)
                                         .title(TEST_AUTH_TITLE)
                                         .build()))
@@ -333,6 +334,7 @@ public class EnmeshedMessagingServiceTest {
                                 List.of(
                                     AuthenticationRequestItem.builder()
                                         .requireManualDecision(true)
+                                        .mustBeAccepted(true)
                                         .description(TEST_AUTH_TEXT)
                                         .title(TEST_AUTH_TITLE)
                                         .build()))
@@ -383,6 +385,7 @@ public class EnmeshedMessagingServiceTest {
                                 List.of(
                                     AuthenticationRequestItem.builder()
                                         .requireManualDecision(true)
+                                        .mustBeAccepted(true)
                                         .description(TEST_AUTH_TEXT)
                                         .title(TEST_AUTH_TITLE)
                                         .build()))
@@ -425,6 +428,7 @@ public class EnmeshedMessagingServiceTest {
                                 List.of(
                                     AuthenticationRequestItem.builder()
                                         .requireManualDecision(true)
+                                        .mustBeAccepted(true)
                                         .description(TEST_AUTH_TEXT)
                                         .title(TEST_AUTH_TITLE)
                                         .build()))

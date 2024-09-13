@@ -201,6 +201,7 @@ public class EnmeshedOnboardingServiceTest {
         relationshipTemplateCreationArgumentCaptor.getValue().getContent().getOnNewRelationship();
 
     // Shared Items
+    Assertions.assertTrue(itemList.items().get(0).getItems().get(0).getMustBeAccepted());
     Assertions.assertEquals(testDisplayNameSharedAttributes, itemList.items().get(0).getTitle());
     Assertions.assertEquals(
         CONNECTOR_DISPLAY_NAME,
@@ -209,8 +210,8 @@ public class EnmeshedOnboardingServiceTest {
                     .getAttribute()
                     .getValue())
             .getValue());
-
     // Required Items
+    Assertions.assertTrue(itemList.items().get(1).getItems().get(0).getMustBeAccepted());
     Assertions.assertEquals(testDisplayNameRequestedAttributes, itemList.items().get(1).getTitle());
     Assertions.assertEquals(
         REQUIRED_ATTRIBUTES.get(0).getSimpleName(),
@@ -222,8 +223,10 @@ public class EnmeshedOnboardingServiceTest {
         ((ReadAttributeRequestItem) itemList.items().get(1).getItems().get(1))
             .getQuery()
             .get("valueType"));
+    Assertions.assertTrue(itemList.items().get(1).getItems().get(1).getMustBeAccepted());
 
     // Optional Items
+    Assertions.assertFalse(itemList.items().get(1).getItems().get(2).getMustBeAccepted());
     Assertions.assertEquals(
         OPTIONAL_ATTRIBUTES.get(0).getSimpleName(),
         ((ReadAttributeRequestItem) itemList.items().get(1).getItems().get(2))
@@ -231,6 +234,7 @@ public class EnmeshedOnboardingServiceTest {
             .get("valueType"));
 
     // Created Items
+    Assertions.assertTrue(itemList.items().get(2).getItems().get(0).getMustBeAccepted());
     Assertions.assertEquals(CREATE_ATTRIBUTES.get(0).getSimpleName(), "CreateAttributeRequestItem");
   }
 

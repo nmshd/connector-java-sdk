@@ -205,7 +205,8 @@ public class EnmeshedOnboardingService {
     Map<Class<? extends AttributeValue>, AttributeValue> attributes =
         getSharedSimpleAttributesFromResponseItems(creationContent.getResponse().getItems());
 
-    if (relationship.getStatus() == RelationshipStatus.PENDING) {
+    RelationshipStatus status = relationship.getStatus();
+    if (status == RelationshipStatus.PENDING) {
       boolean decision = acceptanceDecider.test(attributes);
 
       if (decision) {
@@ -223,8 +224,7 @@ public class EnmeshedOnboardingService {
           relationship.getId(),
           true);
 
-    } else if (creationContent.getResponse().getResult()
-        == eu.enmeshed.model.Response.Result.REJECTED) {
+    } else if (status == RelationshipStatus.REJECTED) {
       // Request was accepted by User and us - Get the send Attributes and return them
       return new RegistrationResult(
           attributes,
