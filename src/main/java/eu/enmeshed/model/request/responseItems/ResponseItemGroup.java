@@ -1,5 +1,6 @@
-package eu.enmeshed.model.responseItems;
+package eu.enmeshed.model.request.responseItems;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,11 +12,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class ErrorResponseItem extends ResponseItem {
+public class ResponseItemGroup extends ResponseItem {
 
-  private final Result result = Result.ERROR;
-
-  private String code;
-
-  private String message;
+  private List<ResponseItem> items;
 }

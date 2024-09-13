@@ -1,4 +1,4 @@
-package eu.enmeshed.model.requestItems;
+package eu.enmeshed.model.request.responseItems;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,9 +11,8 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class ConsentRequestItem extends RequestItem {
+public class AttributeAlreadySharedAcceptResponseItem extends ResponseItem {
 
-  private String consent;
-
-  private String link;
+  private String attributeId;
+  private ResponseItem.Result result;
 }

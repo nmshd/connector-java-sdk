@@ -1,4 +1,4 @@
-package eu.enmeshed.model.responseItems;
+package eu.enmeshed.model.request.requestItems;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class FreeTextAcceptResponseItem extends AcceptResponseItem {
-
-  private String freeText;
+public class ConsentRequestItem extends RequestItemDerivation {
+  private String consent;
+  private String link;
 }

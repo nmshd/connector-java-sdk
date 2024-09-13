@@ -2,6 +2,7 @@ package eu.enmeshed.model.messaging;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import eu.enmeshed.model.notification.Notification;
 import eu.enmeshed.model.request.Request;
 import eu.enmeshed.model.request.ResponseWrapper;
 import lombok.Getter;
@@ -13,7 +14,8 @@ import lombok.experimental.SuperBuilder;
 @JsonSubTypes({
   @JsonSubTypes.Type(Mail.class),
   @JsonSubTypes.Type(Request.class),
-  @JsonSubTypes.Type(ResponseWrapper.class)
+  @JsonSubTypes.Type(ResponseWrapper.class),
+  @JsonSubTypes.Type(Notification.class)
 })
 @NoArgsConstructor
 @Getter

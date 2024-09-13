@@ -1,4 +1,4 @@
-package eu.enmeshed.model.responseItems;
+package eu.enmeshed.model.request.responseItems;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,11 +11,9 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class RejectResponseItem extends ResponseItem {
+public class ShareAttributeAcceptResponseItem extends AcceptResponseItem {
 
-  private final Result result = Result.REJECTED;
+  private String attributeId;
 
-  private String code;
-
-  private String message;
+  private Result result;
 }

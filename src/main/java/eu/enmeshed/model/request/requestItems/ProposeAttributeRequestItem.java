@@ -1,5 +1,6 @@
-package eu.enmeshed.model.requestItems;
+package eu.enmeshed.model.request.requestItems;
 
+import eu.enmeshed.model.attributes.Attribute;
 import eu.enmeshed.model.attributes.values.AttributeValue;
 import java.util.Map;
 import lombok.AllArgsConstructor;
@@ -13,14 +14,16 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class ReadAttributeRequestItem extends RequestItem {
+public class ProposeAttributeRequestItem extends RequestItemDerivation {
+
+  private Attribute attribute;
 
   private Map<String, String> query;
 
-  public static <T extends AttributeValue> ReadAttributeRequestItem withIdentityAttributeQuery(
+  public static <T extends AttributeValue> ProposeAttributeRequestItem withIdentityAttributeQuery(
       Class<T> attributeType, boolean mustBeAccepted) {
 
-    return ReadAttributeRequestItem.builder()
+    return ProposeAttributeRequestItem.builder()
         .mustBeAccepted(mustBeAccepted)
         .query(
             Map.of("@type", "IdentityAttributeQuery", "valueType", attributeType.getSimpleName()))

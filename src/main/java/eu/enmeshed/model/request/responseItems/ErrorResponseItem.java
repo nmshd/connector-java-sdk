@@ -1,4 +1,4 @@
-package eu.enmeshed.model.requestItems;
+package eu.enmeshed.model.request.responseItems;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,11 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class FreeTextRequestItem extends RequestItem {
-  Boolean accept;
-  String freeText;
+public class ErrorResponseItem extends ResponseItem {
+
+  private final Result result = Result.ERROR;
+
+  private String code;
+
+  private String message;
 }

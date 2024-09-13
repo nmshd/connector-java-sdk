@@ -2,7 +2,7 @@ package eu.enmeshed.model.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import eu.enmeshed.model.messaging.MessageContent;
-import eu.enmeshed.model.requestItems.RequestItem;
+import eu.enmeshed.model.request.requestItems.RequestItem;
 import java.time.ZonedDateTime;
 import java.util.List;
 import lombok.Getter;

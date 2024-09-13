@@ -1,4 +1,4 @@
-package eu.enmeshed.model.requestItems;
+package eu.enmeshed.model.request.requestItems;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -15,8 +15,8 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "@type")
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class RequestItemGroup {
-  private List<RequestItem> items;
+public class RequestItemGroup extends RequestItem {
+  private List<RequestItemDerivation> items;
   private String title;
   private String description;
   private Map<String, String> metadata;

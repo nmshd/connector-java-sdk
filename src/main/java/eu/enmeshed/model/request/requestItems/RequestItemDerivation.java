@@ -1,9 +1,8 @@
-package eu.enmeshed.model.requestItems;
+package eu.enmeshed.model.request.requestItems;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -15,7 +14,6 @@ import lombok.experimental.SuperBuilder;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "@type")
 @JsonSubTypes({
-  @JsonSubTypes.Type(RequestItemGroup.class),
   @JsonSubTypes.Type(ReadAttributeRequestItem.class),
   @JsonSubTypes.Type(ShareAttributeRequestItem.class),
   @JsonSubTypes.Type(AuthenticationRequestItem.class),
@@ -29,10 +27,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public abstract class RequestItem {
-  private String title;
-  private String description;
-  private Map<String, String> metadata;
+public class RequestItemDerivation extends RequestItem {
   private Boolean requireManualDecision;
   private Boolean mustBeAccepted;
 }

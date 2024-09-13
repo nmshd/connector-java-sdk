@@ -1,4 +1,4 @@
-package eu.enmeshed.model.responseItems;
+package eu.enmeshed.model.request.responseItems;
 
 import eu.enmeshed.model.attributes.Attribute;
 import lombok.AllArgsConstructor;

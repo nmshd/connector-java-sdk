@@ -15,14 +15,16 @@ import eu.enmeshed.model.relationshipTemplates.RelationshipTemplateCreation;
 import eu.enmeshed.model.relationships.Relationship;
 import eu.enmeshed.model.relationships.RelationshipCreationContent;
 import eu.enmeshed.model.relationships.RelationshipStatus;
-import eu.enmeshed.model.requestItems.CreateAttributeRequestItem;
-import eu.enmeshed.model.requestItems.ReadAttributeRequestItem;
-import eu.enmeshed.model.requestItems.RequestItem;
-import eu.enmeshed.model.requestItems.RequestItemGroup;
-import eu.enmeshed.model.requestItems.ShareAttributeRequestItem;
-import eu.enmeshed.model.responseItems.ReadAttributeAcceptResponseItem;
-import eu.enmeshed.model.responseItems.ResponseItem;
-import eu.enmeshed.model.responseItems.ResponseItemGroup;
+import eu.enmeshed.model.request.Request;
+import eu.enmeshed.model.request.requestItems.CreateAttributeRequestItem;
+import eu.enmeshed.model.request.requestItems.ReadAttributeRequestItem;
+import eu.enmeshed.model.request.requestItems.RequestItem;
+import eu.enmeshed.model.request.requestItems.RequestItemDerivation;
+import eu.enmeshed.model.request.requestItems.RequestItemGroup;
+import eu.enmeshed.model.request.requestItems.ShareAttributeRequestItem;
+import eu.enmeshed.model.request.responseItems.ReadAttributeAcceptResponseItem;
+import eu.enmeshed.model.request.responseItems.ResponseItem;
+import eu.enmeshed.model.request.responseItems.ResponseItemGroup;
 import feign.Response;
 import java.io.IOException;
 import java.io.InputStream;
@@ -281,7 +283,7 @@ public class EnmeshedOnboardingService {
     RequestItemGroup requestedAttributesGroup =
         RequestItemGroup.builder().title(displayTextRequestedAttributes).build();
 
-    List<RequestItem> readAttributeItems = new ArrayList<>();
+    List<RequestItemDerivation> readAttributeItems = new ArrayList<>();
     requiredAttributes.stream()
         .map(attribute -> ReadAttributeRequestItem.withIdentityAttributeQuery(attribute, true))
         .forEach(readAttributeItems::add);
@@ -292,7 +294,7 @@ public class EnmeshedOnboardingService {
 
     RequestItemGroup createAttributeGroup =
         RequestItemGroup.builder().title(displayTextCreateAttributes).build();
-    List<RequestItem> createAttributeItems = new ArrayList<>();
+    List<RequestItemDerivation> createAttributeItems = new ArrayList<>();
     createAttributes.stream()
         .map(
             createdAttribute ->
@@ -300,7 +302,7 @@ public class EnmeshedOnboardingService {
         .forEach(createAttributeItems::add);
     createAttributeGroup.setItems(createAttributeItems);
 
-    List<RequestItemGroup> items =
+    List<RequestItem> items =
         new ArrayList<>(Arrays.asList(sharedAttributesGroup, requestedAttributesGroup));
 
     if (!createAttributeGroup.getItems().isEmpty()) {
@@ -309,7 +311,7 @@ public class EnmeshedOnboardingService {
 
     RelationshipTemplateContent relationShipTemplateContent =
         RelationshipTemplateContent.builder()
-            .onNewRelationship(RelationshipTemplateContent.ItemList.builder().items(items).build())
+            .onNewRelationship(Request.builder().items(items).build())
             .build();
 
     Long qrCodeValidityTime =

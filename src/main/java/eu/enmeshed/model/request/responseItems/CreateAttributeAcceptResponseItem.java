@@ -1,6 +1,5 @@
-package eu.enmeshed.model.responseItems;
+package eu.enmeshed.model.request.responseItems;
 
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class ResponseItemGroup extends ResponseItem {
+public class CreateAttributeAcceptResponseItem extends AcceptResponseItem {
 
-  private List<ResponseItem> items;
+  private String attributeId;
 }

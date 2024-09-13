@@ -2,7 +2,7 @@ package eu.enmeshed.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import eu.enmeshed.model.responseItems.ResponseItem;
+import eu.enmeshed.model.request.responseItems.ResponseItem;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

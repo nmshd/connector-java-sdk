@@ -1,4 +1,4 @@
-package eu.enmeshed.model.requestItems;
+package eu.enmeshed.model.request.requestItems;
 
 import eu.enmeshed.model.AttributeWrapper;
 import eu.enmeshed.model.attributes.Attribute;
@@ -14,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class ShareAttributeRequestItem extends RequestItem {
+public class ShareAttributeRequestItem extends RequestItemDerivation {
   private Attribute attribute;
   private String sourceAttributeId;
 

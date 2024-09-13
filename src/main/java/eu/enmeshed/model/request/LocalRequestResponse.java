@@ -15,6 +15,6 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class LocalRequestResponse extends ContentWrapper<Response> {
-  ZonedDateTime createdAt;
-  RequestResponseSource source;
+  private ZonedDateTime createdAt;
+  private RequestResponseSource source;
 }
