@@ -29,9 +29,9 @@ public class Relationship implements WebhookData {
 
   @Data
   public static class PeerDeletionInfo {
-    PeerDeletionStatus status;
+    Status status;
 
-    public enum PeerDeletionStatus {
+    public enum Status {
       @JsonProperty("ToBeDeleted")
       TO_BE_DELETED,
       @JsonProperty("Deleted")
