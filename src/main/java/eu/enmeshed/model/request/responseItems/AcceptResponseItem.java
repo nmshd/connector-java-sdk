@@ -10,6 +10,5 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class AcceptResponseItem extends ResponseItem {
-
   private final Result result = Result.ACCEPTED;
 }

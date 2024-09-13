@@ -35,7 +35,6 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public abstract class ResponseItem {
-
   private Result result;
 
   public enum Result {

@@ -12,6 +12,6 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class FreeTextRequestItem extends RequestItemDerivation {
-  Boolean accept;
-  String freeText;
+  private Boolean accept;
+  private String freeText;
 }
