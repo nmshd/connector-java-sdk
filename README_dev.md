@@ -15,7 +15,7 @@ currently supported methods.
 ### Implementation Status
 
 | Domain                | Overall Status           | Changelog                                                                                                                                                         |
-| --------------------- | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|-----------------------|--------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Monitoring            | ☹️ Not yet implemented   | n/a                                                                                                                                                               |
 | Account               | 📈 Partially implemented | <ul><li>0.1.0<ul><li>add getIdentityInfo</li><li>add Trigger Sync</li></ul></li></ul>                                                                             |
 | Attributes            | 📈 Partially implemented | <ul><li>0.1.0<ul><li>add searchAttributes</li><li>add createAttribute</li></ul></li></ul>                                                                         |
