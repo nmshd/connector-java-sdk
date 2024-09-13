@@ -28,7 +28,7 @@ public class Webhook<T extends WebhookData> {
           WebhookTriggerNames.Consumption.OUTGOING_REQUEST_CREATED,
           WebhookTriggerNames.Consumption.OUTGOING_REQUEST_CREATED_AND_COMPLETED,
           WebhookTriggerNames.Consumption
-              .OUTGOING_REQUEST_FROM_RELATIONSHIP_CREATION_CHANGE_CREATED_AND_COMPLETED
+              .OUTGOING_REQUEST_FROM_RELATIONSHIP_CREATION_CREATED_AND_COMPLETED
         }),
     @JsonSubTypes.Type(
         value = LocalAttribute.class,

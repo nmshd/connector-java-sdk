@@ -1,8 +1,5 @@
 package eu.enmeshed;
 
-import static java.util.List.of;
-import static java.util.Objects.isNull;
-
 import eu.enmeshed.client.EnmeshedClient;
 import eu.enmeshed.model.AttributeWrapper;
 import eu.enmeshed.model.ContentWrapper;
@@ -16,9 +13,8 @@ import eu.enmeshed.model.relationshipTemplates.RelationshipTemplate;
 import eu.enmeshed.model.relationshipTemplates.RelationshipTemplateContent;
 import eu.enmeshed.model.relationshipTemplates.RelationshipTemplateCreation;
 import eu.enmeshed.model.relationships.Relationship;
-import eu.enmeshed.model.relationships.RelationshipChange;
-import eu.enmeshed.model.relationships.RelationshipChangeRequestContent;
-import eu.enmeshed.model.relationships.RelationshipCreationChangeRequestContent;
+import eu.enmeshed.model.relationships.RelationshipCreationContent;
+import eu.enmeshed.model.relationships.RelationshipStatus;
 import eu.enmeshed.model.requestItems.CreateAttributeRequestItem;
 import eu.enmeshed.model.requestItems.ReadAttributeRequestItem;
 import eu.enmeshed.model.requestItems.RequestItem;
@@ -33,10 +29,10 @@ import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 import lombok.Getter;
@@ -44,7 +40,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class EnmeshedOnboardingService {
-
   private static final Long QR_CODE_VALIDITY_MINUTES_DEFAULT = 60L;
   private static final Integer QR_CODE_NUMBER_OF_ALLOCATIONS = 1;
 
@@ -65,11 +60,10 @@ public class EnmeshedOnboardingService {
       String connectorDisplayName,
       List<Class<? extends AttributeValue>> requiredAttributes,
       List<Class<? extends AttributeValue>> optionalAttributes) {
-
     this.enmeshedClient = enmeshedClient;
     this.requiredAttributes = requiredAttributes;
     this.optionalAttributes = optionalAttributes;
-    this.createAttributes = of();
+    this.createAttributes = List.of();
 
     // Get IdentifyInfo
     identityInfo = enmeshedClient.getIdentityInfo().getResult();
@@ -84,7 +78,6 @@ public class EnmeshedOnboardingService {
       List<Class<? extends AttributeValue>> requiredAttributes,
       List<Class<? extends AttributeValue>> optionalAttributes,
       List<Class<? extends RequestItem>> createAttributes) {
-
     this.enmeshedClient = enmeshedClient;
     this.requiredAttributes = requiredAttributes;
     this.optionalAttributes = optionalAttributes;
@@ -98,13 +91,8 @@ public class EnmeshedOnboardingService {
   }
 
   private AttributeWrapper setupConnectorDisplayName(String connectorDisplayName) {
-
     ResultWrapper<List<AttributeWrapper>> foundAttributes =
-        enmeshedClient.searchAttributes(
-            IdentityAttribute.class.getSimpleName(),
-            identityInfo.getAddress(),
-            DisplayName.class.getSimpleName());
-
+        enmeshedClient.searchAttributes(DisplayName.class.getSimpleName());
     Optional<AttributeWrapper> displayNameAttribute =
         foundAttributes.getResult().stream()
             .filter(attribute -> attribute.getContent().getValue() instanceof DisplayName)
@@ -130,7 +118,6 @@ public class EnmeshedOnboardingService {
 
     // Attribute not found - Create it!
     IdentityAttribute identityAttribute = new IdentityAttribute();
-    identityAttribute.setOwner(identityInfo.getAddress());
     identityAttribute.setValue(DisplayName.builder().value(connectorDisplayName).build());
 
     AttributeWrapper createdDisplayNameAttribute =
@@ -152,14 +139,12 @@ public class EnmeshedOnboardingService {
       String displayTextSharedAttributes,
       String displayTextCreateAttributes,
       Long qrCodeValidityMinutes) {
-
     RelationshipTemplate relationshipTemplate =
         createOnboardingRelationshipTemplate(
             displayTextRequestedAttributes,
             displayTextSharedAttributes,
             displayTextCreateAttributes,
             qrCodeValidityMinutes);
-
     Response qrCodeResponse =
         enmeshedClient.getQrCodeForRelationshipTemplate(relationshipTemplate.getId());
 
@@ -216,56 +201,36 @@ public class EnmeshedOnboardingService {
     }
 
     Relationship relationship = relationships.get(0);
-    RelationshipChange relationshipChange = relationship.getChanges().get(0);
-
-    RelationshipChangeRequestContent relationshipChangeRequestContent =
-        relationshipChange.getRequest().getContent();
-
-    RelationshipCreationChangeRequestContent relationshipCreationChangeRequestContent =
-        (RelationshipCreationChangeRequestContent) relationshipChangeRequestContent;
-
+    RelationshipCreationContent creationContent = relationship.getCreationContent();
     Map<Class<? extends AttributeValue>, AttributeValue> attributes =
-        getSharedSimpleAttributesFromResponseItems(
-            relationshipCreationChangeRequestContent.getResponse().getItems());
+        getSharedSimpleAttributesFromResponseItems(creationContent.getResponse().getItems());
 
-    if (relationshipChange.getStatus() == RelationshipChange.Status.PENDING) {
+    RelationshipStatus status = relationship.getStatus();
+    if (status == RelationshipStatus.PENDING) {
       boolean decision = acceptanceDecider.test(attributes);
 
       if (decision) {
-        enmeshedClient.acceptRelationshipChange(
-            relationship.getId(),
-            relationshipChange.getId(),
-            ContentWrapper.containing(Collections.emptyMap()));
+        enmeshedClient.acceptRelationship(relationship.getId());
       } else {
-        enmeshedClient.rejectRelationshipChange(
-            relationship.getId(),
-            relationshipChange.getId(),
-            ContentWrapper.containing(Collections.emptyMap()));
+        enmeshedClient.rejectRelationship(relationship.getId());
       }
-
       return checkRegistrationState(relationshipTemplateId, registrationResult -> decision);
-    } else if (relationshipChange.getStatus() == RelationshipChange.Status.ACCEPTED) {
-
+    } else if (status == RelationshipStatus.ACTIVE) {
       // Request was accepted by User and us - Get the send Attributes and return them
       return new RegistrationResult(
           attributes,
           relationships.get(0).getPeerIdentity().getAddress(),
-          relationshipChange.getId(),
           relationship.getId(),
           true);
 
-    } else if (relationshipChange.getStatus() == RelationshipChange.Status.REJECTED) {
-
+    } else if (status == RelationshipStatus.REJECTED) {
       // Request was accepted by User and us - Get the send Attributes and return them
       return new RegistrationResult(
           attributes,
           relationships.get(0).getPeerIdentity().getAddress(),
-          relationshipChange.getId(),
           relationship.getId(),
           false);
     } else {
-
-      // Unknown Relationship State - This shouldn't happen.
       return null;
     }
   }
@@ -309,15 +274,12 @@ public class EnmeshedOnboardingService {
     RequestItemGroup sharedAttributesGroup =
         RequestItemGroup.builder()
             .title(displayTextSharedAttributes)
-            .mustBeAccepted(true)
-            .items(of(ShareAttributeRequestItem.fromWrapper(connectorDisplayNameAttribute, true)))
+            .items(
+                List.of(ShareAttributeRequestItem.fromWrapper(connectorDisplayNameAttribute, true)))
             .build();
 
     RequestItemGroup requestedAttributesGroup =
-        RequestItemGroup.builder()
-            .title(displayTextRequestedAttributes)
-            .mustBeAccepted(true)
-            .build();
+        RequestItemGroup.builder().title(displayTextRequestedAttributes).build();
 
     List<RequestItem> readAttributeItems = new ArrayList<>();
     requiredAttributes.stream()
@@ -329,7 +291,7 @@ public class EnmeshedOnboardingService {
     requestedAttributesGroup.setItems(readAttributeItems);
 
     RequestItemGroup createAttributeGroup =
-        RequestItemGroup.builder().title(displayTextCreateAttributes).mustBeAccepted(true).build();
+        RequestItemGroup.builder().title(displayTextCreateAttributes).build();
     List<RequestItem> createAttributeItems = new ArrayList<>();
     createAttributes.stream()
         .map(
@@ -351,7 +313,9 @@ public class EnmeshedOnboardingService {
             .build();
 
     Long qrCodeValidityTime =
-        isNull(qrCodeValidityMinutes) ? QR_CODE_VALIDITY_MINUTES_DEFAULT : qrCodeValidityMinutes;
+        Objects.isNull(qrCodeValidityMinutes)
+            ? QR_CODE_VALIDITY_MINUTES_DEFAULT
+            : qrCodeValidityMinutes;
 
     RelationshipTemplateCreation relationShipTemplateCreation =
         RelationshipTemplateCreation.builder()
@@ -369,7 +333,6 @@ public class EnmeshedOnboardingService {
   public record RegistrationResult(
       Map<Class<? extends AttributeValue>, AttributeValue> attributes,
       String enmeshedAddress,
-      String relationshipChangeId,
       String relationshipId,
       boolean accepted) {}
 }

@@ -37,7 +37,6 @@ import feign.jackson.JacksonEncoder;
 import java.util.List;
 
 public interface EnmeshedClient {
-
   ObjectMapper objectMapper =
       new ObjectMapper()
           .registerModule(new JavaTimeModule())
@@ -47,13 +46,11 @@ public interface EnmeshedClient {
           .setDateFormat(new StdDateFormat().withColonInTimeZone(true));
 
   static EnmeshedClient configure(String url, String apiKey) {
-
     return configure(url, apiKey, new Request.Options(), Logger.Level.NONE);
   }
 
   static EnmeshedClient configure(
       String url, String apiKey, Request.Options options, Logger.Level loggerLevel) {
-
     return Feign.builder()
         .decoder(new JacksonDecoder(objectMapper))
         .encoder(new FormEncoder(new JacksonEncoder(objectMapper)))
@@ -77,15 +74,16 @@ public interface EnmeshedClient {
   /*
    Attributes
   */
-  @RequestLine("GET /api/v2/Attributes?content.@type={0}&content.owner={1}&content.value.@type={2}")
-  ResultWrapper<List<AttributeWrapper>> searchAttributes(
-      @Param("0") String contentType,
-      @Param("1") String contentOwner,
-      @Param("2") String contentValueType);
+  @RequestLine("GET /api/v2/Attributes?content.value.@type={type}")
+  ResultWrapper<List<AttributeWrapper>> searchAttributes(@Param("type") String contentValueType);
 
   @RequestLine("POST /api/v2/Attributes")
-  @Headers("Content-Type: application/json")
+  @Headers({"Content-Type: application/json"})
   ResultWrapper<AttributeWrapper> createAttribute(ContentWrapper<Attribute> attribute);
+
+  @RequestLine("GET /api/v2/Attributes/{id}")
+  @Headers("Content-Type: application/json")
+  ResultWrapper<AttributeWrapper> getAttributeById(@Param("id") String attributeId);
 
   /*
    Relationship Templates
@@ -111,19 +109,16 @@ public interface EnmeshedClient {
   ResultWrapper<List<Relationship>> searchRelationships(
       @Param("0") String templateId, @Param("1") String peer, @Param("2") String status);
 
-  @RequestLine("PUT /api/v2/Relationships/{0}/Changes/{1}/Accept")
-  @Headers("Content-Type: application/json")
-  ResultWrapper<Relationship> acceptRelationshipChange(
-      @Param("0") String relationshipId,
-      @Param("1") String changeId,
-      ContentWrapper<Object> dummyBody);
+  @RequestLine("GET /api/v2/Relationships/{id}")
+  ResultWrapper<Relationship> getRelationshipById(@Param("id") String id);
 
-  @RequestLine("PUT /api/v2/Relationships/{0}/Changes/{1}/Reject")
+  @RequestLine("PUT /api/v2/Relationships/{id}/Accept")
   @Headers("Content-Type: application/json")
-  ResultWrapper<Relationship> rejectRelationshipChange(
-      @Param("0") String relationshipId,
-      @Param("1") String changeId,
-      ContentWrapper<Object> dummyBody);
+  ResultWrapper<Relationship> acceptRelationship(@Param("id") String id);
+
+  @RequestLine("PUT /api/v2/Relationships/{0}/Reject")
+  @Headers("Content-Type: application/json")
+  ResultWrapper<Relationship> rejectRelationship(@Param("id") String id);
 
   /*
    Messages
@@ -165,7 +160,7 @@ public interface EnmeshedClient {
    */
   @Retryable
   @RequestLine("POST /api/v2/Files/Own")
-  @Headers({"Content-Type:  multipart/form-data", "accept: application/json"})
+  @Headers({"Content-Type:  multipart/form-data"})
   ResultWrapper<FileMetaData> uploadNewOwnFile(FileUploadRequest fileUploadRequest);
 
   @Retryable
