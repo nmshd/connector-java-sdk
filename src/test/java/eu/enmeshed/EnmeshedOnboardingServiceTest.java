@@ -22,19 +22,19 @@ import eu.enmeshed.model.attributes.values.identity.EMailAddress;
 import eu.enmeshed.model.attributes.values.identity.GivenName;
 import eu.enmeshed.model.attributes.values.identity.Surname;
 import eu.enmeshed.model.relationshipTemplates.RelationshipTemplate;
-import eu.enmeshed.model.relationshipTemplates.RelationshipTemplateContent;
 import eu.enmeshed.model.relationshipTemplates.RelationshipTemplateCreation;
 import eu.enmeshed.model.relationships.Relationship;
 import eu.enmeshed.model.relationships.RelationshipCreationContent;
 import eu.enmeshed.model.relationships.RelationshipStatus;
+import eu.enmeshed.model.request.Request;
 import eu.enmeshed.model.request.requestItems.CreateAttributeRequestItem;
 import eu.enmeshed.model.request.requestItems.ReadAttributeRequestItem;
 import eu.enmeshed.model.request.requestItems.RequestItem;
+import eu.enmeshed.model.request.requestItems.RequestItemGroup;
 import eu.enmeshed.model.request.requestItems.ShareAttributeRequestItem;
 import eu.enmeshed.model.request.responseItems.ReadAttributeAcceptResponseItem;
 import eu.enmeshed.model.request.responseItems.ResponseItem;
 import eu.enmeshed.model.request.responseItems.ResponseItemGroup;
-import feign.Request;
 import java.time.Instant;
 import java.util.Collections;
 import java.util.List;
@@ -173,8 +173,8 @@ public class EnmeshedOnboardingServiceTest {
                 .status(200)
                 .body(testQrCodeData)
                 .request(
-                    Request.create(
-                        Request.HttpMethod.GET, "", Collections.emptyMap(), null, null, null))
+                    feign.Request.create(
+                    feign.Request.HttpMethod.GET, "", Collections.emptyMap(), null, null, null))
                 .build());
 
     EnmeshedOnboardingService.RegistrationData registrationData =
@@ -197,44 +197,44 @@ public class EnmeshedOnboardingServiceTest {
                 - Instant.now().toEpochMilli()
             > 3_595_000);
 
-    RelationshipTemplateContent.ItemList itemList =
+    Request request =
         relationshipTemplateCreationArgumentCaptor.getValue().getContent().getOnNewRelationship();
 
     // Shared Items
-    Assertions.assertTrue(itemList.items().get(0).getItems().get(0).getMustBeAccepted());
-    Assertions.assertEquals(testDisplayNameSharedAttributes, itemList.items().get(0).getTitle());
+    Assertions.assertTrue(((RequestItemGroup) request.getItems().get(0) ).getItems().get(0).getMustBeAccepted());
+    Assertions.assertEquals(testDisplayNameSharedAttributes, request.getItems().get(0).getTitle());
     Assertions.assertEquals(
         CONNECTOR_DISPLAY_NAME,
         ((DisplayName)
-                ((ShareAttributeRequestItem) itemList.items().get(0).getItems().get(0))
+                ((ShareAttributeRequestItem) ((RequestItemGroup) request.getItems().get(0)).getItems().get(0))
                     .getAttribute()
                     .getValue())
             .getValue());
     // Required Items
-    Assertions.assertTrue(itemList.items().get(1).getItems().get(0).getMustBeAccepted());
-    Assertions.assertEquals(testDisplayNameRequestedAttributes, itemList.items().get(1).getTitle());
+    Assertions.assertTrue(((RequestItemGroup) request.getItems().get(1)).getItems().get(0).getMustBeAccepted());
+    Assertions.assertEquals(testDisplayNameRequestedAttributes, request.getItems().get(1).getTitle());
     Assertions.assertEquals(
         REQUIRED_ATTRIBUTES.get(0).getSimpleName(),
-        ((ReadAttributeRequestItem) itemList.items().get(1).getItems().get(0))
+        ((ReadAttributeRequestItem) ((RequestItemGroup) request.getItems().get(1)).getItems().get(0))
             .getQuery()
             .get("valueType"));
     Assertions.assertEquals(
         REQUIRED_ATTRIBUTES.get(1).getSimpleName(),
-        ((ReadAttributeRequestItem) itemList.items().get(1).getItems().get(1))
+        ((ReadAttributeRequestItem) ((RequestItemGroup) request.getItems().get(1)).getItems().get(1))
             .getQuery()
             .get("valueType"));
-    Assertions.assertTrue(itemList.items().get(1).getItems().get(1).getMustBeAccepted());
+    Assertions.assertTrue(((RequestItemGroup) request.getItems().get(1)).getItems().get(1).getMustBeAccepted());
 
     // Optional Items
-    Assertions.assertFalse(itemList.items().get(1).getItems().get(2).getMustBeAccepted());
+    Assertions.assertFalse(((RequestItemGroup) request.getItems().get(1)).getItems().get(2).getMustBeAccepted());
     Assertions.assertEquals(
         OPTIONAL_ATTRIBUTES.get(0).getSimpleName(),
-        ((ReadAttributeRequestItem) itemList.items().get(1).getItems().get(2))
+        ((ReadAttributeRequestItem) ((RequestItemGroup) request.getItems().get(1)).getItems().get(2))
             .getQuery()
             .get("valueType"));
 
     // Created Items
-    Assertions.assertTrue(itemList.items().get(2).getItems().get(0).getMustBeAccepted());
+    Assertions.assertTrue(((RequestItemGroup) request.getItems().get(2)).getItems().get(0).getMustBeAccepted());
     Assertions.assertEquals(CREATE_ATTRIBUTES.get(0).getSimpleName(), "CreateAttributeRequestItem");
   }
 
