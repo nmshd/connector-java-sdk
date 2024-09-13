@@ -14,18 +14,18 @@ currently supported methods.
 
 ### Implementation Status
 
-| Domain                | Overall Status           | Changelog                                                                                                                                                         |
-|-----------------------|--------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Monitoring            | ☹️ Not yet implemented   | n/a                                                                                                                                                               |
-| Account               | 📈 Partially implemented | <ul><li>0.1.0<ul><li>add getIdentityInfo</li><li>add Trigger Sync</li></ul></li></ul>                                                                             |
-| Attributes            | 📈 Partially implemented | <ul><li>0.1.0<ul><li>add searchAttributes</li><li>add createAttribute</li></ul></li></ul>                                                                         |
-| Challenges            | ☹️ Not yet implemented   | n/a                                                                                                                                                               |
-| Files                 | 📈 Partially implemented | <ul><li>0.4.0<ul><li>add uploadNewOwnFile</li></ul></li></ul>                                                                                                     |
-| Messages              | 📈 Partially implemented | <ul><li>0.2.0<ul><li>add sendMessage</li><li>add searchMessages</li><li>add getMessageById</li></ul></li></ul>                                                    |
-| Relationships         | 📈 Partially implemented | <ul><li>0.1.0<ul><li>add searchRelationships</li><li>add acceptRelationshipChange</li></ul></li><li>0.3.0<ul><li>add rejectRelationshipChange</li></ul></li></ul> |
-| RelationshipTemplates | 📈 Partially implemented | <ul><li>0.1.0<ul><li>add createOwnRelationshipTemplate</li><li>add getQrCodeForRelationshipTemplate</li></ul></li></ul>                                           |
-| Requests              | 📈 Partially implemented | <ul><li>0.2.0<ul><li>add createOutgoingRequest</li><li>add getOutgoingRequest</li></ul></li></ul>                                                                 |
-| Tokens                | ☹️ Not yet implemented   | n/a                                                                                                                                                               |
+| Domain                | Overall Status           | Changelog |
+|-----------------------|--------------------------|-----------|
+| Monitoring            | ☹️ Not yet implemented   | n/a       |
+| Account               | 📈 Partially implemented | n/a       |
+| Attributes            | 📈 Partially implemented | n/a       |
+| Challenges            | ☹️ Not yet implemented   | n/a       |
+| Files                 | 📈 Partially implemented | n/a       |
+| Messages              | 📈 Partially implemented | n/a       |
+| Relationships         | 📈 Partially implemented |           |
+| RelationshipTemplates | 📈 Partially implemented | n/a       |
+| Requests              | 📈 Partially implemented | n/a       |
+| Tokens                | ☹️ Not yet implemented   | n/a       |
 
 ### Setup
 
@@ -68,21 +68,21 @@ which will result in:
 
 ### Implementation Status
 
-| Domain                 | Overall Status              | Changelog                                                                                                                                                                                                                                                                                                                                      |
-| ---------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
-| Token                  | ☹️ Not yet implemented      |                                                                                                                                                                                                                                                                                                                                                |
-| RelationshipTemplate   | 🥳 Implementation completed | <ul><li>0.1.0<ul><li>add RelationshipTemplate</li><li>add RelationshipTemplateContent</li><li>add RelationshipTemplateCreation</li></ul></li></ul>                                                                                                                                                                                             |
-| Relationship           | 🥳 Implementation completed | <ul><li>0.1.0<ul><li>add Relationship</li><li>add RelationshipChange</li><li>add RelationshipChangeRequest</li><li>add RelationshipChangeResponse</li></ul></li><li>0.2.0<ul><li>refactor Response-Record to reusable Response-Class (constructor replaced by builder!)</li></ul></li></ul>                                                    |
-| Messaging              | 🥳 Implementation completed | <ul><li>0.2.0<ul><li>add Message, Recipient</li><li>add MessageContent: Mail, Request, ResponseWrapper</li><li>add RelationshipChangeRequest</li><li>add RelationshipChangeResponse</li></ul></li></ul>                                                                                                                                        |
-| Files                  | 📈 Partially implemented    | <ul><li>0.4.0<ul><li>add FileMetaData</li></ul></li><li>0.6.0<ul><li>fix: Add missing empty constructor</li></ul></li></ul>                                                                                                                                                                                                                    |
-| Request Items          | 🥳 Implementation completed | <ul><li>0.1.0<ul><li>add RequestItemGroup</li><li>add ReadAttributeRequestItem</li><li>add ShareAttributeRequestItem</li></ul></li><li>0.2.0<ul><li>Add AuthenticationRequestItem</li><li>Add ConsentRequestItem</li><li>Add CreateAttributeRequestItem</li><li>Add FreeTextRequestItem</li><li>Add ProposeAttributeRequestItem</li></ul></ul> |
-| Request                | 🥳 Implementation completed | <ul><li>0.2.0<ul><li>add Request</li><li>add RequestResponse</li><li>add RequestResponseSource</li><li>add RequestSource</li><li>add RequestWrapper</li><li>add ResponseWrapper</li></ul></li><li>0.5.0<ul><li>Rename RequestWrapper to LocalRequest</li></ul></li></ul>                                                                       |
-| Response Items         | 🥳 Implementation completed | <ul><li>0.1.0<ul><li>add ResponseItemGroup</li><li>add generic Response Items (Accept, Reject, Error)</li><li>add specialized Response Items (CreateAttribute, ProposeAttribute, ReadAttribute, ShareAttribute)</li></ul></li><li>0.2.0<ul><li>Fix: Add FreeTextAcceptResponse</li></ul></li></ul>                                             |
-| IdentityAttributes     | 🥳 Implementation completed | <ul><li>0.1.0<ul><li>add all IdentityAttributes</li></ul></li></ul>                                                                                                                                                                                                                                                                            |
-| RelationshipAttributes | 📈 Partially implemented    | <ul><li>0.1.0<ul><li>add Base Class (not yet eligible for usage)</li></ul></li></ul>                                                                                                                                                                                                                                                           |     |
-| Attribute Queries      | ☹️ Not yet implemented      |                                                                                                                                                                                                                                                                                                                                                |
-| Mail                   | 🥳 Implementation completed | <ul><li>0.2.0<ul><li>add Mail</li></ul></li></ul>                                                                                                                                                                                                                                                                                              |     |
-| Event                  | 🥳 Implementation completed | <ul><li>0.5.0<ul><li>add Support for Events</li><li>add LocalAttribute</li></ul></li></ul>                                                                                                                                                                                                                                                     |
+| Domain                 | Overall Status              | Changelog |
+|------------------------|-----------------------------|-----------| 
+| Token                  | ☹️ Not yet implemented      | n/a       |
+| RelationshipTemplate   | 🥳 Implementation completed | n/a       |
+| Relationship           | 🥳 Implementation completed | n/a       |
+| Messaging              | 🥳 Implementation completed | n/a       |
+| Files                  | 📈 Partially implemented    | n/a       |
+| Request Items          | 🥳 Implementation completed | n/a       |
+| Request                | 🥳 Implementation completed | n/a       |
+| Response Items         | 🥳 Implementation completed | n/a       |
+| IdentityAttributes     | 🥳 Implementation completed | n/a       |
+| RelationshipAttributes | 📈 Partially implemented    | n/a       |
+| Attribute Queries      | ☹️ Not yet implemented      | n/a       |
+| Mail                   | 🥳 Implementation completed | n/a       |
+| Event                  | 🥳 Implementation completed | n/a       |
 
 ### Eventing
 
