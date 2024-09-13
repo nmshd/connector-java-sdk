@@ -215,8 +215,7 @@ public class EnmeshedOnboardingService {
         enmeshedClient.rejectRelationship(relationship.getId());
       }
       return checkRegistrationState(relationshipTemplateId, registrationResult -> decision);
-    } else if (creationContent.getResponse().getResult()
-        == eu.enmeshed.model.Response.Result.ACCEPTED) {
+    } else if (status == RelationshipStatus.ACTIVE) {
       // Request was accepted by User and us - Get the send Attributes and return them
       return new RegistrationResult(
           attributes,
