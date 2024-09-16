@@ -14,6 +14,7 @@ import lombok.Setter;
 @Setter
 @Builder
 public class ConnectorSupportInformation {
+
   private ConnectorVersionInfo version;
   private ConnectorHealth health;
   private Map<String, Object> configuration;

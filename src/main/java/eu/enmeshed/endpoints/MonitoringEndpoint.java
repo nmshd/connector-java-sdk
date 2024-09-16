@@ -9,6 +9,7 @@ import feign.Headers;
 import feign.RequestLine;
 
 public interface MonitoringEndpoint {
+
   static MonitoringEndpoint configure(String url, Builder builder) {
     return builder.target(MonitoringEndpoint.class, url);
   }

@@ -5,6 +5,7 @@ import lombok.Builder;
 
 @Builder
 public class GetMessagesQuery {
+
   private String createdBy;
   private String createdByDevice;
   private String createdAt;

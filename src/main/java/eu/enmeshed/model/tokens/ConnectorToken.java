@@ -12,6 +12,7 @@ import lombok.Setter;
 @Setter
 @Builder
 public class ConnectorToken {
+
   private String id;
   private String createdBy;
   private String createdByDevice;

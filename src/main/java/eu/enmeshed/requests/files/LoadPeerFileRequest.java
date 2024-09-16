@@ -4,5 +4,6 @@ import lombok.Builder;
 
 @Builder
 public class LoadPeerFileRequest {
+
   private String reference;
 }

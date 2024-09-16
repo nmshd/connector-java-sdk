@@ -1,8 +1,8 @@
 package eu.enmeshed.endpoints;
 
 import eu.enmeshed.ConnectorResponse;
-import eu.enmeshed.model.ContentWrapper;
 import eu.enmeshed.model.ConnectorAttribute;
+import eu.enmeshed.model.ContentWrapper;
 import eu.enmeshed.model.attributes.Attribute;
 import eu.enmeshed.requests.attributes.SucceedAttributeRequest;
 import feign.Feign.Builder;

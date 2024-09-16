@@ -4,6 +4,7 @@ import lombok.Builder;
 
 @Builder
 public class GetFilesQuery {
+
   private String createdAt;
   private String createdBy;
   private String createdByDevice;

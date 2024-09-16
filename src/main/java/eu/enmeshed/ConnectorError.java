@@ -8,6 +8,7 @@ public record ConnectorError(
     String time,
     String details,
     String[] stackTrace) {
+
   Exception toException() {
     return new Exception(message);
   }

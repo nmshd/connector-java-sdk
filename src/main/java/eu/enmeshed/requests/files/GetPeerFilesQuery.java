@@ -4,6 +4,7 @@ import lombok.Builder;
 
 @Builder
 public class GetPeerFilesQuery {
+
   private String createdAt;
   private String createdBy;
   private String description;

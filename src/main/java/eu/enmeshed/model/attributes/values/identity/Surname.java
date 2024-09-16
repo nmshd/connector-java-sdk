@@ -10,4 +10,6 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class Surname extends SimpleStringAttributeValue {}
+public class Surname extends SimpleStringAttributeValue {
+
+}

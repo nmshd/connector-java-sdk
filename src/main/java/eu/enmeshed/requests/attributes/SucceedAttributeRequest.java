@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,6 +21,7 @@ public class SucceedAttributeRequest {
   @Getter
   @Builder
   static class SuccessorContent {
+
     private AttributeValue value;
     private List<String> tags;
     private ZonedDateTime validFrom;

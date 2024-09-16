@@ -13,6 +13,7 @@ import lombok.Setter;
 @Setter
 @Builder
 public class ConnectorRequestCount {
+
   private String since;
   private int requestCount;
   private Map<String, Integer> requestCountByStatus;

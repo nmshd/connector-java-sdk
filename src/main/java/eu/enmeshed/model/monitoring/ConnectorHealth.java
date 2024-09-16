@@ -13,6 +13,7 @@ import lombok.Setter;
 @Setter
 @Builder
 public class ConnectorHealth {
+
   private Boolean isHealthy;
   private Map<String, String> services;
 }

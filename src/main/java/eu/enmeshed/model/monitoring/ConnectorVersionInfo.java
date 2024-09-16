@@ -12,6 +12,7 @@ import lombok.Setter;
 @Setter
 @Builder
 public class ConnectorVersionInfo {
+
   private String version;
   private String build;
   private String date;
