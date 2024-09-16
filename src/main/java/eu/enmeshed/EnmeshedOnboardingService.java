@@ -227,7 +227,6 @@ public class EnmeshedOnboardingService {
           relationships.get(0).getPeerIdentity().getAddress(),
           relationship.getId(),
           true);
-
     } else if (status == RelationshipStatus.REJECTED) {
       // Request was accepted by User and us - Get the send Attributes and return them
       return new RegistrationResult(

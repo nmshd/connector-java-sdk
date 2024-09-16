@@ -35,130 +35,131 @@ import feign.jackson.JacksonEncoder;
 import java.util.List;
 
 public interface EnmeshedClient {
-    ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule())
-            .setSerializationInclusion(JsonInclude.Include.NON_ABSENT)
-            .disable(SerializationFeature.INDENT_OUTPUT)
-            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-            .setDateFormat(new StdDateFormat().withColonInTimeZone(true));
 
-    static EnmeshedClient configure(String url, String apiKey) {
-        return configure(url, apiKey, new feign.Request.Options(), Logger.Level.NONE);
-    }
+  ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule())
+      .setSerializationInclusion(JsonInclude.Include.NON_ABSENT)
+      .disable(SerializationFeature.INDENT_OUTPUT)
+      .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+      .setDateFormat(new StdDateFormat().withColonInTimeZone(true));
 
-    static EnmeshedClient configure(String url, String apiKey, feign.Request.Options options, Logger.Level loggerLevel) {
-        return Feign.builder()
-                .decoder(new JacksonDecoder(objectMapper))
-                .encoder(new FormEncoder(new JacksonEncoder(objectMapper)))
-                .requestInterceptor(request -> request.header("X-API-KEY", apiKey))
-                .logLevel(loggerLevel)
-                .options(options)
-                .errorDecoder(new EnmeshedErrorDecoder())
-                .target(EnmeshedClient.class, url);
-    }
+  static EnmeshedClient configure(String url, String apiKey) {
+    return configure(url, apiKey, new feign.Request.Options(), Logger.Level.NONE);
+  }
 
-    /*
-     Account
-    */
-    @RequestLine("GET /api/v2/Account/IdentityInfo")
-    ResultWrapper<IdentityInfo> getIdentityInfo();
+  static EnmeshedClient configure(String url, String apiKey, feign.Request.Options options, Logger.Level loggerLevel) {
+    return Feign.builder()
+        .decoder(new JacksonDecoder(objectMapper))
+        .encoder(new FormEncoder(new JacksonEncoder(objectMapper)))
+        .requestInterceptor(request -> request.header("X-API-KEY", apiKey))
+        .logLevel(loggerLevel)
+        .options(options)
+        .errorDecoder(new EnmeshedErrorDecoder())
+        .target(EnmeshedClient.class, url);
+  }
 
-    @RequestLine("POST /api/v2/Account/Sync")
-    void sync();
+  /*
+   Account
+  */
+  @RequestLine("GET /api/v2/Account/IdentityInfo")
+  ResultWrapper<IdentityInfo> getIdentityInfo();
 
-    /*
-     Attributes
-    */
-    @RequestLine("GET /api/v2/Attributes?content.value.@type={type}")
-    ResultWrapper<List<AttributeWrapper>> searchAttributes(@Param("type") String contentValueType);
+  @RequestLine("POST /api/v2/Account/Sync")
+  void sync();
 
-    @RequestLine("POST /api/v2/Attributes")
-    @Headers({"Content-Type: application/json"})
-    ResultWrapper<AttributeWrapper> createAttribute(ContentWrapper<Attribute> attribute);
+  /*
+   Attributes
+  */
+  @RequestLine("GET /api/v2/Attributes?content.value.@type={type}")
+  ResultWrapper<List<AttributeWrapper>> searchAttributes(@Param("type") String contentValueType);
 
-    @RequestLine("GET /api/v2/Attributes/{id}")
-    @Headers("Content-Type: application/json")
-    ResultWrapper<AttributeWrapper> getAttributeById(@Param("id") String attributeId);
+  @RequestLine("POST /api/v2/Attributes")
+  @Headers({"Content-Type: application/json"})
+  ResultWrapper<AttributeWrapper> createAttribute(ContentWrapper<Attribute> attribute);
 
-    /*
-     Relationship Templates
-    */
-    @RequestLine("POST /api/v2/RelationshipTemplates/Own")
-    @Headers("Content-Type: application/json")
-    ResultWrapper<RelationshipTemplate> createOwnRelationshipTemplate(RelationshipTemplateCreation relationshipTemplate);
+  @RequestLine("GET /api/v2/Attributes/{id}")
+  @Headers("Content-Type: application/json")
+  ResultWrapper<AttributeWrapper> getAttributeById(@Param("id") String attributeId);
 
-    @RequestLine("GET /api/v2/RelationshipTemplates/{0}")
-    @Headers("Accept: image/png")
-    Response getQrCodeForRelationshipTemplate(@Param("0") String relationshipTemplateId);
+  /*
+   Relationship Templates
+  */
+  @RequestLine("POST /api/v2/RelationshipTemplates/Own")
+  @Headers("Content-Type: application/json")
+  ResultWrapper<RelationshipTemplate> createOwnRelationshipTemplate(RelationshipTemplateCreation relationshipTemplate);
 
-    @RequestLine("GET /api/v2/RelationshipTemplates/{relationshipTemplateId}")
-    @Headers("Accept: application/json")
-    ResultWrapper<QrCode> createRelationshipQrCode(@Param("relationshipTemplateId") String relationshipTemplateId);
+  @RequestLine("GET /api/v2/RelationshipTemplates/{0}")
+  @Headers("Accept: image/png")
+  Response getQrCodeForRelationshipTemplate(@Param("0") String relationshipTemplateId);
 
-    /*
-     Relationships
-    */
-    @RequestLine("GET /api/v2/Relationships?template.id={0}&peer={1}&status={2}")
-    ResultWrapper<List<Relationship>> searchRelationships(@Param("0") String templateId, @Param("1") String peer,
-                                                          @Param("2") String status);
+  @RequestLine("GET /api/v2/RelationshipTemplates/{relationshipTemplateId}")
+  @Headers("Accept: application/json")
+  ResultWrapper<QrCode> createRelationshipQrCode(@Param("relationshipTemplateId") String relationshipTemplateId);
 
-    @RequestLine("GET /api/v2/Relationships/{id}")
-    ResultWrapper<Relationship> getRelationshipById(@Param("id") String id);
+  /*
+   Relationships
+  */
+  @RequestLine("GET /api/v2/Relationships?template.id={0}&peer={1}&status={2}")
+  ResultWrapper<List<Relationship>> searchRelationships(@Param("0") String templateId, @Param("1") String peer,
+      @Param("2") String status);
 
-    @RequestLine("PUT /api/v2/Relationships/{id}/Accept")
-    @Headers("Content-Type: application/json")
-    ResultWrapper<Relationship> acceptRelationship(@Param("id") String id);
+  @RequestLine("GET /api/v2/Relationships/{id}")
+  ResultWrapper<Relationship> getRelationshipById(@Param("id") String id);
 
-    @RequestLine("PUT /api/v2/Relationships/{0}/Reject")
-    @Headers("Content-Type: application/json")
-    ResultWrapper<Relationship> rejectRelationship(@Param("id") String id);
+  @RequestLine("PUT /api/v2/Relationships/{id}/Accept")
+  @Headers("Content-Type: application/json")
+  ResultWrapper<Relationship> acceptRelationship(@Param("id") String id);
 
-    /*
-     Messages
-    */
-    @RequestLine("POST /api/v2/Messages")
-    @Headers("Content-Type: application/json")
-    ResultWrapper<Message> sendMessage(SendMessage message);
+  @RequestLine("PUT /api/v2/Relationships/{0}/Reject")
+  @Headers("Content-Type: application/json")
+  ResultWrapper<Relationship> rejectRelationship(@Param("id") String id);
 
-    @RequestLine("GET /api/v2/Messages")
-    ResultWrapper<List<Message>> searchMessages(@QueryMap MessageSearchQuery searchQuery);
+  /*
+   Messages
+  */
+  @RequestLine("POST /api/v2/Messages")
+  @Headers("Content-Type: application/json")
+  ResultWrapper<Message> sendMessage(SendMessage message);
 
-    @RequestLine("GET /api/v2/Messages/{0}")
-    ResultWrapper<Message> getMessageById(@Param("0") String id);
+  @RequestLine("GET /api/v2/Messages")
+  ResultWrapper<List<Message>> searchMessages(@QueryMap MessageSearchQuery searchQuery);
 
-    /*
-     Requests
-    */
-    @RequestLine("POST /api/v2/Requests/Outgoing")
-    @Headers("Content-Type: application/json")
-    ResultWrapper<LocalRequest> createOutgoingRequest(LocalRequest request);
+  @RequestLine("GET /api/v2/Messages/{0}")
+  ResultWrapper<Message> getMessageById(@Param("0") String id);
 
-    @RequestLine("GET /api/v2/Requests/Outgoing/{0}")
-    ResultWrapper<LocalRequest> getOutgoingRequest(@Param("0") String requestId);
+  /*
+   Requests
+  */
+  @RequestLine("POST /api/v2/Requests/Outgoing")
+  @Headers("Content-Type: application/json")
+  ResultWrapper<LocalRequest> createOutgoingRequest(LocalRequest request);
 
-    @RequestLine("GET /api/v2/Requests/Incoming/{requestId}")
-    @Headers("Content-Type: application/json")
-    ResultWrapper<LocalRequest> getIncomingRequestById(@Param("requestId") String requestId);
+  @RequestLine("GET /api/v2/Requests/Outgoing/{0}")
+  ResultWrapper<LocalRequest> getOutgoingRequest(@Param("0") String requestId);
 
-    @RequestLine("PUT /api/v2/Requests/Incoming/{requestId}/Accept")
-    @Headers("Content-Type: application/json")
-    ResultWrapper<LocalRequest> acceptIncomingRequestById(@Param("requestId") String requestId, Request request);
+  @RequestLine("GET /api/v2/Requests/Incoming/{requestId}")
+  @Headers("Content-Type: application/json")
+  ResultWrapper<LocalRequest> getIncomingRequestById(@Param("requestId") String requestId);
 
-    /*
-    Files
-     */
-    @RequestLine("POST /api/v2/Files/Own")
-    @Headers({"Content-Type:  multipart/form-data"})
-    ResultWrapper<FileMetaData> uploadNewOwnFile(FileUploadRequest fileUploadRequest);
+  @RequestLine("PUT /api/v2/Requests/Incoming/{requestId}/Accept")
+  @Headers("Content-Type: application/json")
+  ResultWrapper<LocalRequest> acceptIncomingRequestById(@Param("requestId") String requestId, Request request);
 
-    @RequestLine("GET /api/v2/Files/{fileId}/Download")
-    @Headers("Accept: application/json")
-    Response getFileResponseById(@Param("fileId") String fileId);
+  /*
+  Files
+   */
+  @RequestLine("POST /api/v2/Files/Own")
+  @Headers({"Content-Type:  multipart/form-data"})
+  ResultWrapper<FileMetaData> uploadNewOwnFile(FileUploadRequest fileUploadRequest);
 
-    @RequestLine("GET /api/v2/Files/{fileId}")
-    @Headers("Accept: application/json")
-    ResultWrapper<FileMetaData> getFileMetadataByFileId(@Param("fileId") String fileId);
+  @RequestLine("GET /api/v2/Files/{fileId}/Download")
+  @Headers("Accept: application/json")
+  Response getFileResponseById(@Param("fileId") String fileId);
 
-    @RequestLine("POST /api/v2/Files/Peer")
-    @Headers("Content-Type: application/json")
-    ResultWrapper<FileMetaData> getFileMetadataByReference(FileReference reference);
+  @RequestLine("GET /api/v2/Files/{fileId}")
+  @Headers("Accept: application/json")
+  ResultWrapper<FileMetaData> getFileMetadataByFileId(@Param("fileId") String fileId);
+
+  @RequestLine("POST /api/v2/Files/Peer")
+  @Headers("Content-Type: application/json")
+  ResultWrapper<FileMetaData> getFileMetadataByReference(FileReference reference);
 }
