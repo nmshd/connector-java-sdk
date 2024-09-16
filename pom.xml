@@ -21,7 +21,6 @@
         <junit.version>5.10.1</junit.version>
         <slf4j.version>2.0.10</slf4j.version>
         <fmt.maven.plugin.version>2.23</fmt.maven.plugin.version>
-        <argLine>-Duser.language=en</argLine>
     </properties>
 
     <distributionManagement>
