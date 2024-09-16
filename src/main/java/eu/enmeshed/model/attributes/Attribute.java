@@ -16,8 +16,8 @@ import lombok.experimental.SuperBuilder;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "@type")
 @JsonSubTypes({
-    @JsonSubTypes.Type(IdentityAttribute.class),
-    @JsonSubTypes.Type(RelationshipAttribute.class)
+  @JsonSubTypes.Type(IdentityAttribute.class),
+  @JsonSubTypes.Type(RelationshipAttribute.class)
 })
 @AllArgsConstructor
 @NoArgsConstructor

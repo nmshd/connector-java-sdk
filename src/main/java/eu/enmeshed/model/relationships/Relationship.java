@@ -1,7 +1,7 @@
 package eu.enmeshed.model.relationships;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import eu.enmeshed.model.IdentityInfo;
+import eu.enmeshed.model.account.ConnectorIdentityInfo;
 import eu.enmeshed.model.event.WebhookData;
 import eu.enmeshed.model.relationshipTemplates.RelationshipTemplate;
 import java.util.List;
@@ -23,7 +23,7 @@ public class Relationship implements WebhookData {
   private RelationshipTemplate template;
   private RelationshipStatus status;
   private String peer;
-  private IdentityInfo peerIdentity;
+  private ConnectorIdentityInfo peerIdentity;
   private RelationshipCreationContent creationContent;
   private List<RelationshipAuditLogEntry> auditLog;
   private PeerDeletionInfo peerDeletionInfo;

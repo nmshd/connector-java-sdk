@@ -33,9 +33,11 @@ public interface MessagesEndpoint {
 
   @RequestLine("GET /api/v2/Messages/{messageId}/Attachments/{attachmentId}")
   @Headers("Accept: application/json")
-  ConnectorResponse<ConnectorFile> getAttachment(@Param("messageId") String messageId, @Param("attachmentId") String attachmentId);
+  ConnectorResponse<ConnectorFile> getAttachment(
+      @Param("messageId") String messageId, @Param("attachmentId") String attachmentId);
 
   @RequestLine("GET /api/v2/Messages/{messageId}/Attachments/{attachmentId}/Download")
   @Headers("Accept: application/json")
-  feign.Response downloadAttachment(@Param("messageId") String messageId, @Param("attachmentId") String attachmentId);
+  feign.Response downloadAttachment(
+      @Param("messageId") String messageId, @Param("attachmentId") String attachmentId);
 }

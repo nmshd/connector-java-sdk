@@ -17,7 +17,8 @@ public interface RelationshipTemplatesEndpoint {
 
   @RequestLine("POST /api/v2/RelationshipTemplates/Own")
   @Headers("Content-Type: application/json")
-  ConnectorResponse<RelationshipTemplate> createOwnRelationshipTemplate(RelationshipTemplateCreation relationshipTemplate);
+  ConnectorResponse<RelationshipTemplate> createOwnRelationshipTemplate(
+      RelationshipTemplateCreation relationshipTemplate);
 
   @RequestLine("GET /api/v2/RelationshipTemplates/{0}")
   @Headers("Accept: image/png")
@@ -25,5 +26,6 @@ public interface RelationshipTemplatesEndpoint {
 
   @RequestLine("GET /api/v2/RelationshipTemplates/{relationshipTemplateId}")
   @Headers("Accept: application/json")
-  ConnectorResponse<QrCode> createRelationshipQrCode(@Param("relationshipTemplateId") String relationshipTemplateId);
+  ConnectorResponse<QrCode> createRelationshipQrCode(
+      @Param("relationshipTemplateId") String relationshipTemplateId);
 }

@@ -20,7 +20,7 @@ import feign.form.FormEncoder;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
 
-public class EnmeshedClient {
+public class ConnectorClient {
 
   private static final ObjectMapper objectMapper =
       new ObjectMapper()
@@ -39,7 +39,7 @@ public class EnmeshedClient {
   public final IncomingRequestsEndpoint incomingRequests;
   public final OutgoingRequestsEndpoint outgoingRequests;
 
-  public EnmeshedClient(
+  public ConnectorClient(
       AccountEndpoint account,
       AttributesEndpoint attributes,
       FilesEndpoint files,
@@ -58,11 +58,11 @@ public class EnmeshedClient {
     this.outgoingRequests = outgoingRequests;
   }
 
-  public static EnmeshedClient create(String url, String apiKey) {
+  public static ConnectorClient create(String url, String apiKey) {
     return create(url, apiKey, new Options(), Level.NONE);
   }
 
-  public static EnmeshedClient create(
+  public static ConnectorClient create(
       String url, String apiKey, Options options, Level loggerLevel) {
     var builder =
         Feign.builder()
@@ -71,9 +71,9 @@ public class EnmeshedClient {
             .requestInterceptor(request -> request.header("X-API-KEY", apiKey))
             .logLevel(loggerLevel)
             .options(options)
-            .errorDecoder(new EnmeshedErrorDecoder());
+            .errorDecoder(new ConnectorErrorDecoder());
 
-    return new EnmeshedClient(
+    return new ConnectorClient(
         AccountEndpoint.configure(url, builder),
         AttributesEndpoint.configure(url, builder),
         FilesEndpoint.configure(url, builder),

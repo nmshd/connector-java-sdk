@@ -11,4 +11,3 @@ public class SendMessageRequest<T extends MessageContent> {
   private List<String> recipients;
   private List<String> attachments;
 }
-

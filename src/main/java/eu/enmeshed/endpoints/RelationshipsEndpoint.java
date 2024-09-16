@@ -15,7 +15,8 @@ public interface RelationshipsEndpoint {
   }
 
   @RequestLine("GET /api/v2/Relationships?template.id={0}&peer={1}&status={2}")
-  ConnectorResponse<List<Relationship>> searchRelationships(@Param("0") String templateId, @Param("1") String peer, @Param("2") String status);
+  ConnectorResponse<List<Relationship>> searchRelationships(
+      @Param("0") String templateId, @Param("1") String peer, @Param("2") String status);
 
   @RequestLine("GET /api/v2/Relationships/{id}")
   ConnectorResponse<Relationship> getRelationshipById(@Param("id") String id);
