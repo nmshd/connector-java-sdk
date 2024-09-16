@@ -9,6 +9,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class PeerSharedAttributeSucceededNotificationItem extends NotificationItem {
+
   private Attribute successorContent;
   private String predecessorId;
   private String successorId;

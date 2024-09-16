@@ -64,9 +64,15 @@ public class EnmeshedOnboardingServiceTest {
           .build();
   private final List<Class<? extends RequestItem>> CREATE_ATTRIBUTES =
       List.of(CreateAttributeRequestItem.class);
-  @Mock EnmeshedClient enmeshedClientMock;
-  @Captor ArgumentCaptor<ContentWrapper<Attribute>> attributeCreateRequestCaptor;
-  @Captor ArgumentCaptor<RelationshipTemplateCreation> relationshipTemplateCreationArgumentCaptor;
+
+  @Mock
+  EnmeshedClient enmeshedClientMock;
+
+  @Captor
+  ArgumentCaptor<ContentWrapper<Attribute>> attributeCreateRequestCaptor;
+
+  @Captor
+  ArgumentCaptor<RelationshipTemplateCreation> relationshipTemplateCreationArgumentCaptor;
   EnmeshedOnboardingService enmeshedService;
 
   @Test
@@ -146,14 +152,14 @@ public class EnmeshedOnboardingServiceTest {
 
     enmeshedService = getServiceInstance();
 
-    byte[] testQrCodeData = new byte[] {0xd, 0xe, 0xa, 0xd, 0xb, 0xe, 0xe, 0xf};
+    byte[] testQrCodeData = new byte[]{0xd, 0xe, 0xa, 0xd, 0xb, 0xe, 0xe, 0xf};
     String testRelationshipTemplateId = "RLT_ID";
     String testDisplayNameRequestedAttributes = "Requested Attributes";
     String testDisplayNameSharedAttributes = "Shared Attributes";
     String testDisplayNameCreateAttributes = "Create Attributes";
 
     when(enmeshedClientMock.createOwnRelationshipTemplate(
-            relationshipTemplateCreationArgumentCaptor.capture()))
+        relationshipTemplateCreationArgumentCaptor.capture()))
         .then(
             mockInvocation ->
                 ResultWrapper.containing(
@@ -192,8 +198,8 @@ public class EnmeshedOnboardingServiceTest {
     // At least one hour in future (with 5s tolerance)
     Assertions.assertTrue(
         Instant.from(relationshipTemplateCreationArgumentCaptor.getValue().getExpiresAt())
-                    .toEpochMilli()
-                - Instant.now().toEpochMilli()
+            .toEpochMilli()
+            - Instant.now().toEpochMilli()
             > 3_595_000);
 
     Request request =
@@ -206,10 +212,10 @@ public class EnmeshedOnboardingServiceTest {
     Assertions.assertEquals(
         CONNECTOR_DISPLAY_NAME,
         ((DisplayName)
-                ((ShareAttributeRequestItem)
-                        ((RequestItemGroup) request.getItems().get(0)).getItems().get(0))
-                    .getAttribute()
-                    .getValue())
+            ((ShareAttributeRequestItem)
+                ((RequestItemGroup) request.getItems().get(0)).getItems().get(0))
+                .getAttribute()
+                .getValue())
             .getValue());
     // Required Items
     Assertions.assertTrue(
@@ -219,13 +225,13 @@ public class EnmeshedOnboardingServiceTest {
     Assertions.assertEquals(
         REQUIRED_ATTRIBUTES.get(0).getSimpleName(),
         ((ReadAttributeRequestItem)
-                ((RequestItemGroup) request.getItems().get(1)).getItems().get(0))
+            ((RequestItemGroup) request.getItems().get(1)).getItems().get(0))
             .getQuery()
             .get("valueType"));
     Assertions.assertEquals(
         REQUIRED_ATTRIBUTES.get(1).getSimpleName(),
         ((ReadAttributeRequestItem)
-                ((RequestItemGroup) request.getItems().get(1)).getItems().get(1))
+            ((RequestItemGroup) request.getItems().get(1)).getItems().get(1))
             .getQuery()
             .get("valueType"));
     Assertions.assertTrue(
@@ -237,7 +243,7 @@ public class EnmeshedOnboardingServiceTest {
     Assertions.assertEquals(
         OPTIONAL_ATTRIBUTES.get(0).getSimpleName(),
         ((ReadAttributeRequestItem)
-                ((RequestItemGroup) request.getItems().get(1)).getItems().get(2))
+            ((RequestItemGroup) request.getItems().get(1)).getItems().get(2))
             .getQuery()
             .get("valueType"));
 

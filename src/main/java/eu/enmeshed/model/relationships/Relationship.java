@@ -18,6 +18,7 @@ import lombok.Setter;
 @Setter
 @Builder
 public class Relationship implements WebhookData {
+
   private String id;
   private RelationshipTemplate template;
   private RelationshipStatus status;
@@ -29,6 +30,7 @@ public class Relationship implements WebhookData {
 
   @Data
   public static class PeerDeletionInfo {
+
     Status status;
 
     public enum Status {

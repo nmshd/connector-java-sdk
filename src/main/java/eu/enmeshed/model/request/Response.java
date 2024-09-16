@@ -15,6 +15,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @JsonIgnoreProperties({"@type"})
 public class Response {
+
   private List<ResponseItem> items;
   private String requestId;
   private Result result;

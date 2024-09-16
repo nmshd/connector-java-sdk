@@ -14,6 +14,7 @@ import lombok.Setter;
 @Setter
 @Builder
 public class RelationshipAuditLogEntry {
+
   private ZonedDateTime createdAt;
   private String createdBy;
   private String createdByDevice;

@@ -14,28 +14,16 @@ import lombok.Setter;
 public class FileMetaData {
 
   private String id;
-
   private String title;
-
   private String description;
-
   private String filename;
-
   private Long filesize;
-
   private String createdAt;
-
   private String createdBy;
-
   private String createdByDevice;
-
   private String expiresAt;
-
   private String mimetype;
-
   private Boolean isOwn;
-
   private String truncatedReference;
-
   private String secretKey;
 }

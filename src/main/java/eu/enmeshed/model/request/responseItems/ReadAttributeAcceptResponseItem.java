@@ -13,6 +13,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class ReadAttributeAcceptResponseItem extends AcceptResponseItem {
+
   private Attribute attribute;
   private String attributeId;
   private Result result;

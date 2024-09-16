@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class QrCode {
+
   private String id;
   private String createdBy;
   private String createdByDevice;

@@ -13,4 +13,6 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public abstract class NotificationItem {}
+public abstract class NotificationItem {
+
+}

@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.StdDateFormat;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import eu.enmeshed.annotation.Retryable;
 import eu.enmeshed.exception.decoder.EnmeshedErrorDecoder;
 import eu.enmeshed.model.AttributeWrapper;
 import eu.enmeshed.model.ContentWrapper;
@@ -22,13 +21,12 @@ import eu.enmeshed.model.relationshipTemplates.RelationshipTemplate;
 import eu.enmeshed.model.relationshipTemplates.RelationshipTemplateCreation;
 import eu.enmeshed.model.relationships.Relationship;
 import eu.enmeshed.model.request.LocalRequest;
-import eu.enmeshed.retryer.CustomRetryer;
+import eu.enmeshed.model.request.Request;
 import feign.Feign;
 import feign.Headers;
 import feign.Logger;
 import feign.Param;
 import feign.QueryMap;
-import feign.Request;
 import feign.RequestLine;
 import feign.Response;
 import feign.form.FormEncoder;
@@ -37,20 +35,18 @@ import feign.jackson.JacksonEncoder;
 import java.util.List;
 
 public interface EnmeshedClient {
-  ObjectMapper objectMapper =
-      new ObjectMapper()
-          .registerModule(new JavaTimeModule())
-          .setSerializationInclusion(JsonInclude.Include.NON_ABSENT)
-          .disable(SerializationFeature.INDENT_OUTPUT)
-          .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-          .setDateFormat(new StdDateFormat().withColonInTimeZone(true));
+
+  ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule())
+      .setSerializationInclusion(JsonInclude.Include.NON_ABSENT)
+      .disable(SerializationFeature.INDENT_OUTPUT)
+      .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+      .setDateFormat(new StdDateFormat().withColonInTimeZone(true));
 
   static EnmeshedClient configure(String url, String apiKey) {
-    return configure(url, apiKey, new Request.Options(), Logger.Level.NONE);
+    return configure(url, apiKey, new feign.Request.Options(), Logger.Level.NONE);
   }
 
-  static EnmeshedClient configure(
-      String url, String apiKey, Request.Options options, Logger.Level loggerLevel) {
+  static EnmeshedClient configure(String url, String apiKey, feign.Request.Options options, Logger.Level loggerLevel) {
     return Feign.builder()
         .decoder(new JacksonDecoder(objectMapper))
         .encoder(new FormEncoder(new JacksonEncoder(objectMapper)))
@@ -58,7 +54,6 @@ public interface EnmeshedClient {
         .logLevel(loggerLevel)
         .options(options)
         .errorDecoder(new EnmeshedErrorDecoder())
-        .retryer(new Retryable.AnnotationRetryer(new CustomRetryer()))
         .target(EnmeshedClient.class, url);
   }
 
@@ -90,8 +85,7 @@ public interface EnmeshedClient {
   */
   @RequestLine("POST /api/v2/RelationshipTemplates/Own")
   @Headers("Content-Type: application/json")
-  ResultWrapper<RelationshipTemplate> createOwnRelationshipTemplate(
-      RelationshipTemplateCreation relationshipTemplate);
+  ResultWrapper<RelationshipTemplate> createOwnRelationshipTemplate(RelationshipTemplateCreation relationshipTemplate);
 
   @RequestLine("GET /api/v2/RelationshipTemplates/{0}")
   @Headers("Accept: image/png")
@@ -99,15 +93,14 @@ public interface EnmeshedClient {
 
   @RequestLine("GET /api/v2/RelationshipTemplates/{relationshipTemplateId}")
   @Headers("Accept: application/json")
-  ResultWrapper<QrCode> createRelationshipQrCode(
-      @Param("relationshipTemplateId") String relationshipTemplateId);
+  ResultWrapper<QrCode> createRelationshipQrCode(@Param("relationshipTemplateId") String relationshipTemplateId);
 
   /*
    Relationships
   */
   @RequestLine("GET /api/v2/Relationships?template.id={0}&peer={1}&status={2}")
-  ResultWrapper<List<Relationship>> searchRelationships(
-      @Param("0") String templateId, @Param("1") String peer, @Param("2") String status);
+  ResultWrapper<List<Relationship>> searchRelationships(@Param("0") String templateId, @Param("1") String peer,
+      @Param("2") String status);
 
   @RequestLine("GET /api/v2/Relationships/{id}")
   ResultWrapper<Relationship> getRelationshipById(@Param("id") String id);
@@ -123,7 +116,6 @@ public interface EnmeshedClient {
   /*
    Messages
   */
-  @Retryable
   @RequestLine("POST /api/v2/Messages")
   @Headers("Content-Type: application/json")
   ResultWrapper<Message> sendMessage(SendMessage message);
@@ -144,36 +136,29 @@ public interface EnmeshedClient {
   @RequestLine("GET /api/v2/Requests/Outgoing/{0}")
   ResultWrapper<LocalRequest> getOutgoingRequest(@Param("0") String requestId);
 
-  @Retryable
   @RequestLine("GET /api/v2/Requests/Incoming/{requestId}")
   @Headers("Content-Type: application/json")
   ResultWrapper<LocalRequest> getIncomingRequestById(@Param("requestId") String requestId);
 
-  @Retryable
   @RequestLine("PUT /api/v2/Requests/Incoming/{requestId}/Accept")
   @Headers("Content-Type: application/json")
-  ResultWrapper<LocalRequest> acceptIncomingRequestById(
-      @Param("requestId") String requestId, eu.enmeshed.model.request.Request request);
+  ResultWrapper<LocalRequest> acceptIncomingRequestById(@Param("requestId") String requestId, Request request);
 
   /*
   Files
    */
-  @Retryable
   @RequestLine("POST /api/v2/Files/Own")
   @Headers({"Content-Type:  multipart/form-data"})
   ResultWrapper<FileMetaData> uploadNewOwnFile(FileUploadRequest fileUploadRequest);
 
-  @Retryable
   @RequestLine("GET /api/v2/Files/{fileId}/Download")
   @Headers("Accept: application/json")
   Response getFileResponseById(@Param("fileId") String fileId);
 
-  @Retryable
   @RequestLine("GET /api/v2/Files/{fileId}")
   @Headers("Accept: application/json")
   ResultWrapper<FileMetaData> getFileMetadataByFileId(@Param("fileId") String fileId);
 
-  @Retryable
   @RequestLine("POST /api/v2/Files/Peer")
   @Headers("Content-Type: application/json")
   ResultWrapper<FileMetaData> getFileMetadataByReference(FileReference reference);

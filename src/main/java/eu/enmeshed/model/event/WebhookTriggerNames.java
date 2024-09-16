@@ -3,6 +3,7 @@ package eu.enmeshed.model.event;
 public abstract class WebhookTriggerNames {
 
   public abstract static class Consumption {
+
     public static final String ATTRIBUTE_CREATED = "consumption.attributeCreated";
     public static final String ATTRIBUTE_DELETED = "consumption.attributeDeleted";
     public static final String ATTRIBUTE_SUCCEEDED = "consumption.attributeSucceeded";
@@ -25,6 +26,7 @@ public abstract class WebhookTriggerNames {
   }
 
   public abstract static class Transport {
+
     public static final String MESSAGE_RECEIVED = "transport.messageReceived";
     public static final String MESSAGE_SENT = "transport.messageSent";
     public static final String PEER_RELATIONSHIP_TEMPLATE_LOADED =

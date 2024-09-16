@@ -17,5 +17,6 @@ import lombok.Setter;
 @Builder
 @JsonTypeInfo(use = NAME, property = "@type")
 public class RelationshipCreationContent {
+
   private Response response;
 }

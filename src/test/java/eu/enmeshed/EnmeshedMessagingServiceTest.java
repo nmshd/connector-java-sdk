@@ -49,7 +49,8 @@ public class EnmeshedMessagingServiceTest {
   public static final String TEST_AUTH_TITLE = "Test Title";
   public static final String TEST_AUTH_TEXT = "Test Text";
   public static final Map<String, String> TEST_METADATA = Map.of("K1", "V1", "K2", "V2");
-  @Mock EnmeshedClient enmeshedClientMock;
+  @Mock
+  EnmeshedClient enmeshedClientMock;
   EnmeshedMessagingService enmeshedMessagingService;
 
   @BeforeEach
@@ -132,7 +133,7 @@ public class EnmeshedMessagingServiceTest {
         requestWrapperArgumentCaptor.getValue().getContent().getItems().get(0).getMetadata());
     Assertions.assertTrue(
         ((RequestItemDerivation)
-                requestWrapperArgumentCaptor.getValue().getContent().getItems().get(0))
+            requestWrapperArgumentCaptor.getValue().getContent().getItems().get(0))
             .getRequireManualDecision());
 
     // Test sent message

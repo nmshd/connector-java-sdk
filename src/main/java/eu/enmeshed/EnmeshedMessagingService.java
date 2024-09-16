@@ -23,17 +23,15 @@ public class EnmeshedMessagingService {
   private final EnmeshedClient enmeshedClient;
 
   /**
-   * Send an authentication request to an enmeshed wallet. The peer needs to be already onboarded in
-   * order to send a message. The receiver can accept or reject the authentication request. The
-   * decision of the user can be checked with getAuthenticationStatus(String requestId).
+   * Send an authentication request to an enmeshed wallet. The peer needs to be already onboarded in order to send a
+   * message. The receiver can accept or reject the authentication request. The decision of the user can be checked with
+   * getAuthenticationStatus(String requestId).
    *
-   * @param receiver enmeshed address of the receiver
+   * @param receiver     enmeshed address of the receiver
    * @param displayTitle Displayed title of the authentication request
-   * @param displayText Displayed description of the authentication request
-   * @param mandatory flag whether the acceptance of this authentication request is displayed as
-   *     mandatory.
-   * @param lifetime Lifetime of the request, how long the receiver can answer the authentication
-   *     request.
+   * @param displayText  Displayed description of the authentication request
+   * @param mandatory    flag whether the acceptance of this authentication request is displayed as mandatory.
+   * @param lifetime     Lifetime of the request, how long the receiver can answer the authentication request.
    * @return the Request-ID to request the answer of the authentication request
    */
   public String sendAuthenticationRequest(
@@ -49,18 +47,16 @@ public class EnmeshedMessagingService {
   }
 
   /**
-   * Send an authentication request to an enmeshed wallet. The peer needs to be already onboarded in
-   * order to send a message. The receiver can accept or reject the authentication request. The
-   * decision of the user can be checked with getAuthenticationStatus(String requestId).
+   * Send an authentication request to an enmeshed wallet. The peer needs to be already onboarded in order to send a
+   * message. The receiver can accept or reject the authentication request. The decision of the user can be checked with
+   * getAuthenticationStatus(String requestId).
    *
-   * @param receiver enmeshed address of the receiver
+   * @param receiver     enmeshed address of the receiver
    * @param displayTitle Displayed title of the authentication request
-   * @param displayText Displayed description of the authentication request
-   * @param mandatory flag whether the acceptance of this authentication request is displayed as
-   *     mandatory.
-   * @param lifetime Lifetime of the request, how long the receiver can answer the authentication
-   *     request.
-   * @param metadata Map with metadata that will be attached to the AuthenticationRequestItem.
+   * @param displayText  Displayed description of the authentication request
+   * @param mandatory    flag whether the acceptance of this authentication request is displayed as mandatory.
+   * @param lifetime     Lifetime of the request, how long the receiver can answer the authentication request.
+   * @param metadata     Map with metadata that will be attached to the AuthenticationRequestItem.
    * @return the Request-ID to request the answer of the authentication request
    */
   public String sendAuthenticationRequest(
@@ -118,8 +114,8 @@ public class EnmeshedMessagingService {
    * Retrieve the Status of an AuthenticationRequest.
    *
    * @param requestId ID of the request returned previously by sendAuthenticationRequest()
-   * @return {@link AuthenticationStatus} containing information if the request exists, the receiver
-   *     has answered and how he has decided. Returns null if the request does not exist.
+   * @return {@link AuthenticationStatus} containing information if the request exists, the receiver has answered and
+   * how he has decided. Returns null if the request does not exist.
    */
   public AuthenticationStatus getAuthenticationStatus(String requestId) {
 
@@ -164,5 +160,7 @@ public class EnmeshedMessagingService {
       boolean requestExists,
       boolean accepted,
       boolean rejected,
-      boolean expired) {}
+      boolean expired) {
+
+  }
 }

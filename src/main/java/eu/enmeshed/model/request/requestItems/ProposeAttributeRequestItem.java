@@ -15,6 +15,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class ProposeAttributeRequestItem extends RequestItemDerivation {
+
   private Attribute attribute;
   private Map<String, String> query;
 
