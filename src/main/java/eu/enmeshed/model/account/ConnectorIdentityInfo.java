@@ -1,4 +1,4 @@
-package eu.enmeshed.model;
+package eu.enmeshed.model.account;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,11 +11,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class IdentityInfo {
+public class ConnectorIdentityInfo {
 
   private String address;
-
   private String publicKey;
-
-  private String realm;
 }
