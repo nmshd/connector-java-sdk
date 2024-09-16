@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class EnmeshedFileService {
+
   private final EnmeshedClient enmeshedClient;
 
   @SneakyThrows
@@ -24,8 +25,7 @@ public class EnmeshedFileService {
   }
 
   public FileMetaData getFileMetadataByReference(String reference) {
-    return enmeshedClient
-        .getFileMetadataByReference(FileReference.builder().reference(reference).build())
-        .getResult();
+    return enmeshedClient.getFileMetadataByReference(
+        FileReference.builder().reference(reference).build()).getResult();
   }
 }

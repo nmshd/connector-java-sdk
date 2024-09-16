@@ -9,4 +9,6 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class IdentityAttribute extends Attribute {}
+public class IdentityAttribute extends Attribute {
+
+}

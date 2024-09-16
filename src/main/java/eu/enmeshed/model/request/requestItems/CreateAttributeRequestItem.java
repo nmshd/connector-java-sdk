@@ -16,6 +16,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class CreateAttributeRequestItem extends RequestItemDerivation {
+
   private Attribute attribute;
 
   public static CreateAttributeRequestItem fromWrapper(

@@ -10,4 +10,6 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class CommunicationLanguage extends SimpleStringAttributeValue {}
+public class CommunicationLanguage extends SimpleStringAttributeValue {
+
+}

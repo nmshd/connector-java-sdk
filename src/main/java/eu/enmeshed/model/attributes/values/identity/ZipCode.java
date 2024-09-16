@@ -10,4 +10,6 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class ZipCode extends SimpleStringAttributeValue {}
+public class ZipCode extends SimpleStringAttributeValue {
+
+}

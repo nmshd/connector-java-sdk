@@ -12,5 +12,6 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public abstract class SimpleNumberAttributeValue extends AttributeValue {
+
   private Integer value;
 }

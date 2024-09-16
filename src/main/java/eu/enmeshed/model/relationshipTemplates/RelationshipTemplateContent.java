@@ -15,6 +15,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class RelationshipTemplateContent {
+
   @JsonProperty("@type")
   private final String type = RelationshipTemplateContent.class.getSimpleName();
 

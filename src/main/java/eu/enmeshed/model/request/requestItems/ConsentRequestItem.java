@@ -12,6 +12,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class ConsentRequestItem extends RequestItemDerivation {
+
   private String consent;
   private String link;
 }

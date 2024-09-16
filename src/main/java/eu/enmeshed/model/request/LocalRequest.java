@@ -14,6 +14,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class LocalRequest extends ContentWrapper<Request> implements WebhookData {
+
   private String id;
   private Boolean isOwn;
   private String peer;

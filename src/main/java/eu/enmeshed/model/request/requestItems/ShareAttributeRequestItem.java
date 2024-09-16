@@ -15,6 +15,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class ShareAttributeRequestItem extends RequestItemDerivation {
+
   private Attribute attribute;
   private String sourceAttributeId;
 

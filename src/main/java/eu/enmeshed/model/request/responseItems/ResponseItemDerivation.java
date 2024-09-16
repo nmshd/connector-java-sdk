@@ -10,20 +10,20 @@ import lombok.experimental.SuperBuilder;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "@type")
 @JsonSubTypes({
-  // Accept Items
-  @JsonSubTypes.Type(AcceptResponseItem.class),
-  @JsonSubTypes.Type(ReadAttributeAcceptResponseItem.class),
-  @JsonSubTypes.Type(ShareAttributeAcceptResponseItem.class),
-  @JsonSubTypes.Type(CreateAttributeAcceptResponseItem.class),
-  @JsonSubTypes.Type(ProposeAttributeAcceptResponseItem.class),
-  @JsonSubTypes.Type(FreeTextAcceptResponseItem.class),
-  @JsonSubTypes.Type(AttributeAlreadySharedAcceptResponseItem.class),
+    // Accept Items
+    @JsonSubTypes.Type(AcceptResponseItem.class),
+    @JsonSubTypes.Type(ReadAttributeAcceptResponseItem.class),
+    @JsonSubTypes.Type(ShareAttributeAcceptResponseItem.class),
+    @JsonSubTypes.Type(CreateAttributeAcceptResponseItem.class),
+    @JsonSubTypes.Type(ProposeAttributeAcceptResponseItem.class),
+    @JsonSubTypes.Type(FreeTextAcceptResponseItem.class),
+    @JsonSubTypes.Type(AttributeAlreadySharedAcceptResponseItem.class),
 
-  // Reject Items
-  @JsonSubTypes.Type(RejectResponseItem.class),
+    // Reject Items
+    @JsonSubTypes.Type(RejectResponseItem.class),
 
-  // Error Items
-  @JsonSubTypes.Type(ErrorResponseItem.class),
+    // Error Items
+    @JsonSubTypes.Type(ErrorResponseItem.class),
 })
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,5 +31,6 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class ResponseItemDerivation extends ResponseItem {
+
   private Result result;
 }

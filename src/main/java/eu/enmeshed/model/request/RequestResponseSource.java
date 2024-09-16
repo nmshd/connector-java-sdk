@@ -13,6 +13,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class RequestResponseSource {
+
   private RequestSourceType type;
   private String reference;
 

@@ -14,6 +14,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class Notification extends MessageContent {
+
   @JsonProperty("@type")
   private String type;
 

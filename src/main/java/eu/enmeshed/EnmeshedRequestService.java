@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class EnmeshedRequestService {
+
   private final EnmeshedClient enmeshedClient;
 
   public LocalRequest acceptIncomingRequestById(String requestId, Request request) {

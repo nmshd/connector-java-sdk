@@ -1,8 +1,8 @@
 package eu.enmeshed;
 
 import static eu.enmeshed.model.ResultWrapper.containing;
-import static eu.enmeshed.model.file.FileMetaData.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static eu.enmeshed.model.file.FileMetaData.builder;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -18,10 +18,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 class EnmeshedFileServiceTest {
+
   private static final String TEST_FILE_ID = "testId";
   private static final FileMetaData EXPECTED_TEST_FILE_METADATA =
       builder().id(TEST_FILE_ID).title("Test data").build();
-  @Mock EnmeshedClient enmeshedClientMock;
+
+  @Mock
+  EnmeshedClient enmeshedClientMock;
   EnmeshedFileService enmeshedFileService;
 
   @BeforeEach

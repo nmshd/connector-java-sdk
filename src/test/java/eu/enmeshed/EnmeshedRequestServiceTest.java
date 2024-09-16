@@ -17,9 +17,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 class EnmeshedRequestServiceTest {
+
   private static final String TEST_REQUEST_ID = "testId";
 
-  @Mock EnmeshedClient enmeshedClientMock;
+  @Mock
+  EnmeshedClient enmeshedClientMock;
   EnmeshedRequestService enmeshedRequestService;
 
   @BeforeEach

@@ -42,14 +42,17 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class EnmeshedOnboardingService {
+
   private static final Long QR_CODE_VALIDITY_MINUTES_DEFAULT = 60L;
   private static final Integer QR_CODE_NUMBER_OF_ALLOCATIONS = 1;
 
   private final EnmeshedClient enmeshedClient;
 
-  @Getter private final IdentityInfo identityInfo;
+  @Getter
+  private final IdentityInfo identityInfo;
 
-  @Getter private final AttributeWrapper connectorDisplayNameAttribute;
+  @Getter
+  private final AttributeWrapper connectorDisplayNameAttribute;
 
   private final List<Class<? extends AttributeValue>> requiredAttributes;
 
@@ -133,8 +136,8 @@ public class EnmeshedOnboardingService {
   /**
    * Generate a QR Code for setting up a new relationship to a client.
    *
-   * @return Details of the registration process like the RelationshipTemplate ID which is required
-   *     to keep track of the status of the registration.
+   * @return Details of the registration process like the RelationshipTemplate ID which is required to keep track of the
+   * status of the registration.
    */
   public RegistrationData generateQrCodeForRegistrationAsJpg(
       String displayTextRequestedAttributes,
@@ -181,12 +184,12 @@ public class EnmeshedOnboardingService {
   }
 
   /**
-   * Checks the current state of a registration. If registration is requested by client it will be
-   * accepted based on the passed acceptanceDecider.
+   * Checks the current state of a registration. If registration is requested by client it will be accepted based on the
+   * passed acceptanceDecider.
    *
    * @param relationshipTemplateId ID of the RelationshipTemplate
-   * @param acceptanceDecider Functional Interface to decide whether the incoming request should be
-   *     accepted or not. The send attributes will be passed to the method call.
+   * @param acceptanceDecider      Functional Interface to decide whether the incoming request should be accepted or
+   *                               not. The send attributes will be passed to the method call.
    * @return Registration Details and attributes shared by client during connecting.
    */
   public RegistrationResult checkRegistrationState(
@@ -238,8 +241,7 @@ public class EnmeshedOnboardingService {
   }
 
   /**
-   * Checks the current state of a registration. If registration is requested by client it will be
-   * accepted.
+   * Checks the current state of a registration. If registration is requested by client it will be accepted.
    *
    * @param relationshipTemplateId ID of the RelationshipTemplate
    * @return Registration Details and attributes shared by client during connecting.
@@ -250,7 +252,7 @@ public class EnmeshedOnboardingService {
   }
 
   private Map<Class<? extends AttributeValue>, AttributeValue>
-      getSharedSimpleAttributesFromResponseItems(List<? extends ResponseItem> responseItems) {
+  getSharedSimpleAttributesFromResponseItems(List<? extends ResponseItem> responseItems) {
 
     Map<Class<? extends AttributeValue>, AttributeValue> attributes = new HashMap<>();
 
@@ -330,11 +332,15 @@ public class EnmeshedOnboardingService {
   }
 
   public record RegistrationData(
-      byte[] qrCode, String relationshipTemplateId, ZonedDateTime expiresAt) {}
+      byte[] qrCode, String relationshipTemplateId, ZonedDateTime expiresAt) {
+
+  }
 
   public record RegistrationResult(
       Map<Class<? extends AttributeValue>, AttributeValue> attributes,
       String enmeshedAddress,
       String relationshipId,
-      boolean accepted) {}
+      boolean accepted) {
+
+  }
 }

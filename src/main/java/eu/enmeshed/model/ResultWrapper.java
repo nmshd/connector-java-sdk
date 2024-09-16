@@ -16,7 +16,6 @@ public class ResultWrapper<T> {
   private T result;
 
   public static <T> ResultWrapper<T> containing(T content) {
-
     return new ResultWrapper<>(content);
   }
 }

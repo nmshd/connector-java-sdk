@@ -12,6 +12,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public abstract class SimpleStringAttributeValue extends AttributeValue {
+
   private String value;
 
   @Override

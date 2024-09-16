@@ -12,6 +12,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class AttributeAlreadySharedAcceptResponseItem extends AcceptResponseItem {
+
   private String attributeId;
   private ResponseItem.Result result;
 }

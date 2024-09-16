@@ -15,5 +15,6 @@ import lombok.experimental.SuperBuilder;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "@type")
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class RequestItemGroup extends RequestItem {
+
   private List<RequestItemDerivation> items;
 }

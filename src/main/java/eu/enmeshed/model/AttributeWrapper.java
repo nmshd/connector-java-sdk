@@ -15,6 +15,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class AttributeWrapper extends ContentWrapper<Attribute> {
+
   private String id;
   private ZonedDateTime createdAt;
   private AttributeShareInfo shareInfo;

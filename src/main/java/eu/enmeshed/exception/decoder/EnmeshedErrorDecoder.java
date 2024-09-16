@@ -18,7 +18,8 @@ public class EnmeshedErrorDecoder implements ErrorDecoder {
     log.info(
         "Throw the RetryableException from a response error with status {} and reason {}",
         responseStatus,
-        responseReason);
+        responseReason
+    );
 
     return new RetryableException(
         responseStatus,

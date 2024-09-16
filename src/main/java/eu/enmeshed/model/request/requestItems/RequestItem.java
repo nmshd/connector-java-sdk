@@ -15,8 +15,8 @@ import lombok.experimental.SuperBuilder;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "@type")
 @JsonSubTypes({
-  @JsonSubTypes.Type(RequestItemGroup.class),
-  @JsonSubTypes.Type(RequestItemDerivation.class),
+    @JsonSubTypes.Type(RequestItemGroup.class),
+    @JsonSubTypes.Type(RequestItemDerivation.class),
 })
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,6 +24,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public abstract class RequestItem {
+
   private String title;
   private String description;
   private Map<String, String> metadata;

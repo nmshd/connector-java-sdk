@@ -12,6 +12,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class ErrorResponseItem extends ResponseItemDerivation {
+
   private final Result result = Result.ERROR;
   private String code;
   private String message;
