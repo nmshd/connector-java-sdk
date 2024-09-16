@@ -16,13 +16,13 @@ import lombok.experimental.SuperBuilder;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "@type")
 @JsonSubTypes({
-    @JsonSubTypes.Type(ReadAttributeRequestItem.class),
-    @JsonSubTypes.Type(ShareAttributeRequestItem.class),
-    @JsonSubTypes.Type(AuthenticationRequestItem.class),
-    @JsonSubTypes.Type(ConsentRequestItem.class),
-    @JsonSubTypes.Type(CreateAttributeRequestItem.class),
-    @JsonSubTypes.Type(FreeTextRequestItem.class),
-    @JsonSubTypes.Type(ProposeAttributeRequestItem.class)
+  @JsonSubTypes.Type(ReadAttributeRequestItem.class),
+  @JsonSubTypes.Type(ShareAttributeRequestItem.class),
+  @JsonSubTypes.Type(AuthenticationRequestItem.class),
+  @JsonSubTypes.Type(ConsentRequestItem.class),
+  @JsonSubTypes.Type(CreateAttributeRequestItem.class),
+  @JsonSubTypes.Type(FreeTextRequestItem.class),
+  @JsonSubTypes.Type(ProposeAttributeRequestItem.class)
 })
 @AllArgsConstructor
 @NoArgsConstructor

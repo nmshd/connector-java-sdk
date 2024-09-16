@@ -1,6 +1,6 @@
 package eu.enmeshed.model.request.requestItems;
 
-import eu.enmeshed.model.AttributeWrapper;
+import eu.enmeshed.model.ConnectorAttribute;
 import eu.enmeshed.model.attributes.Attribute;
 import eu.enmeshed.model.attributes.IdentityAttribute;
 import lombok.AllArgsConstructor;
@@ -20,7 +20,7 @@ public class ShareAttributeRequestItem extends RequestItemDerivation {
   private String sourceAttributeId;
 
   public static ShareAttributeRequestItem fromWrapper(
-      AttributeWrapper wrapper, boolean mustBeAccepted) {
+      ConnectorAttribute wrapper, boolean mustBeAccepted) {
     Attribute content = wrapper.getContent();
     content.setType(IdentityAttribute.class.getSimpleName());
 

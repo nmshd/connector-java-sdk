@@ -1,6 +1,6 @@
 package eu.enmeshed.model.request.requestItems;
 
-import eu.enmeshed.model.AttributeWrapper;
+import eu.enmeshed.model.ConnectorAttribute;
 import eu.enmeshed.model.attributes.Attribute;
 import eu.enmeshed.model.attributes.RelationshipAttribute;
 import eu.enmeshed.model.attributes.values.proprietary.ProprietaryBoolean;
@@ -20,14 +20,14 @@ public class CreateAttributeRequestItem extends RequestItemDerivation {
   private Attribute attribute;
 
   public static CreateAttributeRequestItem fromWrapper(
-      AttributeWrapper wrapper, boolean mustBeAccepted) {
+      ConnectorAttribute wrapper, boolean mustBeAccepted) {
     return CreateAttributeRequestItem.builder()
         .attribute(relationshipAttribute(wrapper))
         .mustBeAccepted(mustBeAccepted)
         .build();
   }
 
-  private static RelationshipAttribute relationshipAttribute(AttributeWrapper wrapper) {
+  private static RelationshipAttribute relationshipAttribute(ConnectorAttribute wrapper) {
     return RelationshipAttribute.builder()
         .type(RelationshipAttribute.class.getSimpleName())
         .owner(wrapper.getContent().getOwner())

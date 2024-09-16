@@ -10,8 +10,8 @@ import lombok.experimental.SuperBuilder;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "@type")
 @JsonSubTypes({
-    @JsonSubTypes.Type(ResponseItemGroup.class),
-    @JsonSubTypes.Type(ResponseItemDerivation.class),
+  @JsonSubTypes.Type(ResponseItemGroup.class),
+  @JsonSubTypes.Type(ResponseItemDerivation.class),
 })
 @AllArgsConstructor
 @Getter
