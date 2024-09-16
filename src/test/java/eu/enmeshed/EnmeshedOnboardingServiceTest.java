@@ -334,6 +334,7 @@ public class EnmeshedOnboardingServiceTest {
                                         .result(Response.Result.ACCEPTED)
                                         .build())
                                 .build())
+                        .status(RelationshipStatus.ACTIVE)
                         .build())));
     EnmeshedOnboardingService.RegistrationResult registrationResult =
         enmeshedService.checkRegistrationState(relationshipTemplateId);
@@ -436,6 +437,7 @@ public class EnmeshedOnboardingServiceTest {
                         .peerIdentity(IdentityInfo.builder().address(userAddress).build())
                         .peer(userAddress)
                         .creationContent(creationContent)
+                        .status(RelationshipStatus.ACTIVE)
                         .build())));
 
     EnmeshedOnboardingService.RegistrationResult registrationResult =
