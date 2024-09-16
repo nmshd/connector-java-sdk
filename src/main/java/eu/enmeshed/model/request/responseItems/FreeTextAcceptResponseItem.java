@@ -12,6 +12,5 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class FreeTextAcceptResponseItem extends AcceptResponseItem {
-
   private String freeText;
 }

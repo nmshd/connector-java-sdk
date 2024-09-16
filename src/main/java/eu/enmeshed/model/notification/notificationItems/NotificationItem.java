@@ -1,4 +1,4 @@
-package eu.enmeshed.model.notification.notificationItem;
+package eu.enmeshed.model.notification.notificationItems;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;

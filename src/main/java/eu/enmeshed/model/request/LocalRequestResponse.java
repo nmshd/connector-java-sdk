@@ -1,7 +1,6 @@
 package eu.enmeshed.model.request;
 
 import eu.enmeshed.model.ContentWrapper;
-import eu.enmeshed.model.Response;
 import java.time.ZonedDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

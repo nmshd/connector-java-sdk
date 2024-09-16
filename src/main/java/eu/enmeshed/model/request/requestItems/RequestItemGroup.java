@@ -17,7 +17,4 @@ import lombok.experimental.SuperBuilder;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class RequestItemGroup extends RequestItem {
   private List<RequestItemDerivation> items;
-  private String title;
-  private String description;
-  private Map<String, String> metadata;
 }

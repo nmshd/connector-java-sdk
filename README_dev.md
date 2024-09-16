@@ -22,7 +22,7 @@ currently supported methods.
 | Challenges            | ☹️ Not yet implemented   | n/a       |
 | Files                 | 📈 Partially implemented | n/a       |
 | Messages              | 📈 Partially implemented | n/a       |
-| Relationships         | 📈 Partially implemented |           |
+| Relationships         | 📈 Partially implemented | n/a       |
 | RelationshipTemplates | 📈 Partially implemented | n/a       |
 | Requests              | 📈 Partially implemented | n/a       |
 | Tokens                | ☹️ Not yet implemented   | n/a       |

@@ -13,8 +13,6 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class ProposeAttributeAcceptResponseItem extends AcceptResponseItem {
-
   private String attributeId;
-
   private Attribute attribute;
 }

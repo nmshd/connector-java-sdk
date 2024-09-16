@@ -13,6 +13,5 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class ResponseItemGroup extends ResponseItem {
-
-  private List<ResponseItem> items;
+  private List<ResponseItemDerivation> items;
 }

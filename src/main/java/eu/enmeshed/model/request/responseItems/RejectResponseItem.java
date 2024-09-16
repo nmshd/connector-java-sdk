@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class RejectResponseItem extends ResponseItem {
+public class RejectResponseItem extends ResponseItemDerivation {
 
   private final Result result = Result.REJECTED;
 

@@ -6,7 +6,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import eu.enmeshed.client.EnmeshedClient;
-import eu.enmeshed.model.Response;
+import eu.enmeshed.model.request.Response;
 import eu.enmeshed.model.ResultWrapper;
 import eu.enmeshed.model.messaging.Message;
 import eu.enmeshed.model.messaging.SendMessage;

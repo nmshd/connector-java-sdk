@@ -11,7 +11,7 @@ import eu.enmeshed.client.EnmeshedClient;
 import eu.enmeshed.model.AttributeWrapper;
 import eu.enmeshed.model.ContentWrapper;
 import eu.enmeshed.model.IdentityInfo;
-import eu.enmeshed.model.Response;
+import eu.enmeshed.model.request.Response;
 import eu.enmeshed.model.ResultWrapper;
 import eu.enmeshed.model.attributes.Attribute;
 import eu.enmeshed.model.attributes.IdentityAttribute;
@@ -288,7 +288,6 @@ public class EnmeshedOnboardingServiceTest {
                                         .items(
                                             List.of(
                                                 ResponseItemGroup.builder()
-                                                    .result(ResponseItem.Result.ACCEPTED)
                                                     .items(
                                                         List.of(
                                                             ReadAttributeAcceptResponseItem
@@ -377,7 +376,6 @@ public class EnmeshedOnboardingServiceTest {
                     .items(
                         List.of(
                             ResponseItemGroup.builder()
-                                .result(ResponseItem.Result.ACCEPTED)
                                 .items(
                                     List.of(
                                         ReadAttributeAcceptResponseItem.builder()
@@ -484,7 +482,6 @@ public class EnmeshedOnboardingServiceTest {
                     .items(
                         List.of(
                             ResponseItemGroup.builder()
-                                .result(ResponseItem.Result.ACCEPTED)
                                 .items(
                                     List.of(
                                         ReadAttributeAcceptResponseItem.builder()
@@ -578,7 +575,6 @@ public class EnmeshedOnboardingServiceTest {
                     .items(
                         List.of(
                             ResponseItemGroup.builder()
-                                .result(ResponseItem.Result.ACCEPTED)
                                 .items(
                                     List.of(
                                         ReadAttributeAcceptResponseItem.builder()

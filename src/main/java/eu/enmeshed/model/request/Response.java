@@ -1,4 +1,4 @@
-package eu.enmeshed.model;
+package eu.enmeshed.model.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -15,11 +15,8 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @JsonIgnoreProperties({"@type"})
 public class Response {
-
   private List<ResponseItem> items;
-
   private String requestId;
-
   private Result result;
 
   public enum Result {

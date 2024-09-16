@@ -9,6 +9,6 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class AcceptResponseItem extends ResponseItem {
+public class AcceptResponseItem extends ResponseItemDerivation {
   private final Result result = Result.ACCEPTED;
 }

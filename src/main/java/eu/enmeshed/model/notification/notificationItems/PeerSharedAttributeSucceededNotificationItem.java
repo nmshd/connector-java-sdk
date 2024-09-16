@@ -1,4 +1,4 @@
-package eu.enmeshed.model.notification.notificationItem;
+package eu.enmeshed.model.notification.notificationItems;
 
 import eu.enmeshed.model.attributes.Attribute;
 import lombok.Getter;

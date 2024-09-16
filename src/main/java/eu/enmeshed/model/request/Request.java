@@ -16,16 +16,10 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @JsonIgnoreProperties({"@type"})
 public class Request extends MessageContent {
-
   private String id;
-
   private String title;
-
   private String description;
-
   private ZonedDateTime expiresAt;
-
   private List<RequestItem> items;
-
   private String metadata;
 }

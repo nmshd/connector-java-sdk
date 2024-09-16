@@ -12,6 +12,5 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class CreateAttributeAcceptResponseItem extends AcceptResponseItem {
-
   private String attributeId;
 }
