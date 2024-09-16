@@ -6,7 +6,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import eu.enmeshed.client.EnmeshedClient;
-import eu.enmeshed.model.request.Response;
 import eu.enmeshed.model.ResultWrapper;
 import eu.enmeshed.model.messaging.Message;
 import eu.enmeshed.model.messaging.SendMessage;
@@ -15,6 +14,7 @@ import eu.enmeshed.model.request.LocalRequestResponse;
 import eu.enmeshed.model.request.LocalRequestSource;
 import eu.enmeshed.model.request.Request;
 import eu.enmeshed.model.request.RequestResponseSource;
+import eu.enmeshed.model.request.Response;
 import eu.enmeshed.model.request.requestItems.AuthenticationRequestItem;
 import eu.enmeshed.model.request.requestItems.RequestItemDerivation;
 import eu.enmeshed.model.request.responseItems.AcceptResponseItem;

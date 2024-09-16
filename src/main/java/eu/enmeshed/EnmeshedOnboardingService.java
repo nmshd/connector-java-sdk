@@ -250,7 +250,7 @@ public class EnmeshedOnboardingService {
   }
 
   private Map<Class<? extends AttributeValue>, AttributeValue>
-      getSharedSimpleAttributesFromResponseItems(List<ResponseItem> responseItems) {
+      getSharedSimpleAttributesFromResponseItems(List<? extends ResponseItem> responseItems) {
 
     Map<Class<? extends AttributeValue>, AttributeValue> attributes = new HashMap<>();
 

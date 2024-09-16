@@ -2,12 +2,12 @@ package eu.enmeshed.model.relationshipTemplates;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import eu.enmeshed.model.request.Request;
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import java.util.Map;
 
 @AllArgsConstructor
 @NoArgsConstructor
