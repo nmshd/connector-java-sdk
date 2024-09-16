@@ -1,4 +1,4 @@
-package eu.enmeshed.model.responseItems;
+package eu.enmeshed.model.request.requestItems;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,4 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class AcceptResponseItem extends ResponseItem {
-
-  private final Result result = Result.ACCEPTED;
-}
+public class AuthenticationRequestItem extends RequestItemDerivation {}

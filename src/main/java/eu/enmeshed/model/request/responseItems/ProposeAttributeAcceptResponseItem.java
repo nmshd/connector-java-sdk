@@ -1,4 +1,4 @@
-package eu.enmeshed.model.responseItems;
+package eu.enmeshed.model.request.responseItems;
 
 import eu.enmeshed.model.attributes.Attribute;
 import lombok.AllArgsConstructor;
@@ -12,11 +12,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class ReadAttributeAcceptResponseItem extends AcceptResponseItem {
-
-  private Attribute attribute;
-
+public class ProposeAttributeAcceptResponseItem extends AcceptResponseItem {
   private String attributeId;
-
-  private Result result;
+  private Attribute attribute;
 }

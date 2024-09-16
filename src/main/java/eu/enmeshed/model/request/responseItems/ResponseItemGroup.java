@@ -1,5 +1,6 @@
-package eu.enmeshed.model.requestItems;
+package eu.enmeshed.model.request.responseItems;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,6 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class FreeTextRequestItem extends RequestItem {
-  Boolean accept;
-  String freeText;
+public class ResponseItemGroup extends ResponseItem {
+  private List<ResponseItemDerivation> items;
 }

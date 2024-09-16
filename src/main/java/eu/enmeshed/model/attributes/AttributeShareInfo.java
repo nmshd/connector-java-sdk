@@ -12,10 +12,7 @@ import lombok.Setter;
 @Setter
 @Builder
 public class AttributeShareInfo {
-
   private String peer;
-
   private String requestReference;
-
   private String sourceAttribute;
 }

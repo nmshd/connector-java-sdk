@@ -6,7 +6,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import eu.enmeshed.client.EnmeshedClient;
-import eu.enmeshed.model.Response;
 import eu.enmeshed.model.ResultWrapper;
 import eu.enmeshed.model.messaging.Message;
 import eu.enmeshed.model.messaging.SendMessage;
@@ -15,9 +14,11 @@ import eu.enmeshed.model.request.LocalRequestResponse;
 import eu.enmeshed.model.request.LocalRequestSource;
 import eu.enmeshed.model.request.Request;
 import eu.enmeshed.model.request.RequestResponseSource;
-import eu.enmeshed.model.requestItems.AuthenticationRequestItem;
-import eu.enmeshed.model.responseItems.AcceptResponseItem;
-import eu.enmeshed.model.responseItems.RejectResponseItem;
+import eu.enmeshed.model.request.Response;
+import eu.enmeshed.model.request.requestItems.AuthenticationRequestItem;
+import eu.enmeshed.model.request.requestItems.RequestItemDerivation;
+import eu.enmeshed.model.request.responseItems.AcceptResponseItem;
+import eu.enmeshed.model.request.responseItems.RejectResponseItem;
 import feign.FeignException;
 import java.time.Duration;
 import java.time.ZonedDateTime;
@@ -130,11 +131,8 @@ public class EnmeshedMessagingServiceTest {
         TEST_METADATA,
         requestWrapperArgumentCaptor.getValue().getContent().getItems().get(0).getMetadata());
     Assertions.assertTrue(
-        requestWrapperArgumentCaptor
-            .getValue()
-            .getContent()
-            .getItems()
-            .get(0)
+        ((RequestItemDerivation)
+                requestWrapperArgumentCaptor.getValue().getContent().getItems().get(0))
             .getRequireManualDecision());
 
     // Test sent message
@@ -149,7 +147,8 @@ public class EnmeshedMessagingServiceTest {
     Assertions.assertInstanceOf(AuthenticationRequestItem.class, sentRequest.getItems().get(0));
     Assertions.assertEquals(TEST_AUTH_TITLE, sentRequest.getItems().get(0).getTitle());
     Assertions.assertEquals(TEST_AUTH_TEXT, sentRequest.getItems().get(0).getDescription());
-    Assertions.assertTrue(sentRequest.getItems().get(0).getRequireManualDecision());
+    Assertions.assertTrue(
+        ((RequestItemDerivation) sentRequest.getItems().get(0)).getRequireManualDecision());
   }
 
   @Test

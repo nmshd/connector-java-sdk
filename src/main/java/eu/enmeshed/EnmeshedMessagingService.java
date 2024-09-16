@@ -1,11 +1,11 @@
 package eu.enmeshed;
 
 import eu.enmeshed.client.EnmeshedClient;
-import eu.enmeshed.model.Response;
 import eu.enmeshed.model.messaging.SendMessage;
 import eu.enmeshed.model.request.LocalRequest;
 import eu.enmeshed.model.request.Request;
-import eu.enmeshed.model.requestItems.AuthenticationRequestItem;
+import eu.enmeshed.model.request.Response;
+import eu.enmeshed.model.request.requestItems.AuthenticationRequestItem;
 import feign.FeignException;
 import java.time.Duration;
 import java.time.ZonedDateTime;

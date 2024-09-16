@@ -13,10 +13,8 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class RequestResponseSource {
-
-  RequestSourceType type;
-
-  String reference;
+  private RequestSourceType type;
+  private String reference;
 
   public enum RequestSourceType {
     @JsonProperty("Message")

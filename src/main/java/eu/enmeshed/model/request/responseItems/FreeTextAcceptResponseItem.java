@@ -1,4 +1,4 @@
-package eu.enmeshed.model.responseItems;
+package eu.enmeshed.model.request.responseItems;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,8 +11,6 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class AttributeAlreadySharedAcceptResponseItem extends ResponseItem {
-
-  private String attributeId;
-  private ResponseItem.Result result;
+public class FreeTextAcceptResponseItem extends AcceptResponseItem {
+  private String freeText;
 }

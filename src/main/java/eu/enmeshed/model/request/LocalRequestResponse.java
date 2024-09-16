@@ -1,7 +1,6 @@
 package eu.enmeshed.model.request;
 
 import eu.enmeshed.model.ContentWrapper;
-import eu.enmeshed.model.Response;
 import java.time.ZonedDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,6 +14,6 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class LocalRequestResponse extends ContentWrapper<Response> {
-  ZonedDateTime createdAt;
-  RequestResponseSource source;
+  private ZonedDateTime createdAt;
+  private RequestResponseSource source;
 }
