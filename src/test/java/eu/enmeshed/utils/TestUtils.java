@@ -45,7 +45,7 @@ public class TestUtils {
       }
 
       try {
-        Thread.sleep(1000);
+        Thread.sleep(1000 + (i * 200));
       } catch (InterruptedException e) {
         throw new RuntimeException(e);
       }

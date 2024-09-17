@@ -69,7 +69,7 @@ public class ConnectorClient {
   }
 
   public static ConnectorClient create(String url, String apiKey) {
-    return create(url, apiKey, new Options(), Level.FULL);
+    return create(url, apiKey, new Options(), Level.NONE);
   }
 
   public static ConnectorClient create(String url, String apiKey, Options options, Level loggerLevel) {

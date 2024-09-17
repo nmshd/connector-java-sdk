@@ -20,7 +20,7 @@ jobs:
       - name: Start Backbone
         run: docker compose -p test-backbone --env-file .dev/compose.backbone.env -f .dev/compose.backbone.yml up -d
       - name: Run Tests
-        run: mvn test --batch-mode --file ./pom.xml
+        run: mvn test
         env:
           NMSHD_TEST_BASEURL: http://host.docker.internal:8090
           NMSHD_TEST_CLIENTID: test
