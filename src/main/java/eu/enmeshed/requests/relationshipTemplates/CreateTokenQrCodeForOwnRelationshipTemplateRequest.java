@@ -1,5 +1,6 @@
 package eu.enmeshed.requests.relationshipTemplates;
 
+import java.time.ZonedDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class LoadPeerRelationshipTemplateRequest {
+public class CreateTokenQrCodeForOwnRelationshipTemplateRequest {
 
-  private String reference;
+  private ZonedDateTime expiresAt;
 }

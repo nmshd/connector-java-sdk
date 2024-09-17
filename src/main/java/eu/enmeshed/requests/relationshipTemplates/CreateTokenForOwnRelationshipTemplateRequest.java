@@ -1,6 +1,5 @@
 package eu.enmeshed.requests.relationshipTemplates;
 
-import eu.enmeshed.model.relationshipTemplates.RelationshipTemplateContentDerivation;
 import java.time.ZonedDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,9 +12,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class CreateRelationshipTemplateRequest<T extends RelationshipTemplateContentDerivation> {
+public class CreateTokenForOwnRelationshipTemplateRequest {
 
-  private T content;
-  private Integer maxNumberOfAllocations;
   private ZonedDateTime expiresAt;
 }

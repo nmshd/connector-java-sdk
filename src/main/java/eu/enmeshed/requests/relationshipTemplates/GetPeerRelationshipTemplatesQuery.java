@@ -11,7 +11,10 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class LoadPeerRelationshipTemplateRequest {
+public class GetPeerRelationshipTemplatesQuery {
 
-  private String reference;
+  private String createdAt;
+  private String expiresAt;
+  private String createdBy;
+  private int maxNumberOfAllocations;
 }
