@@ -39,7 +39,7 @@ public interface RelationshipTemplatesEndpoint {
 
   @RequestLine("POST /api/v2/RelationshipTemplates/Own")
   @Headers("Content-Type: application/json")
-  <T extends RelationshipTemplateContentDerivation> ConnectorResponse<List<RelationshipTemplate>> createOwnRelationshipTemplate(CreateOwnRelationshipTemplateRequest<T> request);
+  <T extends RelationshipTemplateContentDerivation> ConnectorResponse<RelationshipTemplate> createOwnRelationshipTemplate(CreateOwnRelationshipTemplateRequest<T> request);
 
   @RequestLine("GET /api/v2/RelationshipTemplates/{id}")
   @Headers("Accept: image/png")
@@ -59,5 +59,5 @@ public interface RelationshipTemplatesEndpoint {
 
   @RequestLine("POST /api/v2/RelationshipTemplates/Peer")
   @Headers("Content-Type: application/json")
-  ConnectorResponse<List<RelationshipTemplate>> loadPeerRelationshipTemplate(LoadPeerRelationshipTemplateRequest request);
+  ConnectorResponse<RelationshipTemplate> loadPeerRelationshipTemplate(LoadPeerRelationshipTemplateRequest request);
 }

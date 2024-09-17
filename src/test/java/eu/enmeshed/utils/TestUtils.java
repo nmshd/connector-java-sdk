@@ -6,7 +6,7 @@ import eu.enmeshed.model.relationshipTemplates.RelationshipTemplate;
 import eu.enmeshed.model.relationships.ArbitraryRelationshipCreationContent;
 import eu.enmeshed.model.relationships.ConnectorRelationship;
 import eu.enmeshed.model.relationships.RelationshipStatus;
-import eu.enmeshed.requests.relationshipTemplates.CreateRelationshipTemplateRequest;
+import eu.enmeshed.requests.relationshipTemplates.CreateOwnRelationshipTemplateRequest;
 import eu.enmeshed.requests.relationshipTemplates.LoadPeerRelationshipTemplateRequest;
 import eu.enmeshed.requests.relationships.CreateRelationshipRequest;
 import java.time.ZonedDateTime;
@@ -52,7 +52,7 @@ public class TestUtils {
 
   private static ConnectorRelationship getRelationshipSafeById(ConnectorClient client, String id) {
     try {
-      return client.relationships.getRelationshipById(id).getResult();
+      return client.relationships.getRelationship(id).getResult();
     } catch (Exception e) {
       return null;
     }
@@ -67,7 +67,7 @@ public class TestUtils {
 
   public static RelationshipTemplate createTemplate(ConnectorClient client) {
     var template = client.relationshipTemplates.createOwnRelationshipTemplate(
-        CreateRelationshipTemplateRequest.builder().content(ArbitraryRelationshipTemplateContent.builder().value("value").build()).expiresAt(ZonedDateTime.now().plusDays(1))
+        CreateOwnRelationshipTemplateRequest.builder().content(ArbitraryRelationshipTemplateContent.builder().value("value").build()).expiresAt(ZonedDateTime.now().plusDays(1))
             .build());
 
     return template.getResult();
