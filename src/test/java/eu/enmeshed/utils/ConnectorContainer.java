@@ -35,6 +35,8 @@ public class ConnectorContainer extends GenericContainer<ConnectorContainer> {
     withEnv("database:folder", "./");
     withEnv("infrastructure:httpServer:apiKey", API_KEY);
 
+    withExtraHost("host.docker.internal", "host-gateway");
+
     waitingFor(new HttpWaitStrategy().forStatusCode(200).forPort(80).forPath("/health"));
   }
 
