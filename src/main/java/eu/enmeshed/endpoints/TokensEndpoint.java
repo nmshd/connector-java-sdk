@@ -21,7 +21,7 @@ public interface TokensEndpoint {
   }
 
   @RequestLine("GET /api/v2/Tokens/{tokenId}")
-  @Headers("Content-Type: application/json")
+  @Headers("Accept: application/json")
   ConnectorResponse<ConnectorToken> getToken(@Param("tokenId") String tokenId);
 
   @RequestLine("GET /api/v2/Tokens/{tokenId}")

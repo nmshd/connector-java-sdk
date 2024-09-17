@@ -26,6 +26,9 @@ public class TokensTest {
 
   @BeforeAll
   public static void setUp() {
+    connector1.start();
+    connector2.start();
+
     client1 = ConnectorClient.create(connector1.getConnectionString(), connector1.getApiKey());
     client2 = ConnectorClient.create(connector2.getConnectionString(), connector2.getApiKey());
   }
