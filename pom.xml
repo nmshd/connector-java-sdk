@@ -129,7 +129,7 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>3.2.5</version>
           <configuration>
-            <testSourceDirectory>${basedir}\test\java\</testSourceDirectory>
+            <testSourceDirectory>${basedir}src\test\java\</testSourceDirectory>
           </configuration>
         </plugin>
       </plugins>
