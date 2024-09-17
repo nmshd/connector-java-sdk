@@ -14,6 +14,7 @@ import eu.enmeshed.endpoints.MessagesEndpoint;
 import eu.enmeshed.endpoints.OutgoingRequestsEndpoint;
 import eu.enmeshed.endpoints.RelationshipTemplatesEndpoint;
 import eu.enmeshed.endpoints.RelationshipsEndpoint;
+import eu.enmeshed.endpoints.TokensEndpoint;
 import feign.Feign;
 import feign.Logger.Level;
 import feign.Request.Options;
@@ -41,6 +42,7 @@ public class ConnectorClient {
   public final RelationshipsEndpoint relationships;
   public final IncomingRequestsEndpoint incomingRequests;
   public final OutgoingRequestsEndpoint outgoingRequests;
+  public final TokensEndpoint tokens;
 
   public ConnectorClient(
       AccountEndpoint account,
@@ -51,7 +53,8 @@ public class ConnectorClient {
       RelationshipTemplatesEndpoint relationshipTemplates,
       RelationshipsEndpoint relationships,
       IncomingRequestsEndpoint incomingRequests,
-      OutgoingRequestsEndpoint outgoingRequests
+      OutgoingRequestsEndpoint outgoingRequests,
+      TokensEndpoint tokens
   ) {
     this.account = account;
     this.attributes = attributes;
@@ -62,6 +65,7 @@ public class ConnectorClient {
     this.relationships = relationships;
     this.incomingRequests = incomingRequests;
     this.outgoingRequests = outgoingRequests;
+    this.tokens = tokens;
   }
 
   public static ConnectorClient create(String url, String apiKey) {
@@ -87,6 +91,8 @@ public class ConnectorClient {
         RelationshipTemplatesEndpoint.configure(url, builder),
         RelationshipsEndpoint.configure(url, builder),
         IncomingRequestsEndpoint.configure(url, builder),
-        OutgoingRequestsEndpoint.configure(url, builder));
+        OutgoingRequestsEndpoint.configure(url, builder),
+        TokensEndpoint.configure(url, builder)
+    );
   }
 }
