@@ -35,13 +35,7 @@ public class FilesTest {
   public void shouldUploadAFile() {
     var expiresAt = DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now().plusDays(1));
 
-    var file =
-        client1.files.uploadOwnFile(
-            FileUploadRequest.builder()
-                .file(new File("src/test/assets/file.txt"))
-                .title("a Title")
-                .expiresAt(expiresAt)
-                .build());
+    var file = client1.files.uploadOwnFile(FileUploadRequest.builder().file(new File("src/test/assets/file.txt")).title("a Title").expiresAt(expiresAt).build());
 
     var fileId = file.getResult().getId();
 

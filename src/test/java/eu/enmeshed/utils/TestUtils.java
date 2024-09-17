@@ -67,11 +67,8 @@ public class TestUtils {
 
   public static RelationshipTemplate createTemplate(ConnectorClient client) {
     var template = client.relationshipTemplates.createOwnRelationshipTemplate(
-        CreateRelationshipTemplateRequest.builder()
-            .content(ArbitraryRelationshipTemplateContent.builder().value("value").build())
-            .expiresAt(ZonedDateTime.now().plusDays(1))
-            .build()
-    );
+        CreateRelationshipTemplateRequest.builder().content(ArbitraryRelationshipTemplateContent.builder().value("value").build()).expiresAt(ZonedDateTime.now().plusDays(1))
+            .build());
 
     return template.getResult();
   }
