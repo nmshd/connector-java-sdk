@@ -12,7 +12,9 @@ import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
+@Testcontainers
 public class TokensTest {
 
   @Container
@@ -26,8 +28,6 @@ public class TokensTest {
 
   @BeforeAll
   public static void setUp() {
-    connector1.start();
-    connector2.start();
 
     client1 = ConnectorClient.create(connector1.getConnectionString(), connector1.getApiKey());
     client2 = ConnectorClient.create(connector2.getConnectionString(), connector2.getApiKey());
