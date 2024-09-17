@@ -8,7 +8,7 @@ import java.io.File;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import org.hamcrest.CoreMatchers;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -16,21 +16,23 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Testcontainers
 public class FilesTest {
 
-  @Container public ConnectorContainer connector1 = new ConnectorContainer();
+  @Container
+  public static ConnectorContainer connector1 = new ConnectorContainer();
 
-  @Container public ConnectorContainer connector2 = new ConnectorContainer();
+  @Container
+  public static ConnectorContainer connector2 = new ConnectorContainer();
 
-  private ConnectorClient client1;
-  private ConnectorClient client2;
+  private static ConnectorClient client1;
+  private static ConnectorClient client2;
 
-  @BeforeEach
-  public void setUp() {
+  @BeforeAll
+  public static void setUp() {
     client1 = ConnectorClient.create(connector1.getConnectionString(), connector1.getApiKey());
     client2 = ConnectorClient.create(connector2.getConnectionString(), connector2.getApiKey());
   }
 
   @Test
-  public void testSimplePutAndGet() {
+  public void shouldUploadAFile() {
     var expiresAt = DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now().plusDays(1));
 
     var file =
