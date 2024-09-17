@@ -1,4 +1,4 @@
-package eu.enmeshed.model.relationshipTemplates;
+package eu.enmeshed.model.messages;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -12,10 +12,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public final class ArbitraryRelationshipTemplateContent extends RelationshipTemplateContentDerivation {
+public class ArbitraryMessageContent extends MessageContent {
 
   @JsonProperty("@type")
-  private final String type = ArbitraryRelationshipTemplateContent.class.getSimpleName();
+  private final String type = ArbitraryMessageContent.class.getSimpleName();
 
   private Object value;
 }

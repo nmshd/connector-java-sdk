@@ -12,13 +12,16 @@ import lombok.experimental.SuperBuilder;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "@type")
 @JsonSubTypes({
-  @JsonSubTypes.Type(Mail.class),
-  @JsonSubTypes.Type(Request.class),
-  @JsonSubTypes.Type(ResponseWrapper.class),
-  @JsonSubTypes.Type(Notification.class)
+    @JsonSubTypes.Type(Mail.class),
+    @JsonSubTypes.Type(Request.class),
+    @JsonSubTypes.Type(ResponseWrapper.class),
+    @JsonSubTypes.Type(Notification.class),
+    @JsonSubTypes.Type(ArbitraryMessageContent.class)
 })
 @NoArgsConstructor
 @Getter
 @Setter
 @SuperBuilder
-public abstract class MessageContent {}
+public abstract class MessageContent {
+
+}
