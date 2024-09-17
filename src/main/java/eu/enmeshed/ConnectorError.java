@@ -2,14 +2,7 @@ package eu.enmeshed;
 
 import java.util.Arrays;
 
-public record ConnectorError(
-    String id,
-    String code,
-    String message,
-    String docs,
-    String time,
-    String details,
-    String[] stacktrace) {
+public record ConnectorError(String id, String code, String message, String docs, String time, String details, String[] stacktrace) {
 
   Exception toException() {
     return new Exception(message);

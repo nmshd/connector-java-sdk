@@ -24,8 +24,13 @@ import feign.jackson.JacksonEncoder;
 @SuppressWarnings("ClassCanBeRecord")
 public class ConnectorClient {
 
-  private static final ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule()).setSerializationInclusion(Include.NON_ABSENT)
-      .disable(SerializationFeature.INDENT_OUTPUT).disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS).setDateFormat(new StdDateFormat().withColonInTimeZone(true));
+  private static final ObjectMapper objectMapper =
+      new ObjectMapper()
+          .registerModule(new JavaTimeModule())
+          .setSerializationInclusion(Include.NON_ABSENT)
+          .disable(SerializationFeature.INDENT_OUTPUT)
+          .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+          .setDateFormat(new StdDateFormat().withColonInTimeZone(true));
 
   public final AccountEndpoint account;
   public final AttributesEndpoint attributes;
@@ -64,13 +69,14 @@ public class ConnectorClient {
   }
 
   public static ConnectorClient create(String url, String apiKey, Options options, Level loggerLevel) {
-    var builder = Feign.builder()
-        .decoder(new JacksonDecoder(objectMapper))
-        .encoder(new FormEncoder(new JacksonEncoder(objectMapper)))
-        .requestInterceptor(request -> request.header("X-API-KEY", apiKey))
-        .logLevel(loggerLevel)
-        .options(options)
-        .errorDecoder(new ConnectorErrorDecoder());
+    var builder =
+        Feign.builder()
+            .decoder(new JacksonDecoder(objectMapper))
+            .encoder(new FormEncoder(new JacksonEncoder(objectMapper)))
+            .requestInterceptor(request -> request.header("X-API-KEY", apiKey))
+            .logLevel(loggerLevel)
+            .options(options)
+            .errorDecoder(new ConnectorErrorDecoder());
 
     return new ConnectorClient(
         AccountEndpoint.configure(url, builder),
@@ -81,7 +87,6 @@ public class ConnectorClient {
         RelationshipTemplatesEndpoint.configure(url, builder),
         RelationshipsEndpoint.configure(url, builder),
         IncomingRequestsEndpoint.configure(url, builder),
-        OutgoingRequestsEndpoint.configure(url, builder)
-    );
+        OutgoingRequestsEndpoint.configure(url, builder));
   }
 }
