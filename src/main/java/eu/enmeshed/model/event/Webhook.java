@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import eu.enmeshed.model.attributes.ConnectorAttribute;
 import eu.enmeshed.model.messages.Message;
 import eu.enmeshed.model.relationshipTemplates.RelationshipTemplate;
-import eu.enmeshed.model.relationships.Relationship;
+import eu.enmeshed.model.relationships.ConnectorRelationship;
 import eu.enmeshed.model.request.ConnectorRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -61,7 +61,7 @@ public class Webhook<T extends WebhookData> {
         value = RelationshipTemplate.class,
         names = WebhookTriggerNames.Transport.PEER_RELATIONSHIP_TEMPLATE_LOADED),
     @JsonSubTypes.Type(
-        value = Relationship.class,
+        value = ConnectorRelationship.class,
         names = WebhookTriggerNames.Transport.RELATIONSHIP_CHANGED)
   })
   private T data;

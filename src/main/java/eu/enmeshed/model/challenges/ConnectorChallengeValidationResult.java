@@ -17,5 +17,6 @@ public class ConnectorChallengeValidationResult {
 
   @JsonProperty("isValid")
   private boolean valid;
+
   private ConnectorRelationship correspondingRelationship;
 }

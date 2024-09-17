@@ -1,5 +1,6 @@
 package eu.enmeshed.model.tokens;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,5 +22,7 @@ public class ConnectorToken {
   private String expiresAt;
   private String secretKey;
   private String truncatedReference;
-  private boolean isEphemeral;
+
+  @JsonProperty("isEphemeral")
+  private boolean ephemeral;
 }

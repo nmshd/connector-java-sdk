@@ -16,7 +16,10 @@ import lombok.experimental.SuperBuilder;
 public class ConnectorRequest extends ContentWrapper<Request> implements WebhookData {
 
   private String id;
-  private Boolean isOwn;
+
+  @JsonProperty("isOwn")
+  private boolean own;
+
   private String peer;
   private ZonedDateTime createdAt;
   private Status status;

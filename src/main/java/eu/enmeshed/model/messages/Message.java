@@ -1,5 +1,6 @@
 package eu.enmeshed.model.messages;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import eu.enmeshed.model.ContentWrapper;
 import eu.enmeshed.model.event.WebhookData;
 import java.time.ZonedDateTime;
@@ -27,5 +28,6 @@ public class Message extends ContentWrapper<MessageContent> implements WebhookDa
 
   private List<String> attachments;
 
-  private Boolean isOwn;
+  @JsonProperty("isOwn")
+  private boolean own;
 }

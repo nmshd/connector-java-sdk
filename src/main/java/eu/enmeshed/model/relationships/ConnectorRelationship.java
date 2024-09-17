@@ -17,14 +17,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class Relationship implements WebhookData {
+public class ConnectorRelationship implements WebhookData {
 
   private String id;
   private RelationshipTemplate template;
   private RelationshipStatus status;
   private String peer;
   private ConnectorIdentityInfo peerIdentity;
-  private RelationshipCreationContent creationContent;
+  private RelationshipCreationContentDerivation creationContent;
   private List<RelationshipAuditLogEntry> auditLog;
   private PeerDeletionInfo peerDeletionInfo;
 

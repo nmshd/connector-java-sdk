@@ -1,6 +1,7 @@
 package eu.enmeshed.model.request.requestItems;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.AllArgsConstructor;
@@ -31,6 +32,9 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class RequestItemDerivation extends RequestItem {
 
-  private Boolean requireManualDecision;
-  private Boolean mustBeAccepted;
+  @JsonProperty("requireManualDecision")
+  private boolean requireManualDecision;
+
+  @JsonProperty("mustBeAccepted")
+  private boolean mustBeAccepted;
 }

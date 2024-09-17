@@ -1,5 +1,6 @@
 package eu.enmeshed.model.file;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,7 +24,10 @@ public class ConnectorFile {
   private String createdByDevice;
   private String expiresAt;
   private String mimetype;
-  private Boolean isOwn;
+
+  @JsonProperty("isOwn")
+  private boolean own;
+
   private String truncatedReference;
   private String secretKey;
 }

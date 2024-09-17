@@ -1,6 +1,5 @@
 package eu.enmeshed.model.account;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.ZonedDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
