@@ -6,10 +6,14 @@ import eu.enmeshed.model.relationshipTemplates.RelationshipTemplate;
 import eu.enmeshed.model.relationships.ArbitraryRelationshipCreationContent;
 import eu.enmeshed.model.relationships.ConnectorRelationship;
 import eu.enmeshed.model.relationships.RelationshipStatus;
+import eu.enmeshed.model.tokens.ConnectorToken;
 import eu.enmeshed.requests.relationshipTemplates.CreateOwnRelationshipTemplateRequest;
 import eu.enmeshed.requests.relationshipTemplates.LoadPeerRelationshipTemplateRequest;
 import eu.enmeshed.requests.relationships.CreateRelationshipRequest;
+import eu.enmeshed.requests.tokens.CreateOwnTokenRequest;
+import eu.enmeshed.requests.tokens.LoadPeerTokenRequest;
 import java.time.ZonedDateTime;
+import java.util.HashMap;
 
 public class TestUtils {
 
@@ -71,5 +75,18 @@ public class TestUtils {
             .build());
 
     return template.getResult();
+  }
+
+  public static ConnectorToken exchangeToken(ConnectorClient client1, ConnectorClient client2) {
+    var token = createToken(client1);
+
+    var response = client2.tokens.loadPeerToken(LoadPeerTokenRequest.builder().reference(token.getTruncatedReference()).build());
+    return response.getResult();
+  }
+
+  public static ConnectorToken createToken(ConnectorClient client) {
+    var token = client.tokens.createOwnToken(CreateOwnTokenRequest.builder().content(new HashMap<>()).expiresAt(ZonedDateTime.now().plusDays(1)).build());
+
+    return token.getResult();
   }
 }

@@ -121,32 +121,4 @@
           <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>com.spotify.fmt</groupId>
-                <artifactId>fmt-maven-plugin</artifactId>
-                <version>${fmt.maven.plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>format-code</id>
-                        <phase>process-sources</phase>
-                        <goals>
-                            <goal>format</goal>
-                        </goals>
-                        <configuration>
-                            <sourceDirectory>src/main/java</sourceDirectory>
-                            <testSourceDirectory>src/test/java</testSourceDirectory>
-                            <verbose>false</verbose>
-                            <filesNamePattern>.*\.java</filesNamePattern>
-                            <skip>false</skip>
-                            <skipSortingImports>false</skipSortingImports>
-                            <style>google</style>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>

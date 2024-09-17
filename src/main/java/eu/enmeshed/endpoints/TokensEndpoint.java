@@ -2,14 +2,16 @@ package eu.enmeshed.endpoints;
 
 import eu.enmeshed.ConnectorResponse;
 import eu.enmeshed.model.tokens.ConnectorToken;
-import eu.enmeshed.requests.tokens.*;
+import eu.enmeshed.requests.tokens.CreateOwnTokenRequest;
+import eu.enmeshed.requests.tokens.GetOwnTokensQuery;
+import eu.enmeshed.requests.tokens.GetPeerTokensQuery;
+import eu.enmeshed.requests.tokens.LoadPeerTokenRequest;
 import feign.Feign.Builder;
 import feign.Headers;
 import feign.Param;
 import feign.QueryMap;
 import feign.RequestLine;
-
-import java.nio.ByteBuffer;
+import feign.Response;
 import java.util.List;
 
 public interface TokensEndpoint {
@@ -24,7 +26,7 @@ public interface TokensEndpoint {
 
   @RequestLine("GET /api/v2/Tokens/{tokenId}")
   @Headers("Accept: image/png")
-  ConnectorResponse<ByteBuffer> getQrCodeForToken(@Param("tokenId") String tokenId);
+  Response getQrCodeForToken(@Param("tokenId") String tokenId);
 
   @RequestLine("GET /api/v2/Tokens/Own")
   @Headers("Content-Type: application/json")
