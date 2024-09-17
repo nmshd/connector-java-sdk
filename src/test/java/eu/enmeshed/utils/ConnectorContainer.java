@@ -26,6 +26,11 @@ public class ConnectorContainer extends GenericContainer<ConnectorContainer> {
     var clientSecret = System.getenv("NMSHD_TEST_CLIENTSECRET");
     withEnv("transportLibrary:platformClientSecret", clientSecret);
 
+    var addressGenerationHostnameOverride = System.getenv("NMSHD_TEST_ADDRESS_GENERATION_HOSTNAME_OVERRIDE");
+    if (addressGenerationHostnameOverride != null) {
+      withEnv("transportLibrary:addressGenerationHostnameOverride", addressGenerationHostnameOverride);
+    }
+
     withEnv("database:driver", "lokijs");
     withEnv("database:folder", "./");
     withEnv("infrastructure:httpServer:apiKey", API_KEY);
