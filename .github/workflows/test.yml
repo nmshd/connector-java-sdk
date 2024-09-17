@@ -17,12 +17,8 @@ jobs:
         with:
           java-version: "17"
           distribution: "temurin"
-      - name: Build Artifact
-        run: mvn clean verify --batch-mode --file ./pom.xml
-
       - name: Start Backbone
         run: docker compose -p test-backbone --env-file .dev/compose.backbone.env -f .dev/compose.backbone.yml up -d
-
       - name: Run Tests
         run: mvn test --batch-mode --file ./pom.xml
         env:
