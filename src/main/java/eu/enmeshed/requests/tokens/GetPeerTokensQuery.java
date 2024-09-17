@@ -1,6 +1,5 @@
 package eu.enmeshed.requests.tokens;
 
-import java.time.ZonedDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
