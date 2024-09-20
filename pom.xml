@@ -9,6 +9,32 @@
     <version>set.by.ci</version>
     <packaging>jar</packaging>
 
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>An SDK for the enmeshed Connector.</description>
+    <url>https://enmeshed.eu</url>
+
+    <licenses>
+      <license>
+        <name>MIT License</name>
+        <url>http://www.opensource.org/licenses/mit-license.php</url>
+      </license>
+    </licenses>
+
+    <developers>
+      <developer>
+        <name>enmeshed contributors</name>
+        <email>info@js-soft.com</email>
+        <organization>js-soft</organization>
+        <organizationUrl>https://js-soft.com</organizationUrl>
+      </developer>
+    </developers>
+
+    <scm>
+      <connection>scm:git:git://github.com/nmshd/connector-java-sdk.git</connection>
+      <developerConnection>scm:git:ssh://github.com:nmshd/connector-java-sdk.git</developerConnection>
+      <url>http://github.com/nmshd/connector-java-sdk/tree/main</url>
+    </scm>
+
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
@@ -22,14 +48,6 @@
         <slf4j.version>2.0.10</slf4j.version>
         <fmt.maven.plugin.version>2.23</fmt.maven.plugin.version>
     </properties>
-
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>GitHub OWNER Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/nmshd/connector-java-sdk</url>
-        </repository>
-    </distributionManagement>
 
     <dependencyManagement>
         <dependencies>
@@ -111,28 +129,61 @@
 
     <build>
         <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.5</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>2.2.1</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.8.0</version>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <additionalOptions>
+                <additionalOption>-Xdoclint:none</additionalOption>
+              </additionalOptions>
+            </configuration>
+          </plugin>
             <plugin>
-                <groupId>com.spotify.fmt</groupId>
-                <artifactId>fmt-maven-plugin</artifactId>
-                <version>${fmt.maven.plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>format-code</id>
-                        <phase>process-sources</phase>
-                        <goals>
-                            <goal>format</goal>
-                        </goals>
-                        <configuration>
-                            <sourceDirectory>src/main/java</sourceDirectory>
-                            <testSourceDirectory>src/test/java</testSourceDirectory>
-                            <verbose>false</verbose>
-                            <filesNamePattern>.*\.java</filesNamePattern>
-                            <skip>false</skip>
-                            <skipSortingImports>false</skipSortingImports>
-                            <style>google</style>
-                        </configuration>
-                    </execution>
-                </executions>
+              <groupId>org.sonatype.central</groupId>
+              <artifactId>central-publishing-maven-plugin</artifactId>
+              <version>0.5.0</version>
+              <extensions>true</extensions>
+              <configuration>
+                <publishingServerId>central</publishingServerId>
+                <autoPublish>true</autoPublish>
+                <waitUntil>published</waitUntil>
+              </configuration>
             </plugin>
         </plugins>
     </build>
