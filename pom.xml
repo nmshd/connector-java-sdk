@@ -20,6 +20,7 @@
         <mockito.version>5.8.0</mockito.version>
         <junit.version>5.10.1</junit.version>
         <slf4j.version>2.0.10</slf4j.version>
+        <testcontainers.version>1.20.1</testcontainers.version>
         <fmt.maven.plugin.version>2.23</fmt.maven.plugin.version>
     </properties>
 
@@ -107,33 +108,30 @@
             <version>${slf4j.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+          <groupId>org.testcontainers</groupId>
+          <artifactId>testcontainers</artifactId>
+          <version>${testcontainers.version}</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.testcontainers</groupId>
+          <artifactId>junit-jupiter</artifactId>
+          <version>${testcontainers.version}</version>
+          <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>com.spotify.fmt</groupId>
-                <artifactId>fmt-maven-plugin</artifactId>
-                <version>${fmt.maven.plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>format-code</id>
-                        <phase>process-sources</phase>
-                        <goals>
-                            <goal>format</goal>
-                        </goals>
-                        <configuration>
-                            <sourceDirectory>src/main/java</sourceDirectory>
-                            <testSourceDirectory>src/test/java</testSourceDirectory>
-                            <verbose>false</verbose>
-                            <filesNamePattern>.*\.java</filesNamePattern>
-                            <skip>false</skip>
-                            <skipSortingImports>false</skipSortingImports>
-                            <style>google</style>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>3.2.5</version>
+          <configuration>
+            <testSourceDirectory>${basedir}src\test\java\</testSourceDirectory>
+          </configuration>
+        </plugin>
+      </plugins>
     </build>
 </project>

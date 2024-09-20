@@ -10,6 +10,4 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class HonoricPrefix extends SimpleStringAttributeValue {
-
-}
+public class HonoricPrefix extends SimpleStringAttributeValue {}

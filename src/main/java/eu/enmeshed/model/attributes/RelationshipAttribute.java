@@ -16,7 +16,8 @@ public class RelationshipAttribute extends Attribute {
 
   private Confidentiality confidentiality;
 
-  private Boolean isTechnical;
+  @JsonProperty("isTechnical")
+  private boolean technical;
 
   private String key;
 

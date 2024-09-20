@@ -1,7 +1,7 @@
 package eu.enmeshed.model.request;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import eu.enmeshed.model.messaging.MessageContent;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import eu.enmeshed.model.messages.MessageContent;
 import eu.enmeshed.model.request.requestItems.RequestItem;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -14,9 +14,10 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-@JsonIgnoreProperties({"@type"})
 public class Request extends MessageContent {
 
+  @JsonProperty("@type")
+  private String type = "Request";
   private String id;
   private String title;
   private String description;
