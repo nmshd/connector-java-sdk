@@ -18,8 +18,8 @@ jobs:
           server-id: central
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
-          gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
-          gpg-passphrase: MAVEN_GPG_PASSPHRASE
+          gpg-private-key: ${{ secrets.RELEASES_GPG_PRIVATE_KEY }}
+          gpg-passphrase: RELEASES_GPG_PASSPHRASE
       - name: Set Maven Version
         run: mvn versions:set --batch-mode --file ./pom.xml --define newVersion="${APP_VERSION}"
         env:
@@ -29,4 +29,4 @@ jobs:
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
-          MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+          RELEASES_GPG_PASSPHRASE: ${{ secrets.RELEASES_GPG_PASSPHRASE }}
