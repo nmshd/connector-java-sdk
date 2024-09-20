@@ -25,7 +25,7 @@ jobs:
         env:
           APP_VERSION: ${{ github.ref_name }}
       - name: Build & Deploy Artifact to ghcr
-        run: mvn --batch-mode deploy -DskipTests=true
+        run: GPG_TTY=$(tty) mvn -DperformRelease=true --batch-mode deploy -DskipTests=true
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
