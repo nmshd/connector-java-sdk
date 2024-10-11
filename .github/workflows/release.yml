@@ -18,7 +18,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
       - run: ./gradlew publishAllPublicationsToCentralPortal
         env:
-          ENMESHED_SDK_VERSION: ${{ github.ref }}
+          ENMESHED_SDK_VERSION: ${{ github.ref_name }}
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
           GPG_KEY: ${{ secrets.GPG_KEY }}
