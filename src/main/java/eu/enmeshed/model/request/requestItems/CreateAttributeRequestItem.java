@@ -18,14 +18,4 @@ import lombok.experimental.SuperBuilder;
 public class CreateAttributeRequestItem extends RequestItemDerivation {
 
   private Attribute attribute;
-
-  public static CreateAttributeRequestItem fromWrapper(ConnectorAttribute wrapper, boolean mustBeAccepted) {
-    return CreateAttributeRequestItem.builder().attribute(relationshipAttribute(wrapper)).mustBeAccepted(mustBeAccepted).build();
-  }
-
-  private static RelationshipAttribute relationshipAttribute(ConnectorAttribute wrapper) {
-    return RelationshipAttribute.builder().type(RelationshipAttribute.class.getSimpleName()).owner(wrapper.getContent().getOwner()).key("AllowCertificateRequest")
-        .confidentiality(RelationshipAttribute.Confidentiality.PRIVATE).technical(true).value(ProprietaryBoolean.builder().title("Zeugnisanfragen erlauben").value(true).build())
-        .build();
-  }
 }
