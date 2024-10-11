@@ -64,6 +64,8 @@ publishing {
       artifactId = 'connector-sdk'
       artifacts = [jar, javadocJar, sourcesJar]
 
+      from components.java
+
       pom {
         name.set("enmeshed Connector SDK")
         description.set("A Java SDK for developing integrations with enmeshed using the enmeshed Connector API.")
@@ -104,8 +106,8 @@ signing {
 
 nmcp {
   publishAllProjectsProbablyBreakingProjectIsolation {
-    username = sonatypeUsername
-    password = sonatypePassword
+    username = findProperty("sonatypeUsername")
+    password = findProperty("sonatypePassword")
     publicationType = "AUTOMATIC"
   }
 }
