@@ -7,7 +7,7 @@ on:
       - reopened
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -17,5 +17,6 @@ jobs:
         with:
           java-version: "17"
           distribution: "temurin"
-      - name: Build Artifact
-        run: mvn clean verify --batch-mode --file ./pom.xml
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Test
+        run: ./gradlew test
