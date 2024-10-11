@@ -106,8 +106,8 @@ signing {
 
 nmcp {
   publishAllProjectsProbablyBreakingProjectIsolation {
-    username = findProperty("sonatypeUsername") ?: "dummy"
-    password = findProperty("sonatypePassword") ?: "dummy"
+    username = findProperty("sonatypeUsername")
+    password = findProperty("sonatypePassword")
     publicationType = "AUTOMATIC"
   }
 }
