@@ -15,11 +15,5 @@ jobs:
         with:
           java-version: "17"
           distribution: "temurin"
-      - name: Set Maven Version
-        run: mvn versions:set --batch-mode --file ./pom.xml --define newVersion="${APP_VERSION}"
-        env:
-          APP_VERSION: ${{ github.ref_name }}
-      - name: Build & Deploy Artifact to ghcr
-        run: mvn --batch-mode deploy -DskipTests=true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: gradle/actions/setup-gradle@v4
+      # automate the deployment to central.sonatype.com
