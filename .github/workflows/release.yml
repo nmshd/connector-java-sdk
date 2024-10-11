@@ -1,7 +1,7 @@
 name: Release
 on:
   push:
-    tags: ["*"]
+    tags: [ "*" ]
 
 jobs:
   build_and_push:
@@ -16,4 +16,10 @@ jobs:
           java-version: "17"
           distribution: "temurin"
       - uses: gradle/actions/setup-gradle@v4
-      # automate the deployment to central.sonatype.com
+      - run: ./gradlew publishAllPublicationsToCentralPortal
+        env:
+          ENMESHED_SDK_VERSION: ${{ github.ref }}
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          GPG_KEY: ${{ secrets.GPG_KEY }}
+          GPG_KEY_PASSWORD: ${{ secrets.GPG_KEY_PASSWORD }}

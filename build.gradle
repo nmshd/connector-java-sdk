@@ -97,8 +97,8 @@ publishing {
 }
 
 signing {
-  def signingKey = findProperty("signingKey")
-  def signingPassword = findProperty("signingPassword")
+  def signingKey = findProperty("signingKey") ?: System.getenv("GPG_KEY")
+  def signingPassword = findProperty("signingPassword") ?: System.getenv("GPG_KEY_PASSWORD")
   useInMemoryPgpKeys(signingKey, signingPassword)
 
   sign publishing.publications.mavenJava
@@ -106,8 +106,8 @@ signing {
 
 nmcp {
   publishAllProjectsProbablyBreakingProjectIsolation {
-    username = findProperty("sonatypeUsername")
-    password = findProperty("sonatypePassword")
+    username = findProperty("sonatypeUsername") ?: System.getenv("SONATYPE_USERNAME")
+    password = findProperty("sonatypePassword") ?: System.getenv("SONATYPE_PASSWORD")
     publicationType = "AUTOMATIC"
   }
 }
