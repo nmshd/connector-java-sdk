@@ -1,7 +1,7 @@
 name: Release
 on:
   push:
-    tags: ["*"]
+    tags: [ "*" ]
 
 jobs:
   build_and_push:
@@ -15,11 +15,11 @@ jobs:
         with:
           java-version: "17"
           distribution: "temurin"
-      - name: Set Maven Version
-        run: mvn versions:set --batch-mode --file ./pom.xml --define newVersion="${APP_VERSION}"
+      - uses: gradle/actions/setup-gradle@v4
+      - run: ./gradlew publishAllPublicationsToCentralPortal
         env:
-          APP_VERSION: ${{ github.ref_name }}
-      - name: Build & Deploy Artifact to ghcr
-        run: mvn --batch-mode deploy -DskipTests=true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ENMESHED_SDK_VERSION: ${{ github.ref_name }}
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          GPG_KEY: ${{ secrets.GPG_KEY }}
+          GPG_KEY_PASSWORD: ${{ secrets.GPG_KEY_PASSWORD }}
