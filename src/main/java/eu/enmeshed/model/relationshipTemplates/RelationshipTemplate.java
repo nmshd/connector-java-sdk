@@ -1,5 +1,6 @@
 package eu.enmeshed.model.relationshipTemplates;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import eu.enmeshed.model.ContentWrapper;
 import eu.enmeshed.model.event.WebhookData;
 import java.time.ZonedDateTime;
@@ -14,14 +15,15 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class RelationshipTemplate extends ContentWrapper<RelationshipTemplateContent>
+public class RelationshipTemplate extends ContentWrapper<RelationshipTemplateContentDerivation>
     implements WebhookData {
 
   private String id;
 
   private Integer maxNumberOfAllocations;
 
-  private Boolean isOwn;
+  @JsonProperty("isOwn")
+  private boolean own;
 
   private String createdBy;
 
