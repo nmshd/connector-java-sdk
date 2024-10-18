@@ -1,6 +1,7 @@
 package eu.enmeshed.model.event;
 
-import eu.enmeshed.model.request.LocalRequest;
+import eu.enmeshed.model.request.ConnectorRequest;
+import eu.enmeshed.model.request.ConnectorRequest.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,9 +13,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class RequestStatusChangedEventData implements WebhookData {
 
-  private LocalRequest request;
+  private ConnectorRequest request;
 
-  private LocalRequest.LocalRequestStatus oldStatus;
+  private Status oldStatus;
 
-  private LocalRequest.LocalRequestStatus newStatus;
+  private Status newStatus;
 }

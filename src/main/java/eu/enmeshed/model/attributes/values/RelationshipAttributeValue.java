@@ -9,6 +9,4 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public abstract class RelationshipAttributeValue extends AttributeValue {
-
-}
+public abstract class RelationshipAttributeValue extends AttributeValue {}

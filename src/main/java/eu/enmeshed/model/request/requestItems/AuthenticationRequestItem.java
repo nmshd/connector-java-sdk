@@ -9,6 +9,4 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class AuthenticationRequestItem extends RequestItemDerivation {
-
-}
+public class AuthenticationRequestItem extends RequestItemDerivation {}
