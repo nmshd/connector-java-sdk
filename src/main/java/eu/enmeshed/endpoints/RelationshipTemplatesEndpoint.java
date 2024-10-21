@@ -30,7 +30,7 @@ public interface RelationshipTemplatesEndpoint {
   ConnectorResponse<List<RelationshipTemplate>> getRelationshipTemplates(@QueryMap GetRelationshipTemplatesQuery request);
 
   @RequestLine("GET /api/v2/RelationshipTemplates/{id}")
-  @Headers("Content-Type: application/json")
+  @Headers("Accept: application/json")
   ConnectorResponse<RelationshipTemplate> getRelationshipTemplate(@Param("id") String id);
 
   @RequestLine("GET /api/v2/RelationshipTemplates/Own")
