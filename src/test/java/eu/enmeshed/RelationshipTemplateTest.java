@@ -13,6 +13,7 @@ import eu.enmeshed.requests.relationshipTemplates.GetRelationshipTemplatesQuery;
 import eu.enmeshed.requests.relationshipTemplates.LoadPeerRelationshipTemplateRequest;
 import eu.enmeshed.utils.ConnectorContainer;
 import java.time.ZonedDateTime;
+import eu.enmeshed.utils.TestUtils;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -127,9 +128,9 @@ public class RelationshipTemplateTest {
 
   @Test
   public void queryPeerTemplates() {
-    var templateId1 = exchangeTemplate(client1, client2);
-    var templateId2 = exchangeTemplate(client1, client2);
-    var templateId3 = exchangeTemplate(client1, client2);
+    var templateId1 = TestUtils.RelationshipTemplates.exchangeTemplate(client1, client2).getId();
+    var templateId2 = TestUtils.RelationshipTemplates.exchangeTemplate(client1, client2).getId();
+    var templateId3 = TestUtils.RelationshipTemplates.exchangeTemplate(client1, client2).getId();
 
     var templates = client2.relationshipTemplates.getRelationshipTemplates(GetRelationshipTemplatesQuery.builder()
         .maxNumberOfAllocations(1)
@@ -151,25 +152,5 @@ public class RelationshipTemplateTest {
     return CreateOwnRelationshipTemplateRequest.builder()
         .content(ArbitraryRelationshipTemplateContent.builder().value("value").build())
         .expiresAt(ZonedDateTime.now().plusDays(1)).build();
-  }
-
-  private String exchangeTemplate(ConnectorClient clientCreator, ConnectorClient clientRecipient) {
-
-    var template = clientCreator.relationshipTemplates.createOwnRelationshipTemplate(getCreateOwnTemplateRequest(1)).getResult();
-
-    var templateToken = clientCreator.relationshipTemplates.createTokenForOwnRelationshipTemplate(
-            template.getId(),
-            CreateTokenForOwnRelationshipTemplateRequest.builder()
-                .expiresAt(ZonedDateTime.now().plusDays(1))
-                .build())
-        .getResult();
-
-    var response = clientRecipient.relationshipTemplates.loadPeerRelationshipTemplate(
-            LoadPeerRelationshipTemplateRequest.builder()
-                .reference(templateToken.getTruncatedReference())
-                .build())
-        .getResult();
-
-    return template.getId();
   }
 }
