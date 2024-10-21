@@ -31,7 +31,7 @@ public class ChallengesTest {
     client1 = ConnectorClient.create(connector1.getConnectionString(), connector1.getApiKey());
     client2 = ConnectorClient.create(connector2.getConnectionString(), connector2.getApiKey());
 
-    relationship = TestUtils.establishRelationship(client1, client2);
+    relationship = TestUtils.Relationships.establishRelationship(client1, client2);
   }
 
   @Test
