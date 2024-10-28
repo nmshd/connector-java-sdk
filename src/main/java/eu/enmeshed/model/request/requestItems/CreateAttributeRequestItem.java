@@ -1,7 +1,7 @@
 package eu.enmeshed.model.request.requestItems;
 
-import eu.enmeshed.model.AttributeWrapper;
 import eu.enmeshed.model.attributes.Attribute;
+import eu.enmeshed.model.attributes.ConnectorAttribute;
 import eu.enmeshed.model.attributes.RelationshipAttribute;
 import eu.enmeshed.model.attributes.values.proprietary.ProprietaryBoolean;
 import lombok.AllArgsConstructor;
@@ -18,23 +18,4 @@ import lombok.experimental.SuperBuilder;
 public class CreateAttributeRequestItem extends RequestItemDerivation {
 
   private Attribute attribute;
-
-  public static CreateAttributeRequestItem fromWrapper(
-      AttributeWrapper wrapper, boolean mustBeAccepted) {
-    return CreateAttributeRequestItem.builder()
-        .attribute(relationshipAttribute(wrapper))
-        .mustBeAccepted(mustBeAccepted)
-        .build();
-  }
-
-  private static RelationshipAttribute relationshipAttribute(AttributeWrapper wrapper) {
-    return RelationshipAttribute.builder()
-        .type(RelationshipAttribute.class.getSimpleName())
-        .owner(wrapper.getContent().getOwner())
-        .key("AllowCertificateRequest")
-        .confidentiality(RelationshipAttribute.Confidentiality.PRIVATE)
-        .isTechnical(true)
-        .value(ProprietaryBoolean.builder().title("Zeugnisanfragen erlauben").value(true).build())
-        .build();
-  }
 }

@@ -10,6 +10,4 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class IdentityFileReference extends SimpleStringAttributeValue {
-
-}
+public class IdentityFileReference extends SimpleStringAttributeValue {}

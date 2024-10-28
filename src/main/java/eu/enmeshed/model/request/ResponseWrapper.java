@@ -1,7 +1,7 @@
 package eu.enmeshed.model.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import eu.enmeshed.model.messaging.MessageContent;
+import eu.enmeshed.model.messages.MessageContent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

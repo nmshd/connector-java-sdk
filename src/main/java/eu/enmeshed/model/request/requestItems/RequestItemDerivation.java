@@ -1,6 +1,7 @@
 package eu.enmeshed.model.request.requestItems;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.AllArgsConstructor;
@@ -16,13 +17,13 @@ import lombok.experimental.SuperBuilder;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "@type")
 @JsonSubTypes({
-    @JsonSubTypes.Type(ReadAttributeRequestItem.class),
-    @JsonSubTypes.Type(ShareAttributeRequestItem.class),
-    @JsonSubTypes.Type(AuthenticationRequestItem.class),
-    @JsonSubTypes.Type(ConsentRequestItem.class),
-    @JsonSubTypes.Type(CreateAttributeRequestItem.class),
-    @JsonSubTypes.Type(FreeTextRequestItem.class),
-    @JsonSubTypes.Type(ProposeAttributeRequestItem.class)
+  @JsonSubTypes.Type(ReadAttributeRequestItem.class),
+  @JsonSubTypes.Type(ShareAttributeRequestItem.class),
+  @JsonSubTypes.Type(AuthenticationRequestItem.class),
+  @JsonSubTypes.Type(ConsentRequestItem.class),
+  @JsonSubTypes.Type(CreateAttributeRequestItem.class),
+  @JsonSubTypes.Type(FreeTextRequestItem.class),
+  @JsonSubTypes.Type(ProposeAttributeRequestItem.class)
 })
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,6 +32,9 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class RequestItemDerivation extends RequestItem {
 
-  private Boolean requireManualDecision;
-  private Boolean mustBeAccepted;
+  @JsonProperty("requireManualDecision")
+  private boolean requireManualDecision;
+
+  @JsonProperty("mustBeAccepted")
+  private boolean mustBeAccepted;
 }

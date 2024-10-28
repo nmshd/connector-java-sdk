@@ -10,6 +10,4 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class AffiliationRole extends SimpleStringAttributeValue {
-
-}
+public class AffiliationRole extends SimpleStringAttributeValue {}

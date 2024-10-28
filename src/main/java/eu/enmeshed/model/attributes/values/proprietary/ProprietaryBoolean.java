@@ -1,5 +1,6 @@
 package eu.enmeshed.model.attributes.values.proprietary;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import eu.enmeshed.model.attributes.values.RelationshipAttributeValue;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,5 +15,7 @@ public class ProprietaryBoolean extends RelationshipAttributeValue {
 
   private String title;
   private String description;
+
+  @JsonProperty("value")
   private boolean value;
 }
