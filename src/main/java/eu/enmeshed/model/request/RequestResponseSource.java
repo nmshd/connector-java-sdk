@@ -22,6 +22,9 @@ public class RequestResponseSource {
     MESSAGE,
 
     @JsonProperty("RelationshipTemplate")
-    RELATIONSHIP_TEMPLATE
+    RELATIONSHIP_TEMPLATE,
+
+    @JsonProperty("Relationship")
+    RELATIONSHIP
   }
 }

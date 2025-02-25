@@ -25,7 +25,7 @@ import feign.jackson.JacksonEncoder;
 @SuppressWarnings("ClassCanBeRecord")
 public class ConnectorClient {
 
-  private static final ObjectMapper objectMapper =
+  public static final ObjectMapper objectMapper =
       new ObjectMapper()
           .registerModule(new JavaTimeModule())
           .setSerializationInclusion(Include.NON_ABSENT)
