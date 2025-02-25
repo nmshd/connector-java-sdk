@@ -27,7 +27,6 @@ import lombok.experimental.SuperBuilder;
     defaultImpl = Request.class
 )
 public class Request extends MessageContent {
-
   @JsonProperty("@type")
   @Builder.Default
   private String type = "Request";
