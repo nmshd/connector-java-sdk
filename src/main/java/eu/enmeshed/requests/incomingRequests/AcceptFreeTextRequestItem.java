@@ -2,7 +2,7 @@ package eu.enmeshed.requests.incomingRequests;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Map;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,9 +15,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public final class AcceptRequestItem extends DecideRequestItemDerivation {
-
-  @JsonProperty("accept")
-  private final boolean accept = true;
-  private Map<String, Object> additionalProperties;
+public final class AcceptFreeTextRequestItem extends DecideRequestItemDerivation {
+    @JsonProperty("accept")
+    private final boolean accept = true;
+    private String freeText;
 }
