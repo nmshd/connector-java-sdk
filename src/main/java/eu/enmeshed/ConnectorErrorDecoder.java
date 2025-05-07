@@ -1,6 +1,9 @@
 package eu.enmeshed;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import eu.enmeshed.exceptions.PeerDeletionException;
+import eu.enmeshed.exceptions.WrongRelationshipStatusException;
+import feign.FeignException;
 import feign.Request;
 import feign.Response;
 import feign.RetryableException;
@@ -12,25 +15,35 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ConnectorErrorDecoder implements ErrorDecoder {
 
-  private final ObjectMapper objectMapper = new ObjectMapper();
+  private final ObjectMapper objectMapper;
+
+  public ConnectorErrorDecoder(ObjectMapper objectMapper) {
+    this.objectMapper = objectMapper;
+  }
 
   @Override
-  public Exception decode(String methodKey, Response response) {
+  public FeignException decode(String methodKey, Response response) {
     log.info("Response error with status {} and reason {}", response.status(), response.reason());
 
     int responseStatus = response.status();
     String responseReason = response.reason();
-    log.info(
-        "Throw the RetryableException from a response error with status {} and reason {}",
-        responseStatus,
-        responseReason);
+    try (InputStream inputStream = response.body().asInputStream()) {
 
-    try (InputStream bodyIs = response.body().asInputStream()) {
-      ConnectorErrorWrapper wrapper = objectMapper.readValue(bodyIs, ConnectorErrorWrapper.class);
-      var error = wrapper.error();
-      log.info(error.toString());
+      byte[] responseBodyBytes = inputStream.readAllBytes();
+      String responseBody = new String(responseBodyBytes);
+      ConnectorError connectorError = objectMapper.convertValue(objectMapper.readTree(responseBody).get("error"), ConnectorError.class);
 
-      return error.toException();
+      FeignException feignException = FeignException.errorStatus(methodKey, response);
+
+      if (connectorError.isRelationshipStatusWrong()) {
+        return new WrongRelationshipStatusException(connectorError.message(), feignException.request(), responseBodyBytes, feignException.responseHeaders());
+      }
+
+      if (connectorError.hasPeerDeletionError()) {
+        return new PeerDeletionException(connectorError.message(), feignException.request(), responseBodyBytes, feignException.responseHeaders());
+      }
+
+      return feignException;
     } catch (IOException e) {
       log.error("Failed to parse error response body", e);
       return new RetryableException(
