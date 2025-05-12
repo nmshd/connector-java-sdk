@@ -31,9 +31,10 @@ public class ConnectorRelationship implements WebhookData {
   @Data
   public static class PeerDeletionInfo {
 
-    Status status;
+    String deletionDate;
+    DeletionStatus deletionStatus;
 
-    public enum Status {
+    public enum DeletionStatus {
       @JsonProperty("ToBeDeleted")
       TO_BE_DELETED,
       @JsonProperty("Deleted")
