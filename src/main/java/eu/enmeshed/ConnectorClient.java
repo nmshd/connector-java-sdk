@@ -1,10 +1,5 @@
 package eu.enmeshed;
 
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.util.StdDateFormat;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.enmeshed.endpoints.AccountEndpoint;
 import eu.enmeshed.endpoints.AttributesEndpoint;

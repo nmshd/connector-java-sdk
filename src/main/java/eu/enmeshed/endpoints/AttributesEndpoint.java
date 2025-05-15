@@ -1,9 +1,6 @@
 package eu.enmeshed.endpoints;
 
 import eu.enmeshed.ConnectorResponse;
-import eu.enmeshed.model.ContentWrapper;
-import eu.enmeshed.model.attributes.Attribute;
-import eu.enmeshed.model.attributes.ConnectorAttribute;
 import eu.enmeshed.model.attributes.ConnectorAttribute;
 import eu.enmeshed.requests.attributes.CreateRepositoryAttributeRequest;
 import eu.enmeshed.requests.attributes.SucceedAttributeRequest;

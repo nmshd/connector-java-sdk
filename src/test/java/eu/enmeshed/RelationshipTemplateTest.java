@@ -7,13 +7,11 @@ import eu.enmeshed.model.relationshipTemplates.ArbitraryRelationshipTemplateCont
 import eu.enmeshed.model.relationshipTemplates.RelationshipTemplate;
 import eu.enmeshed.model.relationshipTemplates.RelationshipTemplateContentDerivation;
 import eu.enmeshed.requests.relationshipTemplates.CreateOwnRelationshipTemplateRequest;
-import eu.enmeshed.requests.relationshipTemplates.CreateTokenForOwnRelationshipTemplateRequest;
 import eu.enmeshed.requests.relationshipTemplates.GetOwnRelationshipTemplatesQuery;
 import eu.enmeshed.requests.relationshipTemplates.GetRelationshipTemplatesQuery;
-import eu.enmeshed.requests.relationshipTemplates.LoadPeerRelationshipTemplateRequest;
 import eu.enmeshed.utils.ConnectorContainer;
-import java.time.ZonedDateTime;
 import eu.enmeshed.utils.TestUtils;
+import java.time.ZonedDateTime;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
