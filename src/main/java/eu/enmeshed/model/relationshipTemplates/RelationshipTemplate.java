@@ -2,6 +2,7 @@ package eu.enmeshed.model.relationshipTemplates;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import eu.enmeshed.model.ContentWrapper;
+import eu.enmeshed.model.ObjectReference;
 import eu.enmeshed.model.event.WebhookData;
 import java.time.ZonedDateTime;
 import lombok.AllArgsConstructor;
@@ -36,4 +37,6 @@ public class RelationshipTemplate extends ContentWrapper<RelationshipTemplateCon
   private String secretKey;
 
   private String truncatedReference;
+
+  private ObjectReference reference;
 }

@@ -1,6 +1,7 @@
 package eu.enmeshed.model.file;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import eu.enmeshed.model.ObjectReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,5 +30,6 @@ public class ConnectorFile {
   private boolean own;
 
   private String truncatedReference;
+  private ObjectReference reference;
   private String secretKey;
 }

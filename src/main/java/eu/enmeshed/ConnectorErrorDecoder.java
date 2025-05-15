@@ -4,6 +4,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.enmeshed.exceptions.PeerDeletionException;
 import eu.enmeshed.exceptions.WrongRelationshipStatusException;
 import feign.FeignException;
+import feign.FeignException.BadRequest;
+import feign.FeignException.Conflict;
+import feign.FeignException.FeignClientException;
+import feign.FeignException.Forbidden;
+import feign.FeignException.Gone;
+import feign.FeignException.MethodNotAllowed;
+import feign.FeignException.NotAcceptable;
+import feign.FeignException.NotFound;
+import feign.FeignException.TooManyRequests;
+import feign.FeignException.Unauthorized;
+import feign.FeignException.UnprocessableEntity;
+import feign.FeignException.UnsupportedMediaType;
 import feign.Request;
 import feign.Response;
 import feign.RetryableException;
@@ -33,17 +45,32 @@ public class ConnectorErrorDecoder implements ErrorDecoder {
       String responseBody = new String(responseBodyBytes);
       ConnectorError connectorError = objectMapper.convertValue(objectMapper.readTree(responseBody).get("error"), ConnectorError.class);
 
-      FeignException feignException = FeignException.errorStatus(methodKey, response);
+      var request = response.request();
+      var headers = response.headers();
+      var message = connectorError.message();
 
       if (connectorError.isRelationshipStatusWrong()) {
-        return new WrongRelationshipStatusException(connectorError.message(), feignException.request(), responseBodyBytes, feignException.responseHeaders());
+        return new WrongRelationshipStatusException(message, request, responseBodyBytes, headers);
       }
 
       if (connectorError.hasPeerDeletionError()) {
-        return new PeerDeletionException(connectorError.message(), feignException.request(), responseBodyBytes, feignException.responseHeaders());
+        return new PeerDeletionException(message, request, responseBodyBytes, headers);
       }
 
-      return feignException;
+      return switch (responseStatus) {
+        case 400 -> new BadRequest(message, request, responseBodyBytes, headers);
+        case 401 -> new Unauthorized(message, request, responseBodyBytes, headers);
+        case 403 -> new Forbidden(message, request, responseBodyBytes, headers);
+        case 404 -> new NotFound(message, request, responseBodyBytes, headers);
+        case 405 -> new MethodNotAllowed(message, request, responseBodyBytes, headers);
+        case 406 -> new NotAcceptable(message, request, responseBodyBytes, headers);
+        case 409 -> new Conflict(message, request, responseBodyBytes, headers);
+        case 410 -> new Gone(message, request, responseBodyBytes, headers);
+        case 415 -> new UnsupportedMediaType(message, request, responseBodyBytes, headers);
+        case 429 -> new TooManyRequests(message, request, responseBodyBytes, headers);
+        case 422 -> new UnprocessableEntity(message, request, responseBodyBytes, headers);
+        default -> new FeignClientException(responseStatus, message, request, responseBodyBytes, headers);
+      };
     } catch (IOException e) {
       log.error("Failed to parse error response body", e);
       return new RetryableException(
