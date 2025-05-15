@@ -94,7 +94,7 @@ public class RelationshipTemplateTest {
         Exception.class,
         () -> client1.relationshipTemplates.createOwnRelationshipTemplate(getCreateOwnTemplateRequest(0)).getResult());
 
-    assertThat(exception.getCause().getMessage(), CoreMatchers.equalTo("maxNumberOfAllocations must be >= 1"));
+    assertThat(exception.getMessage(), CoreMatchers.equalTo("maxNumberOfAllocations must be >= 1"));
   }
 
   @Test
