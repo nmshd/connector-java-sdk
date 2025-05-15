@@ -4,6 +4,8 @@ import eu.enmeshed.ConnectorResponse;
 import eu.enmeshed.model.ContentWrapper;
 import eu.enmeshed.model.attributes.Attribute;
 import eu.enmeshed.model.attributes.ConnectorAttribute;
+import eu.enmeshed.model.attributes.ConnectorAttribute;
+import eu.enmeshed.requests.attributes.CreateRepositoryAttributeRequest;
 import eu.enmeshed.requests.attributes.SucceedAttributeRequest;
 import feign.Feign.Builder;
 import feign.Headers;
@@ -19,7 +21,7 @@ public interface AttributesEndpoint {
 
   @RequestLine("POST /api/v2/Attributes")
   @Headers({"Content-Type: application/json"})
-  ConnectorResponse<ConnectorAttribute> createRepositoryAttribute(ContentWrapper<Attribute> attribute);
+  ConnectorResponse<ConnectorAttribute> createRepositoryAttribute(CreateRepositoryAttributeRequest request);
 
   @RequestLine("POST /api/v2/Attributes/{id}/Succeed")
   @Headers("Content-Type: application/json")

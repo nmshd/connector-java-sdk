@@ -1,5 +1,6 @@
 package eu.enmeshed.model.messages;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import eu.enmeshed.model.notification.Notification;
@@ -23,5 +24,6 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public abstract class MessageContent {
-
+  @JsonProperty("@type")
+  private String type;
 }

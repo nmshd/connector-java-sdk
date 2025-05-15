@@ -24,7 +24,10 @@ public interface MessagesEndpoint {
   ConnectorResponse<List<Message>> getMessages(@QueryMap GetMessagesQuery query);
 
   @RequestLine("POST /api/v2/Messages")
-  @Headers("Accept: application/json")
+  @Headers({
+      "Accept: application/json",
+      "Content-Type: application/json"
+  })
   <T extends MessageContent> ConnectorResponse<Message> sendMessage(SendMessageRequest<T> request);
 
   @RequestLine("GET /api/v2/Messages/{messageId}")
