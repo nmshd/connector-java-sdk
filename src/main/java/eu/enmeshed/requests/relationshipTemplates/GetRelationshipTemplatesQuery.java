@@ -18,5 +18,6 @@ public class GetRelationshipTemplatesQuery {
   private String createdBy;
   private String createdByDevice;
   private int maxNumberOfAllocations;
-  private boolean isOwn;
+  @JsonProperty("isOwn")
+  private boolean own;
 }
