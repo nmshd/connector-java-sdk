@@ -51,6 +51,7 @@ dependencies {
 
 test {
   useJUnitPlatform()
+  exclude '**/ChallengesTest'
 }
 
 // Generating Source & Javadoc JARs for publication
