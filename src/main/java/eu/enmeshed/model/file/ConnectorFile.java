@@ -32,4 +32,6 @@ public class ConnectorFile {
   private String truncatedReference;
   private ObjectReference reference;
   private String secretKey;
+  private String ownershipToken;
+  private boolean ownershipIsLocked;
 }
