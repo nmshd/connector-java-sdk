@@ -25,39 +25,39 @@ public interface RelationshipTemplatesEndpoint {
     return builder.target(RelationshipTemplatesEndpoint.class, url);
   }
 
-  @RequestLine("GET /api/v2/RelationshipTemplates")
+  @RequestLine("GET /api/core/v1/RelationshipTemplates")
   @Headers("Content-Type: application/json")
   ConnectorResponse<List<RelationshipTemplate>> getRelationshipTemplates(@QueryMap GetRelationshipTemplatesQuery request);
 
-  @RequestLine("GET /api/v2/RelationshipTemplates/{id}")
+  @RequestLine("GET /api/core/v1/RelationshipTemplates/{id}")
   @Headers("Accept: application/json")
   ConnectorResponse<RelationshipTemplate> getRelationshipTemplate(@Param("id") String id);
 
-  @RequestLine("GET /api/v2/RelationshipTemplates/Own")
+  @RequestLine("GET /api/core/v1/RelationshipTemplates/Own")
   @Headers("Content-Type: application/json")
   ConnectorResponse<List<RelationshipTemplate>> getOwnRelationshipTemplates(@QueryMap GetOwnRelationshipTemplatesQuery request);
 
-  @RequestLine("POST /api/v2/RelationshipTemplates/Own")
+  @RequestLine("POST /api/core/v1/RelationshipTemplates/Own")
   @Headers("Content-Type: application/json")
   <T extends RelationshipTemplateContentDerivation> ConnectorResponse<RelationshipTemplate> createOwnRelationshipTemplate(CreateOwnRelationshipTemplateRequest<T> request);
 
-  @RequestLine("GET /api/v2/RelationshipTemplates/{id}")
+  @RequestLine("GET /api/core/v1/RelationshipTemplates/{id}")
   @Headers("Accept: image/png")
   Response getQrCodeForOwnRelationshipTemplate(@Param("id") String id);
 
-  @RequestLine("POST /api/v2/RelationshipTemplates/Own/{id}/Token")
+  @RequestLine("POST /api/core/v1/RelationshipTemplates/Own/{id}/Token")
   @Headers("Content-Type: application/json")
   ConnectorResponse<ConnectorToken> createTokenForOwnRelationshipTemplate(@Param("id") String id, CreateTokenForOwnRelationshipTemplateRequest request);
 
-  @RequestLine("POST /api/v2/RelationshipTemplates/Own/{id}/Token")
+  @RequestLine("POST /api/core/v1/RelationshipTemplates/Own/{id}/Token")
   @Headers("Accept: image/png")
   Response createTokenQrCodeForOwnRelationshipTemplate(@Param("id") String id, CreateTokenQrCodeForOwnRelationshipTemplateRequest request);
 
-  @RequestLine("GET /api/v2/RelationshipTemplates/Peer")
+  @RequestLine("GET /api/core/v1/RelationshipTemplates/Peer")
   @Headers("Content-Type: application/json")
   ConnectorResponse<List<RelationshipTemplate>> getPeerRelationshipTemplates(@QueryMap GetPeerRelationshipTemplatesQuery request);
 
-  @RequestLine("POST /api/v2/RelationshipTemplates/Peer")
+  @RequestLine("POST /api/core/v1/RelationshipTemplates/Peer")
   @Headers("Content-Type: application/json")
   ConnectorResponse<RelationshipTemplate> loadPeerRelationshipTemplate(LoadPeerRelationshipTemplateRequest request);
 }

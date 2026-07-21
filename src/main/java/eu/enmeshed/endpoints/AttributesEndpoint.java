@@ -16,18 +16,18 @@ public interface AttributesEndpoint {
     return builder.target(AttributesEndpoint.class, url);
   }
 
-  @RequestLine("POST /api/v2/Attributes")
+  @RequestLine("POST /api/core/v1/Attributes")
   @Headers({"Content-Type: application/json"})
   ConnectorResponse<ConnectorAttribute> createRepositoryAttribute(CreateRepositoryAttributeRequest request);
 
-  @RequestLine("POST /api/v2/Attributes/{id}/Succeed")
+  @RequestLine("POST /api/core/v1/Attributes/{id}/Succeed")
   @Headers("Content-Type: application/json")
   ConnectorResponse<ConnectorAttribute> succeedAttribute(@Param("id") String predecessorId, SucceedAttributeRequest request);
 
-  @RequestLine("GET /api/v2/Attributes?content.value.@type={type}")
+  @RequestLine("GET /api/core/v1/Attributes?content.value.@type={type}")
   ConnectorResponse<List<ConnectorAttribute>> searchAttributes(@Param("type") String contentValueType);
 
-  @RequestLine("GET /api/v2/Attributes/{id}")
+  @RequestLine("GET /api/core/v1/Attributes/{id}")
   @Headers("Content-Type: application/json")
   ConnectorResponse<ConnectorAttribute> getAttributeById(@Param("id") String attributeId);
 }

@@ -149,7 +149,7 @@ public class TestUtils {
     private static void loadPeerRelationshipTemplate(ConnectorClient client, ConnectorToken token) {
       client.relationshipTemplates.loadPeerRelationshipTemplate(
           LoadPeerRelationshipTemplateRequest.builder()
-              .reference(token.getTruncatedReference())
+              .reference(token.getReference().getTruncated())
               .build())
           .getResult();
     }
@@ -167,7 +167,7 @@ public class TestUtils {
   public static ConnectorToken exchangeToken(ConnectorClient client1, ConnectorClient client2) {
     var token = createToken(client1);
 
-    var response = client2.tokens.loadPeerToken(LoadPeerTokenRequest.builder().reference(token.getTruncatedReference()).build());
+    var response = client2.tokens.loadPeerToken(LoadPeerTokenRequest.builder().reference(token.getReference().getTruncated()).build());
     return response.getResult();
   }
 
