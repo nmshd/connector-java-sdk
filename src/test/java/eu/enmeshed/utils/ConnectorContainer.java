@@ -9,7 +9,7 @@ public class ConnectorContainer extends GenericContainer<ConnectorContainer> {
   public static final String API_KEY = "xxx";
 
   public ConnectorContainer() {
-    this(DockerImageName.parse("ghcr.io/nmshd/connector:latest"));
+    this(DockerImageName.parse("ghcr.io/nmshd/connector:6.31.0"));
   }
 
   private ConnectorContainer(DockerImageName dockerImageName) {
