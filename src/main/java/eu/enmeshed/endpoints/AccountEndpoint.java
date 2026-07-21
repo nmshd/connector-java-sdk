@@ -13,14 +13,14 @@ public interface AccountEndpoint {
     return builder.target(AccountEndpoint.class, url);
   }
 
-  @RequestLine("GET /api/v2/Account/IdentityInfo")
+  @RequestLine("GET /api/core/v1/Account/IdentityInfo")
   @Headers("Accept: application/json")
   ConnectorResponse<ConnectorIdentityInfo> getIdentityInfo();
 
-  @RequestLine("POST /api/v2/Account/Sync")
+  @RequestLine("POST /api/core/v1/Account/Sync")
   void sync();
 
-  @RequestLine("GET /api/v2/Account/SyncInfo")
+  @RequestLine("GET /api/core/v1/Account/SyncInfo")
   @Headers("Accept: application/json")
   ConnectorResponse<ConnectorSyncInfo> getSyncInfo();
 }

@@ -19,19 +19,19 @@ public interface OutgoingRequestsEndpoint {
     return builder.target(OutgoingRequestsEndpoint.class, url);
   }
 
-  @RequestLine("POST /api/v2/Requests/Outgoing/Validate")
+  @RequestLine("POST /api/core/v1/Requests/Outgoing/Validate")
   @Headers("Content-Type: application/json")
   ConnectorResponse<ConnectorRequestValidationResult> canCreateRequest(CanCreateOutgoingRequestRequest request);
 
-  @RequestLine("POST /api/v2/Requests/Outgoing")
+  @RequestLine("POST /api/core/v1/Requests/Outgoing")
   @Headers("Content-Type: application/json")
   ConnectorResponse<ConnectorRequest> createRequest(CreateOutgoingRequestRequest request);
 
-  @RequestLine("GET /api/v2/Requests/Outgoing/{requestId}")
+  @RequestLine("GET /api/core/v1/Requests/Outgoing/{requestId}")
   @Headers("Content-Type: application/json")
   ConnectorResponse<ConnectorRequest> getRequest(@Param("requestId") String requestId);
 
-  @RequestLine("GET /api/v2/Requests/Outgoing")
+  @RequestLine("GET /api/core/v1/Requests/Outgoing")
   @Headers("Content-Type: application/json")
   ConnectorResponse<List<ConnectorRequest>> getRequests(@QueryMap GetOutgoingRequestsQuery request);
 }

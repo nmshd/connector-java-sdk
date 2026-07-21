@@ -6,10 +6,10 @@ import org.testcontainers.utility.DockerImageName;
 
 public class ConnectorContainer extends GenericContainer<ConnectorContainer> {
 
-  public static final String API_KEY = "xxx";
+  public static final String API_KEY = "ConnectorSDKTestApiKey2026!!XX";
 
   public ConnectorContainer() {
-    this(DockerImageName.parse("ghcr.io/nmshd/connector:latest"));
+    this(DockerImageName.parse("ghcr.io/nmshd/connector:7.4.2"));
   }
 
   private ConnectorContainer(DockerImageName dockerImageName) {
@@ -33,7 +33,7 @@ public class ConnectorContainer extends GenericContainer<ConnectorContainer> {
 
     withEnv("database:driver", "lokijs");
     withEnv("database:folder", "./");
-    withEnv("infrastructure:httpServer:apiKey", API_KEY);
+    withEnv("infrastructure:httpServer:authentication:apiKey:keys:default:key", API_KEY);
 
     withExtraHost("host.docker.internal", "host-gateway");
 

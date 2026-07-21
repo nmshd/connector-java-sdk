@@ -20,27 +20,27 @@ public interface TokensEndpoint {
     return builder.target(TokensEndpoint.class, url);
   }
 
-  @RequestLine("GET /api/v2/Tokens/{tokenId}")
+  @RequestLine("GET /api/core/v1/Tokens/{tokenId}")
   @Headers("Accept: application/json")
   ConnectorResponse<ConnectorToken> getToken(@Param("tokenId") String tokenId);
 
-  @RequestLine("GET /api/v2/Tokens/{tokenId}")
+  @RequestLine("GET /api/core/v1/Tokens/{tokenId}")
   @Headers("Accept: image/png")
   Response getQrCodeForToken(@Param("tokenId") String tokenId);
 
-  @RequestLine("GET /api/v2/Tokens/Own")
+  @RequestLine("GET /api/core/v1/Tokens/Own")
   @Headers("Content-Type: application/json")
   ConnectorResponse<List<ConnectorToken>> getOwnTokens(@QueryMap GetOwnTokensQuery query);
 
-  @RequestLine("POST /api/v2/Tokens/Own")
+  @RequestLine("POST /api/core/v1/Tokens/Own")
   @Headers("Content-Type: application/json")
   ConnectorResponse<ConnectorToken> createOwnToken(CreateOwnTokenRequest request);
 
-  @RequestLine("GET /api/v2/Tokens/Peer")
+  @RequestLine("GET /api/core/v1/Tokens/Peer")
   @Headers("Content-Type: application/json")
   ConnectorResponse<List<ConnectorToken>> getPeerTokens(@QueryMap GetPeerTokensQuery query);
 
-  @RequestLine("POST /api/v2/Tokens/Peer")
+  @RequestLine("POST /api/core/v1/Tokens/Peer")
   @Headers("Content-Type: application/json")
   ConnectorResponse<ConnectorToken> loadPeerToken(LoadPeerTokenRequest request);
 }

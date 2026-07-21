@@ -15,11 +15,11 @@ public interface ChallengesEndpoint {
     return builder.target(ChallengesEndpoint.class, url);
   }
 
-  @RequestLine("POST /api/v2/Challenges")
+  @RequestLine("POST /api/core/v1/Challenges")
   @Headers({"Accept: application/json", "Content-Type: application/json"})
   ConnectorResponse<ConnectorChallenge> createChallenge(CreateChallengeRequest request);
 
-  @RequestLine("POST /api/v2/Challenges/Validate")
+  @RequestLine("POST /api/core/v1/Challenges/Validate")
   @Headers({"Accept: application/json", "Content-Type: application/json"})
   ConnectorResponse<ConnectorChallengeValidationResult> validateChallenge(ValidateChallengeRequest request);
 }

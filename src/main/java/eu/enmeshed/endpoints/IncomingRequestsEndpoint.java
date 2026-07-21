@@ -18,27 +18,27 @@ public interface IncomingRequestsEndpoint {
     return builder.target(IncomingRequestsEndpoint.class, url);
   }
 
-  @RequestLine("PUT /api/v2/Requests/Incoming/{requestId}/CanAccept")
+  @RequestLine("PUT /api/core/v1/Requests/Incoming/{requestId}/CanAccept")
   @Headers("Content-Type: application/json")
   ConnectorResponse<ConnectorRequestValidationResult> canAccept(@Param("requestId") String requestId, DecideRequest request);
 
-  @RequestLine("PUT /api/v2/Requests/Incoming/{requestId}/Accept")
+  @RequestLine("PUT /api/core/v1/Requests/Incoming/{requestId}/Accept")
   @Headers("Content-Type: application/json")
   ConnectorResponse<ConnectorRequest> accept(@Param("requestId") String requestId, DecideRequest request);
 
-  @RequestLine("PUT /api/v2/Requests/Incoming/{requestId}/CanReject")
+  @RequestLine("PUT /api/core/v1/Requests/Incoming/{requestId}/CanReject")
   @Headers("Content-Type: application/json")
   ConnectorResponse<ConnectorRequestValidationResult> canReject(@Param("requestId") String requestId, DecideRequest request);
 
-  @RequestLine("PUT /api/v2/Requests/Incoming/{requestId}/Reject")
+  @RequestLine("PUT /api/core/v1/Requests/Incoming/{requestId}/Reject")
   @Headers("Content-Type: application/json")
   ConnectorResponse<ConnectorRequest> reject(@Param("requestId") String requestId, DecideRequest request);
 
-  @RequestLine("GET /api/v2/Requests/Incoming/{requestId}")
+  @RequestLine("GET /api/core/v1/Requests/Incoming/{requestId}")
   @Headers("Content-Type: application/json")
   ConnectorResponse<ConnectorRequest> getRequest(@Param("requestId") String requestId);
 
-  @RequestLine("GET /api/v2/Requests/Incoming")
+  @RequestLine("GET /api/core/v1/Requests/Incoming")
   @Headers("Content-Type: application/json")
   ConnectorResponse<List<ConnectorRequest>> getRequests(@QueryMap GetIncomingRequestsQuery request);
 }

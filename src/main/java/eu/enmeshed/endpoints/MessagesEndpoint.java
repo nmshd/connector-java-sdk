@@ -19,26 +19,26 @@ public interface MessagesEndpoint {
     return builder.target(MessagesEndpoint.class, url);
   }
 
-  @RequestLine("GET /api/v2/Messages")
+  @RequestLine("GET /api/core/v1/Messages")
   @Headers("Accept: application/json")
   ConnectorResponse<List<Message>> getMessages(@QueryMap GetMessagesQuery query);
 
-  @RequestLine("POST /api/v2/Messages")
+  @RequestLine("POST /api/core/v1/Messages")
   @Headers({
       "Accept: application/json",
       "Content-Type: application/json"
   })
   <T extends MessageContent> ConnectorResponse<Message> sendMessage(SendMessageRequest<T> request);
 
-  @RequestLine("GET /api/v2/Messages/{messageId}")
+  @RequestLine("GET /api/core/v1/Messages/{messageId}")
   @Headers("Accept: application/json")
   ConnectorResponse<Message> getMessage(@Param("messageId") String messageId);
 
-  @RequestLine("GET /api/v2/Messages/{messageId}/Attachments/{attachmentId}")
+  @RequestLine("GET /api/core/v1/Messages/{messageId}/Attachments/{attachmentId}")
   @Headers("Accept: application/json")
   ConnectorResponse<ConnectorFile> getAttachment(@Param("messageId") String messageId, @Param("attachmentId") String attachmentId);
 
-  @RequestLine("GET /api/v2/Messages/{messageId}/Attachments/{attachmentId}/Download")
+  @RequestLine("GET /api/core/v1/Messages/{messageId}/Attachments/{attachmentId}/Download")
   @Headers("Accept: application/json")
   feign.Response downloadAttachment(@Param("messageId") String messageId, @Param("attachmentId") String attachmentId);
 }
